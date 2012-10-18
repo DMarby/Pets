@@ -264,7 +264,7 @@ public class PetController implements Listener {
             }
             spawn(type);
             this.type = type;
-            player.sendMessage(ChatColor.GREEN + type + " spawned.");
+            player.sendMessage(ChatColor.GREEN + type.substring(0,1).toUpperCase() + type.substring(1) + " spawned.");
         }
 
         public void toggle() {
@@ -277,7 +277,7 @@ public class PetController implements Listener {
                     this.type = "creeper";
                 }
                 spawn(this.type);
-                player.sendMessage(ChatColor.GREEN + type + " spawned.");
+                player.sendMessage(ChatColor.GREEN + type.substring(0,1).toUpperCase() + type.substring(1) + " spawned.");
             } else {
                 removePet(player, false);
                 player.sendMessage(ChatColor.GREEN + "Pet toggled off.");

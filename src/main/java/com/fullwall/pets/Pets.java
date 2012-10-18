@@ -35,11 +35,13 @@ public class Pets extends JavaPlugin {
                 String list = "";
                 for (String pet : pets) {
                     if (sender.hasPermission("pet." + pet.toLowerCase())) {
-                        list = list + pet + ",";
+                        String the_pet = pet.substring(0,1).toUpperCase() + pet.substring(1);
+                        list = list + the_pet + ", ";
                     }
                 }
+                list = list.substring(0,list.length() -1);
                 sender.sendMessage(ChatColor.GREEN + "Available pets:");
-                sender.sendMessage(list);
+                sender.sendMessage(ChatColor.GREEN + list);
                 return true;
             }
                         
