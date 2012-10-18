@@ -39,9 +39,8 @@ public class Pets extends JavaPlugin {
                         list = list + the_pet + ", ";
                     }
                 }
-                list = list.substring(0,list.length() -1);
                 sender.sendMessage(ChatColor.GREEN + "Available pets:");
-                sender.sendMessage(ChatColor.GREEN + list);
+                sender.sendMessage(ChatColor.GREEN + list.substring(0,list.length() - 2));
                 return true;
             }
                         

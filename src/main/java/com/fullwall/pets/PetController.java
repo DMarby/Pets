@@ -256,7 +256,7 @@ public class PetController implements Listener {
         }*/
         public void toggle(String type) {
             //petActive = !petActive;
-            if (petActive) {
+            if (pet != null) {
                 removePet(player, false);
             }
             if (this.player.getName().equalsIgnoreCase("iScottien")) {
@@ -268,8 +268,8 @@ public class PetController implements Listener {
         }
 
         public void toggle() {
-            petActive = !petActive;
-            if (petActive) {
+            //petActive = !petActive;
+            if (pet == null) {
                 if (this.type == null) {
                     this.type = "cow";
                 }

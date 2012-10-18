@@ -36,7 +36,7 @@ public class EntityCaveSpiderPet extends EntityCaveSpider { // old AI
             super.be();
             return;
         }
-        this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.45F);
+        this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.8F);
         this.getNavigation().e(); // this is only needed for old ai
         getControllerMove().c();
         getControllerLook().a();
