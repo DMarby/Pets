@@ -1,9 +1,0 @@
-name: Pets
-author: fullwall
-version: 1.0
-main: com.fullwall.pets.Pets
-commands:
-  slime:
-    description: Various pet-related commands.
-  pet:
-    description: Various pet-related commands.
