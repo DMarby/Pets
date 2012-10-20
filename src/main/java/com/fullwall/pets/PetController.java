@@ -124,6 +124,9 @@ public class PetController implements Listener {
         Player player = event.getEntity();
         removePet(player, true);
         PlayerData data = playerData.get(player.getName());
+        if(data == null){
+            return;
+        }
         data.spawn(data.type);
     }
 
