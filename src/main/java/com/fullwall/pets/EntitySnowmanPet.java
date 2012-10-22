@@ -31,6 +31,12 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
+    
+    @Override
+    public void d() {
+        if (owner == null)
+            super.d();
+    }
 
     @Override
     protected void bc() {

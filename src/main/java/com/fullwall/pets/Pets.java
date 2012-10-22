@@ -92,6 +92,7 @@ public class Pets extends JavaPlugin {
         pets.add("villager");
         pets.add("wolf");
         pets.add("creeper");
+        pets.add("greenvillager");
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");
         controller = new PetController(this);
