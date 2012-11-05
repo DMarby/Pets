@@ -39,8 +39,8 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    protected void bi() {
-        super.bi();
+    protected void bk() {
+        super.bk();
         if (owner == null)
             return;
         this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.3F);
