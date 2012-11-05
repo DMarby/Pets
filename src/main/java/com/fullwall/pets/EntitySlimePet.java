@@ -38,9 +38,9 @@ public class EntitySlimePet extends EntitySlime { // old AI
     }
 
     @Override
-    protected void be() {
+    protected void bk() {
         if (owner == null) {
-            super.be();
+            super.bk();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -57,18 +57,18 @@ public class EntitySlimePet extends EntitySlime { // old AI
             // if(entityhuman!=null) commented
             this.jumpDelay /= 3;
 
-            this.bu = true;
-            if (this.r()) {
-                this.world.makeSound(this, this.o(), this.aP(),
+            this.bG = true;
+            if (this.J()) {
+                this.world.makeSound(this, this.n(), this.aV(),
                         ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.br = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bs = 1 * this.getSize();
+            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bE = 1 * this.getSize();
         } else {
-            this.bu = false;
+            this.bG = false;
             if (this.onGround) {
-                this.br = this.bs = 0.0F;
+                this.bD = this.bE = 0.0F;
             }
         }
     }

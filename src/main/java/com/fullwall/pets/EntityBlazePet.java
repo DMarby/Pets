@@ -31,9 +31,9 @@ public class EntityBlazePet extends EntityBlaze { // old AI
     }
 
     @Override
-    protected void be() {
+    protected void bk() {
         if (owner == null) {
-            super.be();
+            super.bk();
             return;
         }
         this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.55F);

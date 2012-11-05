@@ -33,8 +33,8 @@ public class EntityChickenPet extends EntityChicken { // new AI
     }
 
     @Override
-    protected void bc() {
-        super.bc();
+    protected void bi() {
+        super.bi();
         if (owner == null)
             return;
         this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.3F);
