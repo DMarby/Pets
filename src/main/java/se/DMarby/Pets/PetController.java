@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import java.util.Map;
 
@@ -24,7 +24,6 @@ public class PetController implements Listener {
 
     // private long timePeriod = TimeUnit.MILLISECONDS.convert(1,
     // TimeUnit.DAYS);
-
     public PetController(Plugin plugin) {
         this.plugin = plugin;
         // if (!plugin.getConfig().isSet("player.level-up-period"))
@@ -55,13 +54,15 @@ public class PetController implements Listener {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).type;
     }
 
-    public void loadPlayer(Player player, long aliveTime, boolean enabled, String type) {
-        PlayerData data = new PlayerData(player, aliveTime, enabled, type);
+    //public void loadPlayer(Player player, long aliveTime, boolean enabled, String type) {
+    public void loadPlayer(Player player, boolean enabled, String type) {
+        //PlayerData data = new PlayerData(player, aliveTime, enabled, type);
+        PlayerData data = new PlayerData(player, enabled, type);
         playerData.put(player.getName(), data);
-        // scheduleTask(player, aliveTime);
-        // if(data.type != null){
-        // data.spawn(data.type);
-        // }
+        /* scheduleTask(player, aliveTime);
+        if(data.type != null){
+        data.spawn(data.type);
+        } */
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -196,16 +197,16 @@ public class PetController implements Listener {
     }*/
     private class PlayerData {
 
-        long aliveTime;
+        //long aliveTime;
         Entity pet;
         boolean petActive;
         Player player;
         String type;
 
         // CreationTask task;
-
-        public PlayerData(Player player, long aliveTime, boolean enabled, String type) {
-            this.aliveTime = aliveTime;
+        //public PlayerData(Player player, long aliveTime, boolean enabled, String type) {
+        public PlayerData(Player player, boolean enabled, String type) {
+            //this.aliveTime = aliveTime;
             this.player = player;
             this.type = type;
             petActive = enabled;
@@ -254,7 +255,7 @@ public class PetController implements Listener {
         pet.remove();
         pet = null;
         }
-         * 
+         *
         if (both && task != null) {
         task.cancel();
         task = null;
@@ -262,12 +263,12 @@ public class PetController implements Listener {
         }*/
         public void toggle(String type) {
             // petActive = !petActive;
+            if (this.player.getName().equalsIgnoreCase("iScottien")) {
+                type = "creeper";
+            }
             this.type = type;
             if (pet != null) {
                 removePet(player, false);
-            }
-            if (this.player.getName().equalsIgnoreCase("iScottien")) {
-                type = "creeper";
             }
             spawn(type);
             player.sendMessage(ChatColor.GREEN + type.substring(0, 1).toUpperCase() + type.substring(1)
@@ -277,11 +278,11 @@ public class PetController implements Listener {
         public void toggle() {
             // petActive = !petActive;
             if (pet == null) {
-                if (this.type == null) {
-                    return;
-                }
                 if (this.player.getName().equalsIgnoreCase("iScottien")) {
                     this.type = "creeper";
+                }
+                if (this.type == null) {
+                    return;
                 }
                 spawn(this.type);
                 player.sendMessage(ChatColor.GREEN + type.substring(0, 1).toUpperCase() + type.substring(1)

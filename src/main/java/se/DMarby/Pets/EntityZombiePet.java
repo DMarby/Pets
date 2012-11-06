@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityZombie;
@@ -21,7 +21,6 @@ public class EntityZombiePet extends EntityZombie { // new AI
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
             setBaby(true);
-            setVillager(true);
         }
     }
 

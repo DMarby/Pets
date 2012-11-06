@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import net.minecraft.server.EntityPig;
 import net.minecraft.server.EntityHuman;

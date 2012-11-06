@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

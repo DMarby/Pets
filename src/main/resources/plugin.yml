@@ -1,9 +1,7 @@
 name: Pets
-author: fullwall
+authors: [fullwall,DMarby]
 version: 1.0
-main: com.fullwall.pets.Pets
+main: com.DMarby.Pets.Pets
 commands:
-  slime:
-    description: Various pet-related commands.
   pet:
     description: Various pet-related commands.

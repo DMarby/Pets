@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -108,6 +108,9 @@ public class Pets extends JavaPlugin {
         pets.add("squid");
         pets.add("zombie");
         pets.add("babyzombie");
+        pets.add("zombievillager");
+        pets.add("babyzombievillager");
+        pets.add("irongolem");
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");
         controller = new PetController(this);

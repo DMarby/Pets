@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.google.common.io.Files;
 
 public class Storage implements Listener {
+
     private final PetController backend;
     private final File dataFile;
     private final FileConfiguration store;
@@ -29,10 +30,9 @@ public class Storage implements Listener {
         backend = controller;
     }
 
-    private long getAliveTime(Player player) {
-        return store.getLong(player.getName() + ".alivetime", 0);
-    }
-    
+    /*private long getAliveTime(Player player) {
+    return store.getLong(player.getName() + ".alivetime", 0);
+    }*/
     private String getType(Player player) {
         return store.getString(player.getName() + ".type");
     }
@@ -42,14 +42,17 @@ public class Storage implements Listener {
     }
 
     public void load() {
-        for (Player player : Bukkit.getOnlinePlayers())
+        for (Player player : Bukkit.getOnlinePlayers()) {
             loadPlayer(player);
+        }
     }
 
     private void loadPlayer(Player player) {
-      //  if (!player.hasPermission("pet.spawn"))
-      //      return;
-        backend.loadPlayer(player, getAliveTime(player), isEnabled(player), getType(player));
+        if (!player.hasPermission("pet.toggle")) {
+            return;
+        }
+        // backend.loadPlayer(player, getAliveTime(player), isEnabled(player), getType(player));
+        backend.loadPlayer(player, isEnabled(player), getType(player));
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -63,8 +66,9 @@ public class Storage implements Listener {
     }
 
     public void save() {
-        for (Player player : Bukkit.getOnlinePlayers())
+        for (Player player : Bukkit.getOnlinePlayers()) {
             savePlayer(player);
+        }
 
         try {
             File temp = File.createTempFile("pet", null, dataFile.getParentFile());
@@ -77,13 +81,13 @@ public class Storage implements Listener {
     }
 
     private void savePlayer(Player player) {
-        //if (!player.hasPermission("pet.spawn"))
-        //    return;
-       // long newAliveTime = backend.getAliveTime(player);
-        //store.set(player.getName() + ".alivetime", newAliveTime);
+        /*if (!player.hasPermission("pet.spawn"))
+        return;
+        long newAliveTime = backend.getAliveTime(player);
+        store.set(player.getName() + ".alivetime", newAliveTime); */
         store.set(player.getName() + ".active", backend.isActive(player));
         String type = backend.getType(player);
-        if (type != null){
+        if (type != null) {
             store.set(player.getName() + ".type", type);
         }
         backend.removePet(player, true);

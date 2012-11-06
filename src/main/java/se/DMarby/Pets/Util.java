@@ -1,4 +1,4 @@
-package com.fullwall.pets;
+package se.DMarby.Pets;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -9,6 +9,7 @@ import net.minecraft.server.Entity;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTypes;
 import net.minecraft.server.EntityVillager;
+import net.minecraft.server.EntityZombie;
 import net.minecraft.server.PathfinderGoalSelector;
 import net.minecraft.server.World;
 
@@ -67,14 +68,14 @@ public class Util {
     }
 
     public static void load(FileConfiguration config) {
-        if (!config.isSet("pet.max-distance-squared")) {
-            config.set("pet.max-distance-squared", MAX_DISTANCE);
+        /* if (!config.isSet("pet.max-distance-squared")) {
+        config.set("pet.max-distance-squared", MAX_DISTANCE);
         }
         MAX_DISTANCE = config.getDouble("pet.max-distance-squared");
         if (!config.isSet("pet.max-level")) {
-            config.set("pet.max-level", MAX_LEVEL);
+        config.set("pet.max-level", MAX_LEVEL);
         }
-        MAX_LEVEL = config.getInt("pet.max-level");
+        MAX_LEVEL = config.getInt("pet.max-level");*/
     }
 
     public static void registerEntityClass(Class<? extends Entity> clazz) {
@@ -139,8 +140,7 @@ public class Util {
             entity = new EntityVillagerPet(world, player);
             ((Villager) entity.getBukkitEntity()).setBaby();
             Random rand = new Random();
-            ((Villager) entity.getBukkitEntity())
-                    .setProfession(professions[rand.nextInt(professions.length)]);
+            ((Villager) entity.getBukkitEntity()).setProfession(professions[rand.nextInt(professions.length)]);
             ((Villager) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("greenvillager")) {
             entity = new EntityVillagerPet(world, player);
@@ -161,6 +161,11 @@ public class Util {
             entity = new EntitySquidPet(world, player);
         } else if (pet.equalsIgnoreCase("zombie") || pet.equalsIgnoreCase("babyzombie")) {
             entity = new EntityZombiePet(world, player);
+        } else if (pet.equalsIgnoreCase("zombievillager") || pet.equalsIgnoreCase("babyzombievillager")) {
+            entity = new EntityZombiePet(world, player);
+            ((EntityZombie) entity).setVillager(true);
+        } else if (pet.equalsIgnoreCase("golem")) {
+            entity = new EntityIronGolemPet(world, player);
         }
         if (entity != null) {
             world.addEntity(entity, SpawnReason.CUSTOM);
@@ -198,5 +203,6 @@ public class Util {
         registerEntityClass(EntitySquidPet.class);
         registerEntityClass(EntityBatPet.class);
         registerEntityClass(EntityZombiePet.class);
+        registerEntityClass(EntityIronGolemPet.class);
     }
 }
