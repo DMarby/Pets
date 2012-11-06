@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Cow;
+import org.bukkit.entity.Creeper;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.MushroomCow;
@@ -165,6 +166,9 @@ public class Util {
             entity = new EntitySnowmanPet(world, player);
         } else if (pet.equalsIgnoreCase("creeper")) {
             entity = new EntityCreeperPet(world, player);
+        } else if (pet.equalsIgnoreCase("electrocreeper")) {
+            entity = new EntityCreeperPet(world, player);
+            ((Creeper) entity.getBukkitEntity()).setPowered(true);
         } else if (pet.equalsIgnoreCase("bat")) {
             entity = new EntityBatPet(world, player);
         } else if (pet.equalsIgnoreCase("squid")) {
