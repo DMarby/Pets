@@ -1,9 +1,9 @@
 package com.fullwall.pets;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,11 +11,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.google.common.base.Strings;
+
 public class Pets extends JavaPlugin {
 
     private PetController controller;
     private Storage storage;
-    private List<String> pets = new ArrayList();
+    private final List<String> pets = new ArrayList();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -23,10 +25,6 @@ public class Pets extends JavaPlugin {
             return false;
         }
         if (args.length == 1) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.GRAY + "Must be ingame.");
-                return true;
-            }
             if (!sender.hasPermission("pet.toggle")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
@@ -35,24 +33,33 @@ public class Pets extends JavaPlugin {
                 String list = "";
                 for (String pet : pets) {
                     if (sender.hasPermission("pet." + pet.toLowerCase())) {
-                        String the_pet = pet.substring(0,1).toUpperCase() + pet.substring(1);
-                        list = list + the_pet + ", ";
+                        String the_pet = pet.substring(0, 1).toUpperCase() + pet.substring(1);
+                        list += the_pet + ", ";
                     }
                 }
+                if (list.length() <= 1) {
+                    sender.sendMessage(ChatColor.GRAY + "No available pets.");
+                    return true;
+                }
                 sender.sendMessage(ChatColor.GREEN + "Available pets:");
-                sender.sendMessage(ChatColor.GREEN + list.substring(0,list.length() - 2));
+                sender.sendMessage(ChatColor.GREEN + list.substring(0, list.length() - 2));
                 return true;
             }
-                        
+
             if (!sender.hasPermission("pet." + args[0].toLowerCase())) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
             if (!pets.contains(args[0].toLowerCase())) {
-                sender.sendMessage(ChatColor.RED + "Invalid pet type! Do /pet list to get a list of all available types.");
+                sender.sendMessage(ChatColor.RED
+                        + "Invalid pet type! Do /pet list to get a list of all available types.");
                 return true;
             }
 
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(ChatColor.GRAY + "Must be ingame.");
+                return true;
+            }
             controller.togglePet((Player) sender, args[0]);
             return true;
         } else if (args.length == 0) {
@@ -62,6 +69,10 @@ public class Pets extends JavaPlugin {
             }
             if (!sender.hasPermission("pet.toggle")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+                return true;
+            }
+            if (Strings.isNullOrEmpty(controller.getType((Player) sender))) {
+                sender.sendMessage(ChatColor.RED + "No pet available.");
                 return true;
             }
             controller.togglePet((Player) sender);
@@ -93,6 +104,10 @@ public class Pets extends JavaPlugin {
         pets.add("wolf");
         pets.add("creeper");
         pets.add("greenvillager");
+        pets.add("bat");
+        pets.add("squid");
+        pets.add("zombie");
+        pets.add("babyzombie");
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");
         controller = new PetController(this);

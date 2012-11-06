@@ -3,33 +3,31 @@ package com.fullwall.pets;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Random;
+
 import net.minecraft.server.Entity;
-import net.minecraft.server.EntityBlaze;
-import net.minecraft.server.EntityCaveSpider;
-import net.minecraft.server.EntityChicken;
-import net.minecraft.server.EntityCow;
-import net.minecraft.server.EntityCreeper;
-import net.minecraft.server.EntityMagmaCube;
-import net.minecraft.server.EntityMushroomCow;
-import net.minecraft.server.EntityOcelot;
-import net.minecraft.server.EntityPig;
-import net.minecraft.server.EntitySheep;
-import net.minecraft.server.EntitySilverfish;
-import net.minecraft.server.EntitySlime;
-import net.minecraft.server.EntitySnowman;
+import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTypes;
 import net.minecraft.server.EntityVillager;
-import net.minecraft.server.EntityWolf;
 import net.minecraft.server.PathfinderGoalSelector;
 import net.minecraft.server.World;
 
 import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.MagmaCube;
+import org.bukkit.entity.MushroomCow;
+import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
+import org.bukkit.entity.Wolf;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 @SuppressWarnings("unchecked")
@@ -96,125 +94,78 @@ public class Util {
         throw new IllegalArgumentException("unable to find valid entity superclass");
     }
 
-    /*public static LivingEntity spawnPet(Player player) {
-        World world = ((CraftWorld) player.getWorld()).getHandle();
-        EntitySlime entity = new EntitySlimePet(world, player);
-        world.addEntity(entity, SpawnReason.CUSTOM);
-        entity.getBukkitEntity().teleport(player);
-        return (Slime) entity.getBukkitEntity();
-    }*/
-
     public static LivingEntity spawnPet(Player player, String pet) {
         World world = ((CraftWorld) player.getWorld()).getHandle();
+        EntityLiving entity = null;
         if (pet.equalsIgnoreCase("slime")) {
-            EntitySlime entity = new EntitySlimePet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntitySlimePet(world, player);
             ((Slime) entity.getBukkitEntity()).setSize(1);
-            return (Slime) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("blaze")) {
-            EntityBlaze entity = new EntityBlazePet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
-            return (Blaze) entity.getBukkitEntity();
+            entity = new EntityBlazePet(world, player);
         } else if (pet.equalsIgnoreCase("cavespider")) {
-            EntityCaveSpider entity = new EntityCaveSpiderPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
-            return (CaveSpider) entity.getBukkitEntity();
+            entity = new EntityCaveSpiderPet(world, player);
         } else if (pet.equalsIgnoreCase("chicken")) {
-            EntityChicken entity = new EntityChickenPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityChickenPet(world, player);
             ((Chicken) entity.getBukkitEntity()).setBaby();
             ((Chicken) entity.getBukkitEntity()).setAgeLock(true);
-            return (Chicken) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("cow")) {
-            EntityCow entity = new EntityCowPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityCowPet(world, player);
             ((Cow) entity.getBukkitEntity()).setBaby();
             ((Cow) entity.getBukkitEntity()).setAgeLock(true);
-            return (Cow) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("magmacube")) {
-            EntityMagmaCube entity = new EntityMagmaCubePet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityMagmaCubePet(world, player);
             ((MagmaCube) entity.getBukkitEntity()).setSize(1);
-            return (MagmaCube) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("mooshroom")) {
-            EntityMushroomCow entity = new EntityMushroomCowPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityMushroomCowPet(world, player);
             ((MushroomCow) entity.getBukkitEntity()).setBaby();
             ((MushroomCow) entity.getBukkitEntity()).setAgeLock(true);
-            return (MushroomCow) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("ocelot")) {
-            EntityOcelot entity = new EntityOcelotPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityOcelotPet(world, player);
             ((Ocelot) entity.getBukkitEntity()).setBaby();
             ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
-            return (Ocelot) entity.getBukkitEntity();
-        }else if (pet.equalsIgnoreCase("pig")) {
-            EntityPig entity = new EntityPigPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+        } else if (pet.equalsIgnoreCase("pig")) {
+            entity = new EntityPigPet(world, player);
             ((Pig) entity.getBukkitEntity()).setBaby();
             ((Pig) entity.getBukkitEntity()).setAgeLock(true);
-            return (Pig) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("sheep")) {
-            EntitySheep entity = new EntitySheepPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             Random rand = new Random();
             ((Sheep) entity.getBukkitEntity()).setColor(colors[rand.nextInt(colors.length)]);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-            return (Sheep) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("silverfish")) {
-            EntitySilverfish entity = new EntitySilverfishPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
-            return (Silverfish) entity.getBukkitEntity();
+            entity = new EntitySilverfishPet(world, player);
         } else if (pet.equalsIgnoreCase("villager")) {
-            EntityVillager entity = new EntityVillagerPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityVillagerPet(world, player);
             ((Villager) entity.getBukkitEntity()).setBaby();
             Random rand = new Random();
-            ((Villager) entity.getBukkitEntity()).setProfession(professions[rand.nextInt(professions.length)]);
-            //entity.setProfession(5);
+            ((Villager) entity.getBukkitEntity())
+                    .setProfession(professions[rand.nextInt(professions.length)]);
             ((Villager) entity.getBukkitEntity()).setAgeLock(true);
-            return (Villager) entity.getBukkitEntity();
-        }else if (pet.equalsIgnoreCase("greenvillager")) {
-            EntityVillager entity = new EntityVillagerPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+        } else if (pet.equalsIgnoreCase("greenvillager")) {
+            entity = new EntityVillagerPet(world, player);
             ((Villager) entity.getBukkitEntity()).setBaby();
-            //Random rand = new Random();
-            //((Villager) entity.getBukkitEntity()).setProfession(professions[rand.nextInt(professions.length)]);
             ((Villager) entity.getBukkitEntity()).setAgeLock(true);
-            entity.setProfession(5);
-            return (Villager) entity.getBukkitEntity();
+            ((EntityVillager) entity).setProfession(5);
         } else if (pet.equalsIgnoreCase("wolf")) {
-            EntityWolf entity = new EntityWolfPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
+            entity = new EntityWolfPet(world, player);
             ((Wolf) entity.getBukkitEntity()).setBaby();
             ((Wolf) entity.getBukkitEntity()).setAgeLock(true);
-            //((Wolf) entity.getBukkitEntity()).setTamed(true);
-            return (Wolf) entity.getBukkitEntity();
         } else if (pet.equalsIgnoreCase("snowman")) {
-            EntitySnowman entity = new EntitySnowmanPet(world, player);
-            world.addEntity(entity, SpawnReason.CUSTOM);
-            entity.getBukkitEntity().teleport(player);
-            return (Snowman) entity.getBukkitEntity();
+            entity = new EntitySnowmanPet(world, player);
         } else if (pet.equalsIgnoreCase("creeper")) {
-            EntityCreeper entity = new EntityCreeperPet(world, player);
+            entity = new EntityCreeperPet(world, player);
+        } else if (pet.equalsIgnoreCase("bat")) {
+            entity = new EntityBatPet(world, player);
+        } else if (pet.equalsIgnoreCase("squid")) {
+            entity = new EntitySquidPet(world, player);
+        } else if (pet.equalsIgnoreCase("zombie") || pet.equalsIgnoreCase("babyzombie")) {
+            entity = new EntityZombiePet(world, player);
+        }
+        if (entity != null) {
             world.addEntity(entity, SpawnReason.CUSTOM);
             entity.getBukkitEntity().teleport(player);
-            return (Creeper) entity.getBukkitEntity();
+            return (LivingEntity) entity.getBukkitEntity();
         }
         return null;
     }
@@ -244,5 +195,8 @@ public class Util {
         registerEntityClass(EntityWolfPet.class);
         registerEntityClass(EntitySnowmanPet.class);
         registerEntityClass(EntityCreeperPet.class);
+        registerEntityClass(EntitySquidPet.class);
+        registerEntityClass(EntityBatPet.class);
+        registerEntityClass(EntityZombiePet.class);
     }
 }

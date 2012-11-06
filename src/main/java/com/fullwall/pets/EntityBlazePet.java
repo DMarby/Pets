@@ -36,12 +36,12 @@ public class EntityBlazePet extends EntityBlaze { // old AI
             super.bk();
             return;
         }
-        this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.55F);
-        this.getNavigation().e(); // this is only needed for old ai
+        getNavigation().a(((CraftPlayer) owner).getHandle(), 0.55F);
+        getNavigation().e(); // this is only needed for old ai
         getControllerMove().c(); // old API
         getControllerLook().a(); // old API
         getControllerJump().b(); // etc
-        
+
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }
