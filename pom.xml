@@ -51,8 +51,8 @@
             </plugin>
         </plugins>
     </build>
-    <groupId>com.fullwall</groupId>
+    <groupId>se.DMarby</groupId>
     <artifactId>Pets</artifactId>
     <name>Pets</name>
-    <description>SlimePet</description>
+    <description>Pets</description>
 </project>
