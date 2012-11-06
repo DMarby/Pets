@@ -124,6 +124,11 @@ public class Util {
             entity = new EntityOcelotPet(world, player);
             ((Ocelot) entity.getBukkitEntity()).setBaby();
             ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
+        } else if (pet.equalsIgnoreCase("cat")) {
+            entity = new EntityOcelotPet(world, player);
+            ((Ocelot) entity.getBukkitEntity()).setBaby();
+            ((Ocelot) entity.getBukkitEntity()).setTamed(true);
+            ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("pig")) {
             entity = new EntityPigPet(world, player);
             ((Pig) entity.getBukkitEntity()).setBaby();
@@ -150,6 +155,11 @@ public class Util {
         } else if (pet.equalsIgnoreCase("wolf")) {
             entity = new EntityWolfPet(world, player);
             ((Wolf) entity.getBukkitEntity()).setBaby();
+            ((Wolf) entity.getBukkitEntity()).setAgeLock(true);
+        } else if (pet.equalsIgnoreCase("dog")) {
+            entity = new EntityWolfPet(world, player);
+            ((Wolf) entity.getBukkitEntity()).setBaby();
+            ((Wolf) entity.getBukkitEntity()).setTamed(true);
             ((Wolf) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("snowman")) {
             entity = new EntitySnowmanPet(world, player);

@@ -111,6 +111,8 @@ public class Pets extends JavaPlugin {
         pets.add("zombievillager");
         pets.add("babyzombievillager");
         pets.add("irongolem");
+        pets.add("cat");
+        pets.add("dog");
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");
         controller = new PetController(this);
