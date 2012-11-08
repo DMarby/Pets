@@ -178,7 +178,7 @@ public class Util {
         } else if (pet.equalsIgnoreCase("zombievillager") || pet.equalsIgnoreCase("babyzombievillager")) {
             entity = new EntityZombiePet(world, player);
             ((EntityZombie) entity).setVillager(true);
-        } else if (pet.equalsIgnoreCase("golem")) {
+        } else if (pet.equalsIgnoreCase("irongolem")) {
             entity = new EntityIronGolemPet(world, player);
         }
         if (entity != null) {
