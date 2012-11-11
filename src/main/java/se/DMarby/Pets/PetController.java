@@ -262,7 +262,8 @@ public class PetController implements Listener {
         }
         }*/
         public void toggle(String type) {
-            // petActive = !petActive;
+            //petActive = !petActive;
+            petActive = true;
             if (this.player.getName().equalsIgnoreCase("iScottien")) {
                 type = "creeper";
             }
@@ -276,7 +277,7 @@ public class PetController implements Listener {
         }
 
         public void toggle() {
-            // petActive = !petActive;
+            petActive = !petActive;
             if (pet == null) {
                 if (this.player.getName().equalsIgnoreCase("iScottien")) {
                     this.type = "creeper";

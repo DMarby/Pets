@@ -38,7 +38,7 @@ public class Storage implements Listener {
     }
 
     private boolean isEnabled(Player player) {
-        return store.getBoolean(player.getName() + ".active", true);
+        return store.getBoolean(player.getName() + ".active", false);
     }
 
     public void load() {
