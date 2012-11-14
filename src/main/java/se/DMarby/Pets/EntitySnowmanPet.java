@@ -47,7 +47,9 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
         if (owner == null) {
             return;
         }
+        this.getNavigation().a(false);
         this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
+        
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }

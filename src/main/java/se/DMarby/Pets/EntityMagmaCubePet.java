@@ -58,18 +58,18 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
             // if(entityhuman!=null) commented
             this.jumpDelay /= 3;
 
-            this.bG = true;
+            this.bE = true;
             if (this.J()) {
                 this.world.makeSound(this, this.n(), this.aV(),
                         ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = 1 * this.getSize();
+            this.bC = 1 * this.getSize();
         } else {
-            this.bG = false;
+            this.bE = false;
             if (this.onGround) {
-                this.bD = this.bE = 0.0F;
+                this.bD = this.bC = 0.0F;
             }
         }
     }
