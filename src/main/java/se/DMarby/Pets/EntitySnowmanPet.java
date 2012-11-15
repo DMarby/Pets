@@ -42,8 +42,8 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    protected void bi() {
-        super.bi();
+    protected void bl() {
+        super.bl();
         if (owner == null) {
             return;
         }

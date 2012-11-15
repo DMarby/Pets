@@ -31,9 +31,9 @@ public class EntitySquidPet extends EntitySquid { // old AI
     }
 
     @Override
-    protected void bk() {
+    protected void bn() {
         if (owner == null) {
-            super.bk();
+            super.bn();
             return;
         }
         getNavigation().a(((CraftPlayer) owner).getHandle(), 0.55F);

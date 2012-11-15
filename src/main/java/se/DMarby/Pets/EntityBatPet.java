@@ -33,9 +33,9 @@ public class EntityBatPet extends EntityBat { // old AI
     }
 
     @Override
-    protected void bi() {
+    protected void bl() {
         if (owner == null) {
-            super.bi();
+            super.bl();
             return;
         }
         getNavigation().a(((CraftPlayer) owner).getHandle(), 0.55F);

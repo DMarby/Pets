@@ -32,8 +32,8 @@ public class EntityMushroomCowPet extends EntityMushroomCow { // new AI
     }
 
     @Override
-    protected void bi() {
-        super.bi();
+    protected void bl() {
+        super.bl();
         if (owner == null)
             return;
         this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.3F);

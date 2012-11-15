@@ -31,9 +31,9 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
     }
 
     @Override
-    protected void bk() {
+    protected void bn() {
         if (owner == null) {
-            super.bk();
+            super.bn();
             return;
         }
         this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.7F);
