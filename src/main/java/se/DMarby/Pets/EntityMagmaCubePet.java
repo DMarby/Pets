@@ -64,12 +64,12 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
                         ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bB = 1.0F - this.random.nextFloat() * 2.0F;
             this.bC = 1 * this.getSize();
         } else {
             this.bE = false;
             if (this.onGround) {
-                this.bD = this.bC = 0.0F;
+                this.bB = this.bC = 0.0F;
             }
         }
     }
