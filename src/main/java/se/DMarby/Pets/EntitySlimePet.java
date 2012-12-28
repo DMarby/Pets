@@ -1,16 +1,16 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_4_5.EntityHuman;
-import net.minecraft.server.v1_4_5.EntitySlime;
-import net.minecraft.server.v1_4_5.World;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EntitySlime;
+import net.minecraft.server.v1_4_6.World;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_4_5.CraftServer;
-import org.bukkit.craftbukkit.v1_4_5.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_4_5.entity.CraftSlime;
+import org.bukkit.craftbukkit.v1_4_6.CraftServer;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftSlime;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
@@ -23,24 +23,25 @@ public class EntitySlimePet extends EntitySlime { // old AI
         super(world);
         this.owner = owner;
     }
-    
+
     public EntitySlimePet(World world) {
         this(world, null);
     }
-       private int distToOwner() {
+
+    private int distToOwner() {
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
-       
-       int jumpDelay() {
+
+    int jumpDelay() {
         return this.random.nextInt(20) + 10;
     }
 
     @Override
-    protected void bk() {
+    protected void bn() {
         if (owner == null) {
-            super.bk();
+            super.bn();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -57,18 +58,18 @@ public class EntitySlimePet extends EntitySlime { // old AI
             // if(entityhuman!=null) commented
             this.jumpDelay /= 3;
 
-            this.bE = true;
-            if (this.J()) {
-                this.world.makeSound(this, this.n(), this.aV(),
+            this.bF = true;
+            if (this.q()) {
+                this.makeSound(this.n(), this.aX(),
                         ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bB = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bC = 1 * this.getSize();
+            this.bC = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bD = 1 * this.getSize();
         } else {
-            this.bE = false;
+            this.bF = false;
             if (this.onGround) {
-                this.bB = this.bC = 0.0F;
+                this.bC = this.bD = 0.0F;
             }
         }
     }
