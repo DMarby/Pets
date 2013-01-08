@@ -146,18 +146,6 @@ public class Util {
             entity = new EntityPigPet(world, player);
             ((Pig) entity.getBukkitEntity()).setBaby();
             ((Pig) entity.getBukkitEntity()).setAgeLock(true);
-        } else if (pet.equalsIgnoreCase("sheep")) {
-            entity = new EntitySheepPet(world, player);
-            ((Sheep) entity.getBukkitEntity()).setBaby();
-            Random rand = new Random();
-            ((Sheep) entity.getBukkitEntity()).setColor(colors[rand.nextInt(colors.length)]);
-            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("sheep")) {
-                entity = new EntitySheepPet(world, player);
-                ((Sheep) entity.getBukkitEntity()).setBaby();
-                Random rand = new Random();
-                ((Sheep) entity.getBukkitEntity()).setColor(colors[rand.nextInt(colors.length)]);
-                ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
         }else if (pet.equalsIgnoreCase("blacksheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
@@ -228,7 +216,7 @@ public class Util {
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.SILVER);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("whitesheep")) {
+        }else if (pet.equalsIgnoreCase("whitesheep") || pet.equalsIgnoreCase("sheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.WHITE);
