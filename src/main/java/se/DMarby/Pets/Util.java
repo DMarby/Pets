@@ -23,6 +23,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.MushroomCow;
 import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
@@ -121,14 +122,25 @@ public class Util {
             entity = new EntityMushroomCowPet(world, player);
             ((MushroomCow) entity.getBukkitEntity()).setBaby();
             ((MushroomCow) entity.getBukkitEntity()).setAgeLock(true);
-        } else if (pet.equalsIgnoreCase("ocelot")) {
+        } else if (pet.equalsIgnoreCase("ocelot") || pet.equalsIgnoreCase("wildcat")) {
             entity = new EntityOcelotPet(world, player);
             ((Ocelot) entity.getBukkitEntity()).setBaby();
+            ((Ocelot) entity.getBukkitEntity()).setCatType(Type.WILD_OCELOT);
             ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
-        } else if (pet.equalsIgnoreCase("cat")) {
+        } else if (pet.equalsIgnoreCase("cat") || pet.equalsIgnoreCase("blackcat")) {
             entity = new EntityOcelotPet(world, player);
             ((Ocelot) entity.getBukkitEntity()).setBaby();
-            ((Ocelot) entity.getBukkitEntity()).setTamed(true);
+            ((Ocelot) entity.getBukkitEntity()).setCatType(Type.BLACK_CAT);
+            ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
+        } else if (pet.equalsIgnoreCase("redcat")) {
+            entity = new EntityOcelotPet(world, player);
+            ((Ocelot) entity.getBukkitEntity()).setBaby();
+            ((Ocelot) entity.getBukkitEntity()).setCatType(Type.RED_CAT);
+            ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
+        } else if (pet.equalsIgnoreCase("siamesecat")) {
+            entity = new EntityOcelotPet(world, player);
+            ((Ocelot) entity.getBukkitEntity()).setBaby();
+            ((Ocelot) entity.getBukkitEntity()).setCatType(Type.SIAMESE_CAT);
             ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("pig")) {
             entity = new EntityPigPet(world, player);
@@ -139,6 +151,93 @@ public class Util {
             ((Sheep) entity.getBukkitEntity()).setBaby();
             Random rand = new Random();
             ((Sheep) entity.getBukkitEntity()).setColor(colors[rand.nextInt(colors.length)]);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("sheep")) {
+                entity = new EntitySheepPet(world, player);
+                ((Sheep) entity.getBukkitEntity()).setBaby();
+                Random rand = new Random();
+                ((Sheep) entity.getBukkitEntity()).setColor(colors[rand.nextInt(colors.length)]);
+                ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("blacksheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.BLACK);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("bluesheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.BLUE);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("brownsheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.BROWN);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("cyansheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.CYAN);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("graysheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.GRAY);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("greensheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.GREEN);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("lightbluesheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.LIGHT_BLUE);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("limesheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.LIME);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("magentasheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.MAGENTA);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("orangesheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.ORANGE);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("pinksheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.PINK);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("purplesheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.PURPLE);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("redsheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.RED);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("silversheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.SILVER);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("whitesheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.WHITE);
+            ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
+        }else if (pet.equalsIgnoreCase("yellowsheep")) {
+            entity = new EntitySheepPet(world, player);
+            ((Sheep) entity.getBukkitEntity()).setBaby();
+            Random rand = new Random();
+            ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.YELLOW);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("silverfish")) {
             entity = new EntitySilverfishPet(world, player);
@@ -161,6 +260,8 @@ public class Util {
             entity = new EntityWolfPet(world, player);
             ((Wolf) entity.getBukkitEntity()).setBaby();
             ((Wolf) entity.getBukkitEntity()).setTamed(true);
+            Random rand = new Random();
+            ((Wolf) entity.getBukkitEntity()).setCollarColor(colors[rand.nextInt(colors.length)]);
             ((Wolf) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("snowman")) {
             entity = new EntitySnowmanPet(world, player);

@@ -114,6 +114,30 @@ public class Pets extends JavaPlugin {
         pets.add("cat");
         pets.add("dog");
         pets.add("electrocreeper");
+
+
+        pets.add("blacksheep");
+        pets.add("bluesheep");
+        pets.add("brownsheep");
+        pets.add("cyansheep");
+        pets.add("graysheep");
+        pets.add("greensheep");
+        pets.add("lightbluesheep");
+        pets.add("limesheep");
+        pets.add("magentasheep");
+        pets.add("orangesheep");
+        pets.add("pinksheep");
+        pets.add("purplesheep");
+        pets.add("redsheep");
+        pets.add("silversheep");
+        pets.add("whitesheep");
+        pets.add("yellowsheep");
+
+        pets.add("wildcat");
+        pets.add("blackcat");
+        pets.add("redcat");
+        pets.add("siamesecat");
+
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");
         controller = new PetController(this);
