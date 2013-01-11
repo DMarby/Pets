@@ -122,7 +122,11 @@ public class Util {
             entity = new EntityMushroomCowPet(world, player);
             ((MushroomCow) entity.getBukkitEntity()).setBaby();
             ((MushroomCow) entity.getBukkitEntity()).setAgeLock(true);
-        } else if (pet.equalsIgnoreCase("ocelot") || pet.equalsIgnoreCase("wildcat")) {
+        } else if (pet.equalsIgnoreCase("ocelot")){
+            entity = new EntityOcelotPet(world, player);
+            ((Ocelot) entity.getBukkitEntity()).setCatType(Type.WILD_OCELOT);
+            ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
+        } else if (pet.equalsIgnoreCase("wildcat")) {
             entity = new EntityOcelotPet(world, player);
             ((Ocelot) entity.getBukkitEntity()).setBaby();
             ((Ocelot) entity.getBukkitEntity()).setCatType(Type.WILD_OCELOT);
