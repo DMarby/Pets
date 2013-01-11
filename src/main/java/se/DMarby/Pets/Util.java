@@ -124,6 +124,7 @@ public class Util {
             ((MushroomCow) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("ocelot")){
             entity = new EntityOcelotPet(world, player);
+            ((Ocelot) entity.getBukkitEntity()).setAdult();
             ((Ocelot) entity.getBukkitEntity()).setCatType(Type.WILD_OCELOT);
             ((Ocelot) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("wildcat")) {
