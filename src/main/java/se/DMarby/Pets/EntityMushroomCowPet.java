@@ -1,15 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_4_6.EntityMushroomCow;
-import net.minecraft.server.v1_4_6.EntityHuman;
-import net.minecraft.server.v1_4_6.World;
+import net.minecraft.server.v1_4_R1.EntityMushroomCow;
+import net.minecraft.server.v1_4_R1.EntityHuman;
+import net.minecraft.server.v1_4_R1.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_6.CraftServer;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftMushroomCow;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftMushroomCow;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
 import org.bukkit.entity.MushroomCow;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class EntityMushroomCowPet extends EntityMushroomCow { // new AI
@@ -42,7 +42,7 @@ public class EntityMushroomCowPet extends EntityMushroomCow { // new AI
     }
 
     @Override
-    public Entity getBukkitEntity() {
+    public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitMushroomCowPet(this);
         return super.getBukkitEntity();

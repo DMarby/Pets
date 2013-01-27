@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import net.minecraft.server.v1_4_6.Entity;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.EntityTypes;
-import net.minecraft.server.v1_4_6.EntityVillager;
-import net.minecraft.server.v1_4_6.EntityZombie;
-import net.minecraft.server.v1_4_6.PathfinderGoalSelector;
-import net.minecraft.server.v1_4_6.World;
+import net.minecraft.server.v1_4_R1.Entity;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.EntityTypes;
+import net.minecraft.server.v1_4_R1.EntityVillager;
+import net.minecraft.server.v1_4_R1.EntityZombie;
+import net.minecraft.server.v1_4_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_4_R1.World;
 
 import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Creeper;

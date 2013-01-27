@@ -1,15 +1,16 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_4_6.EntityVillager;
-import net.minecraft.server.v1_4_6.EntityHuman;
-import net.minecraft.server.v1_4_6.World;
+import net.minecraft.server.v1_4_R1.EntityAgeable;
+import net.minecraft.server.v1_4_R1.EntityVillager;
+import net.minecraft.server.v1_4_R1.EntityHuman;
+import net.minecraft.server.v1_4_R1.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_6.CraftServer;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftVillager;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftVillager;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
 import org.bukkit.entity.Villager;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class EntityVillagerPet extends EntityVillager { // new AI
@@ -21,8 +22,13 @@ public class EntityVillagerPet extends EntityVillager { // new AI
         if (owner != null)
             Util.clearGoals(this.goalSelector, this.targetSelector);
     }
+
+    @Override
+    public EntityAgeable createChild(EntityAgeable entity){
+        return entity;
+    }
     
-      public EntityVillagerPet(World world) {
+    public EntityVillagerPet(World world) {
         this(world, null);
     }
 
@@ -43,7 +49,7 @@ public class EntityVillagerPet extends EntityVillager { // new AI
     }
 
     @Override
-    public Entity getBukkitEntity() {
+    public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitVillagerPet(this);
         return super.getBukkitEntity();
