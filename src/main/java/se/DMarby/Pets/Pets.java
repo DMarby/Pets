@@ -108,6 +108,8 @@ public class Pets extends JavaPlugin {
         pets.add("squid");
         pets.add("zombie");
         pets.add("babyzombie");
+        pets.add("zombiepigman");
+        pets.add("babyzombiepigman");
         pets.add("zombievillager");
         pets.add("babyzombievillager");
         pets.add("irongolem");

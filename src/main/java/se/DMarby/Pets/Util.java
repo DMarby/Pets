@@ -5,32 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import net.minecraft.server.v1_4_R1.Entity;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityTypes;
-import net.minecraft.server.v1_4_R1.EntityVillager;
-import net.minecraft.server.v1_4_R1.EntityZombie;
-import net.minecraft.server.v1_4_R1.PathfinderGoalSelector;
-import net.minecraft.server.v1_4_R1.World;
+import net.minecraft.server.v1_4_R1.*;
 
+import net.minecraft.server.v1_4_R1.Entity;
 import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
-import org.bukkit.entity.Chicken;
-import org.bukkit.entity.Cow;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.MagmaCube;
-import org.bukkit.entity.MushroomCow;
-import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
-import org.bukkit.entity.Pig;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
-import org.bukkit.entity.Slime;
-import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
-import org.bukkit.entity.Wolf;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 @SuppressWarnings("unchecked")
@@ -267,6 +250,8 @@ public class Util {
             entity = new EntityBatPet(world, player);
         } else if (pet.equalsIgnoreCase("squid")) {
             entity = new EntitySquidPet(world, player);
+        } else if (pet.equalsIgnoreCase("zombiepigman") || pet.equalsIgnoreCase("babyzombiepigman")) {
+            entity = new EntityPigZombiePet(world, player);
         } else if (pet.equalsIgnoreCase("zombie") || pet.equalsIgnoreCase("babyzombie")) {
             entity = new EntityZombiePet(world, player);
         } else if (pet.equalsIgnoreCase("zombievillager") || pet.equalsIgnoreCase("babyzombievillager")) {
@@ -311,6 +296,7 @@ public class Util {
         registerEntityClass(EntitySquidPet.class);
         registerEntityClass(EntityBatPet.class);
         registerEntityClass(EntityZombiePet.class);
+        registerEntityClass(EntityPigZombiePet.class);
         registerEntityClass(EntityIronGolemPet.class);
     }
 }
