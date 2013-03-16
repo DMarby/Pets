@@ -6,7 +6,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -131,6 +133,26 @@ public class PetController implements Listener {
             return;
         }
         data.spawn(data.type);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerDamage(EntityDamageByEntityEvent event){
+        if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
+             if(event.getDamager() instanceof Player){
+                 Player a = (Player) event.getEntity();
+                 Player b = (Player) event.getDamager();
+                 removePet(a, false);
+                 removePet(b, false);
+             }else{
+                 Entity shooter = ((Projectile) event.getDamager()).getShooter();
+                 if (shooter instanceof Player) {
+                     Player a = (Player) event.getEntity();
+                     Player b = (Player) shooter;
+                     removePet(a, false);
+                     removePet(b, false);
+                 }
+             }
+        }
     }
 
     public void removePet(Player player, boolean both) {
