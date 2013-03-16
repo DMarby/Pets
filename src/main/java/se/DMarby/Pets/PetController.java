@@ -5,6 +5,7 @@ import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -56,10 +57,14 @@ public class PetController implements Listener {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).type;
     }
 
+    public String getName(Player player) {
+        return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).name;
+    }
+
     //public void loadPlayer(Player player, long aliveTime, boolean enabled, String type) {
-    public void loadPlayer(Player player, boolean enabled, String type) {
+    public void loadPlayer(Player player, boolean enabled, String type, String name) {
         //PlayerData data = new PlayerData(player, aliveTime, enabled, type);
-        PlayerData data = new PlayerData(player, enabled, type);
+        PlayerData data = new PlayerData(player, enabled, type, name);
         playerData.put(player.getName(), data);
         /* scheduleTask(player, aliveTime);
         if(data.type != null){
@@ -132,7 +137,7 @@ public class PetController implements Listener {
         if (data == null) {
             return;
         }
-        data.spawn(data.type);
+        data.spawn(data.type, data.name);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -189,6 +194,14 @@ public class PetController implements Listener {
         data.toggle();
     }
 
+    public void setName(Player player, String name){
+        PlayerData data = playerData.get(player.getName());
+        if (data == null) {
+            return;
+        }
+        data.setName(name);
+    }
+
     /*private class CreationTask implements Runnable {
     private final Player player;
     private final long startTime = System.currentTimeMillis();
@@ -226,30 +239,33 @@ public class PetController implements Listener {
         boolean petActive;
         Player player;
         String type;
+        String name;
 
         // CreationTask task;
         //public PlayerData(Player player, long aliveTime, boolean enabled, String type) {
-        public PlayerData(Player player, boolean enabled, String type) {
+        public PlayerData(Player player, boolean enabled, String type, String name) {
             //this.aliveTime = aliveTime;
             this.player = player;
             this.type = type;
+            this.name = name;
             petActive = enabled;
             if (this.player.getName().equalsIgnoreCase("iScottien")) {
                 this.type = "creeper";
-                spawn(this.type);
+                spawn(this.type, name);
                 return;
             }
             if (petActive && type != null) {
                 // long days = aliveTime / timePeriod;
                 // if (days > 0)
                 // spawnAtLevel((int) days);
-                spawn(type);
+                spawn(type, name);
             }
         }
 
-        private void spawn(String type) {
-            Entity entity = Util.spawnPet(player, type);
+        private void spawn(String type, String name) {
+            Entity entity = Util.spawnPet(player, type, name);
             pet = entity;
+            setName(name);
         }
 
         /*private void spawnAtLevel(int level) {
@@ -295,7 +311,7 @@ public class PetController implements Listener {
             if (pet != null) {
                 removePet(player, false);
             }
-            spawn(type);
+            spawn(type, name);
             player.sendMessage(ChatColor.GREEN + type.substring(0, 1).toUpperCase() + type.substring(1)
                     + " spawned.");
         }
@@ -309,13 +325,27 @@ public class PetController implements Listener {
                 if (this.type == null) {
                     return;
                 }
-                spawn(this.type);
+                spawn(this.type, name);
                 player.sendMessage(ChatColor.GREEN + type.substring(0, 1).toUpperCase() + type.substring(1)
                         + " spawned.");
             } else {
                 removePet(player, false);
                 player.sendMessage(ChatColor.GREEN + "Pet toggled off.");
             }
+        }
+
+        public void setName(String name){
+            if(pet == null){
+                return;
+            }
+            this.name = name;
+            if(name != null){
+                ((LivingEntity) pet).setCustomName(name);
+                ((LivingEntity) pet).setCustomNameVisible(true);
+            }else{
+                ((LivingEntity) pet).setCustomNameVisible(false);
+            }
+
         }
         /*public void upgradeSlime() {
         if (!petActive)

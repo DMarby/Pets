@@ -77,6 +77,15 @@ public class Pets extends JavaPlugin {
             }
             controller.togglePet((Player) sender);
             return true;
+        }else if (args.length == 2){
+            if(args[0].equalsIgnoreCase("name")){
+                if (!sender.hasPermission("pet.name")) {
+                    sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+                    return true;
+                }
+                controller.setName((Player) sender, args[1]);
+                return true;
+            }
         }
         return false;
     }

@@ -85,7 +85,7 @@ public class Util {
         throw new IllegalArgumentException("unable to find valid entity superclass");
     }
 
-    public static LivingEntity spawnPet(Player player, String pet) {
+    public static LivingEntity spawnPet(Player player, String pet, String name) {
         World world = ((CraftWorld) player.getWorld()).getHandle();
         EntityLiving entity = null;
         if (pet.equalsIgnoreCase("slime")) {
