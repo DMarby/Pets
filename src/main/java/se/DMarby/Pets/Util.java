@@ -270,6 +270,7 @@ public class Util {
             entity.getBukkitEntity().teleport(player);
             return (LivingEntity) entity.getBukkitEntity();
         }
+        System.err.println("Pet is null!");
         return null;
     }
 
