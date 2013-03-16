@@ -22,6 +22,7 @@ public class Util {
     private static Map<Class<? extends Entity>, Integer> ENTITY_CLASS_TO_INT;
     private static Map<Integer, Class<? extends Entity>> ENTITY_INT_TO_CLASS;
     public static double MAX_DISTANCE = 10 * 10;
+    public static boolean removeInFight = false;
     public static int MAX_LEVEL = -1;
     private static Field GOAL_FIELD;
     private static DyeColor[] colors = DyeColor.values();
@@ -61,6 +62,10 @@ public class Util {
         config.set("pet.max-level", MAX_LEVEL);
         }
         MAX_LEVEL = config.getInt("pet.max-level");*/
+        if(!config.isSet("remove-in-fight")){
+            config.set("remove-in-fight", false);
+        }
+        removeInFight = config.getBoolean("remove-in-fight");
     }
 
     public static void registerEntityClass(Class<? extends Entity> clazz) {

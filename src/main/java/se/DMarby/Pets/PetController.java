@@ -137,21 +137,23 @@ public class PetController implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDamage(EntityDamageByEntityEvent event){
-        if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
-             if(event.getDamager() instanceof Player){
-                 Player a = (Player) event.getEntity();
-                 Player b = (Player) event.getDamager();
-                 removePet(a, false);
-                 removePet(b, false);
-             }else{
-                 Entity shooter = ((Projectile) event.getDamager()).getShooter();
-                 if (shooter instanceof Player) {
+        if(Util.removeInFight){
+            if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
+                 if(event.getDamager() instanceof Player){
                      Player a = (Player) event.getEntity();
-                     Player b = (Player) shooter;
+                     Player b = (Player) event.getDamager();
                      removePet(a, false);
                      removePet(b, false);
+                 }else{
+                     Entity shooter = ((Projectile) event.getDamager()).getShooter();
+                     if (shooter instanceof Player) {
+                         Player a = (Player) event.getEntity();
+                         Player b = (Player) shooter;
+                         removePet(a, false);
+                         removePet(b, false);
+                     }
                  }
-             }
+            }
         }
     }
 
