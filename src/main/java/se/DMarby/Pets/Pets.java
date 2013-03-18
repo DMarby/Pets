@@ -87,8 +87,8 @@ public class Pets extends JavaPlugin {
                     controller.setName((Player) sender, null);
                     sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
                 }else{
-                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1]));
-                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1]);
+                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1].substring(0, Math.min(args[1].length(), 64))));
+                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].substring(0, Math.min(args[1].length(), 64)));
                 }
                 return true;
             }
