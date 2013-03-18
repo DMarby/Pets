@@ -43,6 +43,15 @@ public class Pets extends JavaPlugin {
                 }
                 sender.sendMessage(ChatColor.GREEN + "Available pets:");
                 sender.sendMessage(ChatColor.GREEN + list.substring(0, list.length() - 2));
+                sender.sendMessage(ChatColor.GREEN + "Do /pet <pettype> to select a pet!");
+                return true;
+            }else if(args[0].equalsIgnoreCase("help")){
+                sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
+                sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
+                sender.sendMessage(ChatColor.GREEN + "/pet list - Lists all available pet types");
+                sender.sendMessage(ChatColor.GREEN + "/pet name <petName> - Gives your pet a name");
+                sender.sendMessage(ChatColor.GREEN + "/pet name reset - Removes your pets name");
+                sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
                 return true;
             }
 
@@ -72,7 +81,20 @@ public class Pets extends JavaPlugin {
                 return true;
             }
             if (Strings.isNullOrEmpty(controller.getType((Player) sender))) {
-                sender.sendMessage(ChatColor.RED + "No pet available.");
+                String list = "";
+                for (String pet : pets) {
+                    if (sender.hasPermission("pet." + pet.toLowerCase())) {
+                        String the_pet = pet.substring(0, 1).toUpperCase() + pet.substring(1);
+                        list += the_pet + ", ";
+                    }
+                }
+                if (list.length() <= 1) {
+                    sender.sendMessage(ChatColor.RED + "No pet available.");
+                    return true;
+                }
+                sender.sendMessage(ChatColor.GREEN + "Available pets:");
+                sender.sendMessage(ChatColor.GREEN + list.substring(0, list.length() - 2));
+                sender.sendMessage(ChatColor.GREEN + "Do /pet <petType> to select a pet!");
                 return true;
             }
             controller.togglePet((Player) sender);
@@ -92,6 +114,14 @@ public class Pets extends JavaPlugin {
                 }
                 return true;
             }
+        }else{
+            sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
+            sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
+            sender.sendMessage(ChatColor.GREEN + "/pet list - Lists all available pet types");
+            sender.sendMessage(ChatColor.GREEN + "/pet name <petName> - Gives your pet a name");
+            sender.sendMessage(ChatColor.GREEN + "/pet name reset - Removes your pets name");
+            sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
+            return true;
         }
         return false;
     }
