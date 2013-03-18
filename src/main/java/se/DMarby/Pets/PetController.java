@@ -263,7 +263,7 @@ public class PetController implements Listener {
         }
 
         private void spawn(String type, String name) {
-            Entity entity = Util.spawnPet(player, type, name);
+            Entity entity = Util.spawnPet(player, type);
             pet = entity;
             setName(name);
         }
@@ -338,11 +338,14 @@ public class PetController implements Listener {
             if(pet == null){
                 return;
             }
-            this.name = name;
+
             if(name != null){
+                this.name = name;
                 ((LivingEntity) pet).setCustomName(name);
                 ((LivingEntity) pet).setCustomNameVisible(true);
             }else{
+                this.name = null;
+                ((LivingEntity) pet).setCustomName(null);
                 ((LivingEntity) pet).setCustomNameVisible(false);
             }
 

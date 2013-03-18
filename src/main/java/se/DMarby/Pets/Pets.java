@@ -83,8 +83,13 @@ public class Pets extends JavaPlugin {
                     sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                     return true;
                 }
-                controller.setName((Player) sender, args[1]);
-                sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1]);
+                if(args[1].equalsIgnoreCase("reset")){
+                    controller.setName((Player) sender, null);
+                    sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
+                }else{
+                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1]));
+                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1]);
+                }
                 return true;
             }
         }

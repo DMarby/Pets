@@ -95,9 +95,7 @@ public class Storage implements Listener {
             store.set(player.getName() + ".type", type);
         }
         String name = backend.getName(player);
-        if (name != null) {
-            store.set(player.getName() + ".name", name);
-        }
+        store.set(player.getName() + ".name", name);
         backend.removePet(player, true);
     }
 }

@@ -18,8 +18,10 @@ public class EntityBatPet extends EntityBat { // old AI
     public EntityBatPet(World world, Player owner) {
         super(world);
         this.owner = owner;
-        if (owner != null)
+        if (owner != null){
             this.f(false);
+            this.a(false);
+        }
     }
 
     public EntityBatPet(World world) {

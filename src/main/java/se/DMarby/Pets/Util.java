@@ -85,7 +85,7 @@ public class Util {
         throw new IllegalArgumentException("unable to find valid entity superclass");
     }
 
-    public static LivingEntity spawnPet(Player player, String pet, String name) {
+    public static LivingEntity spawnPet(Player player, String pet) {
         World world = ((CraftWorld) player.getWorld()).getHandle();
         EntityLiving entity = null;
         if (pet.equalsIgnoreCase("slime")) {
@@ -266,6 +266,7 @@ public class Util {
             entity = new EntityIronGolemPet(world, player);
         }
         if (entity != null) {
+            entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
             world.addEntity(entity, SpawnReason.CUSTOM);
             entity.getBukkitEntity().teleport(player);
             return (LivingEntity) entity.getBukkitEntity();
