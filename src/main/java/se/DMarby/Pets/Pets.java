@@ -46,12 +46,7 @@ public class Pets extends JavaPlugin {
                 sender.sendMessage(ChatColor.GREEN + "Do /pet <pettype> to select a pet!");
                 return true;
             }else if(args[0].equalsIgnoreCase("help")){
-                sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
-                sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
-                sender.sendMessage(ChatColor.GREEN + "/pet list - Lists all available pet types");
-                sender.sendMessage(ChatColor.GREEN + "/pet name <petName> - Gives your pet a name");
-                sender.sendMessage(ChatColor.GREEN + "/pet name reset - Removes your pets name");
-                sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
+                displayHelp(sender);
                 return true;
             }
 
@@ -113,17 +108,23 @@ public class Pets extends JavaPlugin {
                     sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].substring(0, Math.min(args[1].length(), 64)));
                 }
                 return true;
+            }else{
+                displayHelp(sender);
+                return true;
             }
         }else{
-            sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
-            sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
-            sender.sendMessage(ChatColor.GREEN + "/pet list - Lists all available pet types");
-            sender.sendMessage(ChatColor.GREEN + "/pet name <petName> - Gives your pet a name");
-            sender.sendMessage(ChatColor.GREEN + "/pet name reset - Removes your pets name");
-            sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
+            displayHelp(sender);
             return true;
         }
-        return false;
+    }
+
+    public void displayHelp(CommandSender sender){
+        sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
+        sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
+        sender.sendMessage(ChatColor.GREEN + "/pet list - Lists all available pet types");
+        sender.sendMessage(ChatColor.GREEN + "/pet name <petName> - Gives your pet a name");
+        sender.sendMessage(ChatColor.GREEN + "/pet name reset - Removes your pets name");
+        sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
     }
 
     @Override
