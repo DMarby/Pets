@@ -249,11 +249,6 @@ public class PetController implements Listener {
             this.type = type;
             this.name = name;
             petActive = enabled;
-            if (this.player.getName().equalsIgnoreCase("iScottien")) {
-                this.type = "creeper";
-                spawn(this.type, name);
-                return;
-            }
             if (petActive && type != null) {
                 // long days = aliveTime / timePeriod;
                 // if (days > 0)
@@ -304,9 +299,6 @@ public class PetController implements Listener {
         public void toggle(String type) {
             //petActive = !petActive;
             petActive = true;
-            if (this.player.getName().equalsIgnoreCase("iScottien")) {
-                type = "creeper";
-            }
             this.type = type;
             if (pet != null) {
                 removePet(player, false);
@@ -319,9 +311,6 @@ public class PetController implements Listener {
         public void toggle() {
             petActive = !petActive;
             if (pet == null) {
-                if (this.player.getName().equalsIgnoreCase("iScottien")) {
-                    this.type = "creeper";
-                }
                 if (this.type == null) {
                     return;
                 }
