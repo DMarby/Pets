@@ -19,7 +19,6 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         super(world);
         this.owner = owner;
         if (owner != null) {
-            this.f(false);
             Util.clearGoals(this.goalSelector, this.targetSelector);
             setBaby(true);
         }
