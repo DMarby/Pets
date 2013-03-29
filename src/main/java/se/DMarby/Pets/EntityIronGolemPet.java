@@ -2,7 +2,6 @@ package se.DMarby.Pets;
 
 import net.minecraft.server.v1_5_R2.EntityIronGolem;
 import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.World;
 
 import org.bukkit.Bukkit;
@@ -22,7 +21,6 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
         this.owner = owner;
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
-            this.goalSelector.a(5, new PathfinderGoalFollowIronGolem(this, 0.3F, 10.0F, 5.0F));
         }
     }
 
@@ -34,13 +32,6 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
-    }
-
-    public EntityLiving getOwner() {
-       if(owner != null){
-           return ((CraftPlayer) this.owner).getHandle();
-       }
-       return null;
     }
 
     @Override
