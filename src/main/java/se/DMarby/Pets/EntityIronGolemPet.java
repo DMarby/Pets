@@ -35,19 +35,13 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
     }
 
     @Override
-    public void c() {
-        if (owner == null) {
-            super.c();
-        }
-    }
-
-    @Override
-    protected void bo() {
+    public void bo() {
         super.bo();
-        if (owner == null) {
+        if (owner == null){
             return;
         }
-        this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.4F);
+        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bE() * 0.15F);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }
