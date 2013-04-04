@@ -1,8 +1,6 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityPigZombie;
-import net.minecraft.server.v1_5_R2.World;
+import net.minecraft.server.v1_5_R2.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
@@ -35,13 +33,23 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
     }
 
     @Override
-    protected void bo() {
-        super.bo();
+    protected Entity findTarget() {
+        return  ((CraftPlayer) owner).getHandle();
+    }
+
+    @Override
+    public boolean damageEntity(DamageSource damagesource, int i) {
+        return false;
+    }
+
+    public void l_() {
+        super.l_();
         if (owner == null)
             return;
         this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
+
     }
 
     @Override
