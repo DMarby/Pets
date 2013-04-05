@@ -265,8 +265,6 @@ public class Util {
             ((EntityZombie) entity).setVillager(true);
         } else if (pet.equalsIgnoreCase("irongolem")) {
             entity = new EntityIronGolemPet(world, player);
-        } else if (pet.equalsIgnoreCase("enderman")) {
-            entity = new EntityEndermanPet(world, player);
         }
         if (entity != null) {
             entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
@@ -308,6 +306,5 @@ public class Util {
         registerEntityClass(EntityZombiePet.class);
         registerEntityClass(EntityPigZombiePet.class);
         registerEntityClass(EntityIronGolemPet.class);
-        registerEntityClass(EntityEndermanPet.class);
     }
 }
