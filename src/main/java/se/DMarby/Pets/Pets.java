@@ -162,6 +162,7 @@ public class Pets extends JavaPlugin {
         pets.add("cat");
         pets.add("dog");
         pets.add("electrocreeper");
+        pets.add("enderman");
 
 
         pets.add("blacksheep");
