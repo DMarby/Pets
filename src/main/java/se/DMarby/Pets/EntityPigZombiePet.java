@@ -34,6 +34,9 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
 
     @Override
     protected Entity findTarget() {
+        if(owner == null){
+            return super.findTarget();
+        }
         return  ((CraftPlayer) owner).getHandle();
     }
 
