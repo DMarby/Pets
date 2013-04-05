@@ -42,6 +42,9 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
 
     @Override
     public boolean damageEntity(DamageSource damagesource, int i) {
+        if(owner == null){
+            return super.damageEntity(damagesource, i);
+        }
         return false;
     }
 
