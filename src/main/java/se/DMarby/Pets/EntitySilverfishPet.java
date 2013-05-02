@@ -1,14 +1,14 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_5_R2.EntitySilverfish;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.World;
+import net.minecraft.server.v1_5_R3.EntitySilverfish;
+import net.minecraft.server.v1_5_R3.EntityHuman;
+import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftSilverfish;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftSilverfish;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.entity.Player;
 
