@@ -1,4 +1,4 @@
-package org.bukkit.craftbukkit.v1_6_R1;
+package org.bukkit.craftbukkit.v1_6_R1.entity;
 
 import org.bukkit.EntityEffect;
 import org.bukkit.Location;
