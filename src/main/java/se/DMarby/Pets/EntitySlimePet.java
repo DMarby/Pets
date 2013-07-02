@@ -1,18 +1,16 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EntitySlime;
-import net.minecraft.server.v1_5_R3.World;
-
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EntitySlime;
+import net.minecraft.server.v1_6_R1.World;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftSlime;
-import org.bukkit.entity.Entity;
+import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftSlime;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 
@@ -40,9 +38,9 @@ public class EntitySlimePet extends EntitySlime { // old AI
     }
 
     @Override
-    protected void bq() {
+    protected void bh() {
         if (owner == null) {
-            super.bn();
+            super.bh();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -59,18 +57,17 @@ public class EntitySlimePet extends EntitySlime { // old AI
             // if(entityhuman!=null) commented
             this.jumpDelay /= 3;
 
-            this.bG = true;
-            if (this.q()) {
-                this.makeSound(this.n(), this.ba(),
-                        ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.bd = true;
+            if (this.bO()) {
+                this.makeSound(this.bL(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = 1 * this.getSize();
+            this.be = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bf = (float) (1 * this.getSize());
         } else {
-            this.bG = false;
+            this.bd = false;
             if (this.onGround) {
-                this.bD = this.bE = 0.0F;
+                this.be = this.bf = 0.0F;
             }
         }
     }

@@ -1,21 +1,19 @@
 package se.DMarby.Pets;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import net.minecraft.server.v1_5_R3.*;
-
-import net.minecraft.server.v1_5_R3.Entity;
+import net.minecraft.server.v1_6_R1.Entity;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @SuppressWarnings("unchecked")
 public class Util {

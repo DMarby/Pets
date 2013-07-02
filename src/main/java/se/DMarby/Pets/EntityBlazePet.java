@@ -1,14 +1,14 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_5_R3.EntityBlaze;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.EntityBlaze;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftBlaze;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftBlaze;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.entity.Blaze;
 import org.bukkit.entity.Player;
 
@@ -31,9 +31,9 @@ public class EntityBlazePet extends EntityBlaze { // old AI
     }
 
     @Override
-    protected void bq() {
+    protected void bh() {
         if (owner == null) {
-            super.bq();
+            super.bh();
             return;
         }
         getNavigation().a(((CraftPlayer) owner).getHandle(), 0.55F);

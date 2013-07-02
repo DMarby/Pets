@@ -1,14 +1,14 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_5_R3.EntityCow;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.EntityCow;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftCow;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftCow;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Player;
 
@@ -32,8 +32,8 @@ public class EntityCowPet extends EntityCow { // new AI
     }
 
     @Override
-    protected void bo() {
-        super.bo();
+    protected void be() {
+        super.be();
         if (owner == null)
             return;
         this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.3F);

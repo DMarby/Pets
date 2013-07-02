@@ -1,12 +1,12 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPigZombie;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPigZombie;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 
@@ -41,9 +41,9 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
     }
 
     @Override
-    public boolean damageEntity(DamageSource damagesource, int i) {
+    public boolean damageEntity(DamageSource damagesource, float f) {
         if(owner == null){
-            return super.damageEntity(damagesource, i);
+            return super.damageEntity(damagesource, f);
         }
         return false;
     }
