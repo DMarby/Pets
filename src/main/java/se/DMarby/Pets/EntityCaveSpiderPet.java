@@ -1,14 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.EntityCaveSpider;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.EntityCaveSpider;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.GenericAttributes;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftCaveSpider;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftCaveSpider;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Player;
 
@@ -31,13 +32,15 @@ public class EntityCaveSpiderPet extends EntityCaveSpider { // old AI
     }
 
     @Override
-    protected void bh() {
+    protected void bk() {
         if (owner == null) {
-            super.bh();
+            super.bk();
             return;
         }
-        this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.8F);
-        this.getNavigation().e(); // this is only needed for old ai
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
+        this.getNavigation().a(false);
+        getEntitySenses().a();
+        getNavigation().f();
         getControllerMove().c();
         getControllerLook().a();
         getControllerJump().b();

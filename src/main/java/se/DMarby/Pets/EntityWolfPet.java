@@ -1,14 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.EntityWolf;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.EntityWolf;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.GenericAttributes;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftWolf;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftWolf;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Player;
 
@@ -21,7 +22,7 @@ public class EntityWolfPet extends EntityWolf { // new AI
         if (owner != null)
             Util.clearGoals(this.goalSelector, this.targetSelector);
     }
-    
+
     public EntityWolfPet(World world) {
         this(world, null);
     }
@@ -33,11 +34,12 @@ public class EntityWolfPet extends EntityWolf { // new AI
     }
 
     @Override
-    protected void be() {
-        super.be();
+    protected void bh() {
+        super.bh();
         if (owner == null)
             return;
-        this.getNavigation().a(((CraftPlayer)owner).getHandle(), 0.3F);
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.D);
+        this.getNavigation().a(false);
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }

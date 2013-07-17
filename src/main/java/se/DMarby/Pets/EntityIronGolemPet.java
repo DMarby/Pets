@@ -1,14 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.EntityIronGolem;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.EntityIronGolem;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.GenericAttributes;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftIronGolem;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftIronGolem;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
 
@@ -35,13 +36,14 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
     }
 
     @Override
-    public void be() {
-        super.be();
+    public void bh() {
+        super.bh();
         if (owner == null){
             return;
         }
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.4F);
-        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bE() * 0.15F);
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5D);
+        this.getNavigation().a(false);
+        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bh() * 0.15F);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }

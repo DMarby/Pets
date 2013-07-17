@@ -1,14 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.EntitySnowman;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.EntitySnowman;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.GenericAttributes;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftSnowman;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftSnowman;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
 import org.bukkit.entity.Snowman;
 import org.bukkit.entity.Player;
 
@@ -35,13 +36,14 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    public void be() {
-        super.be();
+    public void bh() {
+        super.bh();
         if (owner == null){
             return;
         }
         //this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
         this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.4F);
+        this.getNavigation().a(false);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }

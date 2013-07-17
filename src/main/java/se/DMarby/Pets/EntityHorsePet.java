@@ -1,29 +1,39 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R2.EntityOcelot;
+import net.minecraft.server.v1_6_R2.EntityHorse;
 import net.minecraft.server.v1_6_R2.EntityHuman;
-import net.minecraft.server.v1_6_R2.GenericAttributes;
 import net.minecraft.server.v1_6_R2.World;
-
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
 import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R2.entity.CraftOcelot;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftHorse;
 import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
-import org.bukkit.entity.Ocelot;
+import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 
-public class EntityOcelotPet extends EntityOcelot { // new AI
-    private final Player owner;
+import java.util.Random;
 
-    public EntityOcelotPet(World world, Player owner) {
+public class EntityHorsePet extends EntityHorse { // new AI
+    private final Player owner;
+    private Boolean ridable;
+
+    public EntityHorsePet(World world, Player owner) {
         super(world);
         this.owner = owner;
+        this.ridable = false;
         if (owner != null)
             Util.clearGoals(this.goalSelector, this.targetSelector);
     }
-    
-    public EntityOcelotPet(World world) {
+
+    public EntityHorsePet(World world, Player owner, Boolean ridable) {
+        super(world);
+        this.owner = owner;
+        this.ridable = ridable;
+        if (owner != null)
+            Util.clearGoals(this.goalSelector, this.targetSelector);
+    }
+
+     public EntityHorsePet(World world) {
         this(world, null);
     }
 
@@ -38,29 +48,38 @@ public class EntityOcelotPet extends EntityOcelot { // new AI
         super.bh();
         if (owner == null)
             return;
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1F);
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
         this.getNavigation().a(false);
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }
 
+    public Boolean isRidable() {
+        return ridable;
+    }
+
+    public void giveShit() {
+        this.datawatcher.watch(16, Integer.valueOf(4));
+        this.datawatcher.watch(22, Integer.valueOf(new Random().nextInt(4 - 1) + 1));
+    }
+
     @Override
     public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
-            bukkitEntity = new BukkitOcelotPet(this);
+            bukkitEntity = new BukkitHorsePet(this);
         return super.getBukkitEntity();
     }
 
-    public static class BukkitOcelotPet extends CraftOcelot implements PetEntity {
+    public static class BukkitHorsePet extends CraftHorse implements PetEntity {
         private final Player owner;
 
-        public BukkitOcelotPet(EntityOcelotPet entity) {
-            super((CraftServer) Bukkit.getServer(), entity);
+        public BukkitHorsePet(EntityHorsePet entity) {
+            super((CraftServer) Bukkit.getServer(), (EntityHorse) entity);
             this.owner = entity.owner;
         }
 
         @Override
-        public Ocelot getBukkitEntity() {
+        public Horse getBukkitEntity() {
             return this;
         }
 

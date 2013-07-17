@@ -1,16 +1,16 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.EntitySlime;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntitySlime;
+import net.minecraft.server.v1_6_R2.World;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftSlime;
+import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftSlime;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 
@@ -38,9 +38,9 @@ public class EntitySlimePet extends EntitySlime { // old AI
     }
 
     @Override
-    protected void bh() {
+    protected void bk() {
         if (owner == null) {
-            super.bh();
+            super.bk();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -58,8 +58,8 @@ public class EntitySlimePet extends EntitySlime { // old AI
             this.jumpDelay /= 3;
 
             this.bd = true;
-            if (this.bO()) {
-                this.makeSound(this.bL(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            if (this.bS()) {
+                this.makeSound(this.bP(), this.aZ(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.be = 1.0F - this.random.nextFloat() * 2.0F;

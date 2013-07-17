@@ -1,9 +1,6 @@
 package se.DMarby.Pets;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.base.Strings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,7 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.google.common.base.Strings;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pets extends JavaPlugin {
 
@@ -185,6 +184,13 @@ public class Pets extends JavaPlugin {
         pets.add("blackcat");
         pets.add("redcat");
         pets.add("siamesecat");
+
+        pets.add("horse");
+        pets.add("donkey");
+        pets.add("mule");
+        pets.add("undeadhorse");
+        pets.add("skeletonhorse");
+        pets.add("ridablehorse");
 
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");

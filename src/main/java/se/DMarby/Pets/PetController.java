@@ -1,7 +1,6 @@
 package se.DMarby.Pets;
 
-import java.util.Map;
-
+import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -15,10 +14,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
 
 public class PetController implements Listener {
 
@@ -70,6 +70,19 @@ public class PetController implements Listener {
         if(data.type != null){
         data.spawn(data.type);
         } */
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        PetEntity pet = getPet(event.getRightClicked());
+        if (pet == null || !(pet instanceof EntityHorsePet.BukkitHorsePet)) {
+            return;
+        }
+
+        if(!event.getPlayer().equals(pet.getOwner())){
+            event.setCancelled(true);
+        }
+
     }
 
     @EventHandler(ignoreCancelled = true)

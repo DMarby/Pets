@@ -1,16 +1,18 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.Entity;
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.Entity;
+import net.minecraft.server.v1_6_R2.*;
 import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_6_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -26,6 +28,9 @@ public class Util {
     private static Field GOAL_FIELD;
     private static DyeColor[] colors = DyeColor.values();
     private static Profession[] professions = Profession.values();
+    private static Random rand = new Random();
+    private static List<Integer> allvariants = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 256, 257, 258, 259, 260, 261, 262, 512, 513, 514, 515, 516, 517, 518, 768, 769, 770, 771, 772, 773, 774, 1024, 1025, 1026, 1027, 1028, 1029, 1030);
+    private static List<ItemStack> armor = Arrays.asList(new ItemStack(417), new ItemStack(418), new ItemStack(419));
 
     public static void clearGoals(PathfinderGoalSelector... goalSelectors) {
         if (GOAL_FIELD == null || goalSelectors == null) {
@@ -211,7 +216,6 @@ public class Util {
         }else if (pet.equalsIgnoreCase("yellowsheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
-            Random rand = new Random();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.YELLOW);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("silverfish")) {
@@ -219,7 +223,6 @@ public class Util {
         } else if (pet.equalsIgnoreCase("villager")) {
             entity = new EntityVillagerPet(world, player);
             ((Villager) entity.getBukkitEntity()).setBaby();
-            Random rand = new Random();
             ((Villager) entity.getBukkitEntity()).setProfession(professions[rand.nextInt(professions.length)]);
             ((Villager) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("greenvillager")) {
@@ -235,7 +238,6 @@ public class Util {
             entity = new EntityWolfPet(world, player);
             ((Wolf) entity.getBukkitEntity()).setBaby();
             ((Wolf) entity.getBukkitEntity()).setTamed(true);
-            Random rand = new Random();
             ((Wolf) entity.getBukkitEntity()).setCollarColor(colors[rand.nextInt(colors.length)]);
             ((Wolf) entity.getBukkitEntity()).setAgeLock(true);
         } else if (pet.equalsIgnoreCase("snowman")) {
@@ -258,6 +260,46 @@ public class Util {
             ((EntityZombie) entity).setVillager(true);
         } else if (pet.equalsIgnoreCase("irongolem")) {
             entity = new EntityIronGolemPet(world, player);
+        } else if (pet.equalsIgnoreCase("horse")) {
+            entity = new EntityHorsePet(world, player);
+            ((Horse) entity.getBukkitEntity()).setBaby();
+            ((Horse) entity.getBukkitEntity()).setRemoveWhenFarAway(false);
+            ((Horse) entity.getBukkitEntity()).setAgeLock(true);
+            ((EntityHorse) entity).setType(0);
+            ((EntityHorse) entity).setVariant(allvariants.get(rand.nextInt(allvariants.size())));
+        } else if (pet.equalsIgnoreCase("donkey")) {
+            entity = new EntityHorsePet(world, player);
+            ((Horse) entity.getBukkitEntity()).setBaby();
+            ((Horse) entity.getBukkitEntity()).setRemoveWhenFarAway(false);
+            ((Horse) entity.getBukkitEntity()).setAgeLock(true);
+            ((EntityHorse) entity).setType(1);
+        } else if (pet.equalsIgnoreCase("mule")) {
+            entity = new EntityHorsePet(world, player);
+            ((Horse) entity.getBukkitEntity()).setBaby();
+            ((Horse) entity.getBukkitEntity()).setRemoveWhenFarAway(false);
+            ((Horse) entity.getBukkitEntity()).setAgeLock(true);
+            ((EntityHorse) entity).setType(2);
+        } else if (pet.equalsIgnoreCase("undeadhorse")) {
+            entity = new EntityHorsePet(world, player);
+            ((Horse) entity.getBukkitEntity()).setBaby();
+            ((Horse) entity.getBukkitEntity()).setRemoveWhenFarAway(false);
+            ((Horse) entity.getBukkitEntity()).setAgeLock(true);
+            ((EntityHorse) entity).setType(3);
+        } else if (pet.equalsIgnoreCase("skeletonhorse")) {
+            entity = new EntityHorsePet(world, player);
+            ((Horse) entity.getBukkitEntity()).setBaby();
+            ((Horse) entity.getBukkitEntity()).setRemoveWhenFarAway(false);
+            ((Horse) entity.getBukkitEntity()).setAgeLock(true);
+            ((EntityHorse) entity).setType(4);
+        } else if (pet.equalsIgnoreCase("ridablehorse")) {
+            entity = new EntityHorsePet(world, player, true);
+            ((Horse) entity.getBukkitEntity()).setAdult();
+            ((Horse) entity.getBukkitEntity()).setRemoveWhenFarAway(false);
+            ((Horse) entity.getBukkitEntity()).setAgeLock(true);
+            ((EntityHorse) entity).setTame(true);
+            ((EntityHorse) entity).setType(0);
+            ((EntityHorse) entity).setVariant(allvariants.get(rand.nextInt(allvariants.size())));
+            ((EntityHorsePet) entity).giveShit();
         }
         if (entity != null) {
             entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
@@ -299,5 +341,7 @@ public class Util {
         registerEntityClass(EntityZombiePet.class);
         registerEntityClass(EntityPigZombiePet.class);
         registerEntityClass(EntityIronGolemPet.class);
+        registerEntityClass(EntityHorsePet.class);
+
     }
 }

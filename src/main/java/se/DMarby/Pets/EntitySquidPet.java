@@ -1,14 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.EntitySquid;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntitySquid;
+import net.minecraft.server.v1_6_R2.GenericAttributes;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftSquid;
+import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftSquid;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Squid;
 
@@ -31,13 +32,15 @@ public class EntitySquidPet extends EntitySquid { // old AI
     }
 
     @Override
-    protected void bh() {
+    protected void bk() {
         if (owner == null) {
-            super.bh();
+            super.bk();
             return;
         }
-        getNavigation().a(((CraftPlayer) owner).getHandle(), 0.55F);
-        getNavigation().e(); // this is only needed for old ai
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.55F);
+        this.getNavigation().a(false);
+        getEntitySenses().a();
+        getNavigation().f();
         getControllerMove().c(); // old API
         getControllerLook().a(); // old API
         getControllerJump().b(); // etc
