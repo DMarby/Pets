@@ -1,17 +1,17 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_6_R2.EntityHuman;
-import net.minecraft.server.v1_6_R2.EntityMagmaCube;
-import net.minecraft.server.v1_6_R2.World;
+import net.minecraft.server.v1_6_R3.EntityHuman;
+import net.minecraft.server.v1_6_R3.EntityMagmaCube;
+import net.minecraft.server.v1_6_R3.World;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_6_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R2.entity.CraftMagmaCube;
-import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_6_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R3.entity.CraftMagmaCube;
+import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Player;
 
@@ -40,9 +40,9 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
 
 
     @Override
-    protected void bk() {
+    protected void bl() {
         if (owner == null) {
-            super.bk();
+            super.bl();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -55,13 +55,13 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
         if (dist <= 16 && entityhuman.motX == 0 && entityhuman.motY == 0 && entityhuman.motZ == 0)
             return;
         if (this.onGround && this.jumpDelay-- <= 0) {
-            this.jumpDelay = jumpDelay();
-            // if(entityhuman!=null) commented
+            this.jumpDelay = this.bL();
+           // if (entityhuman != null)
             this.jumpDelay /= 3;
 
             this.bd = true;
             if (this.bS()) {
-                this.makeSound(this.bP(), this.aZ(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.makeSound(this.bP(), this.ba(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.be = 1.0F - this.random.nextFloat() * 2.0F;
