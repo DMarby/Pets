@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -130,7 +131,7 @@ public class PetController implements Listener {
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         if (isActive(player)) {
-            PlayerData data = playerData.get(event.getPlayer().getName());
+            PlayerData data = playerData.get(player.getName());
             if (data == null) {
                 return;
             }
@@ -145,12 +146,23 @@ public class PetController implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        removePet(player, true);
-        PlayerData data = playerData.get(player.getName());
-        if (data == null) {
-            return;
+        removePet(player, false);
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+        if (isActive(player)) {
+            PlayerData data = playerData.get(player.getName());
+            if (data == null) {
+                return;
+            }
+            Entity pet = data.pet;
+            if (pet != null) {
+                return;
+            }
+            data.spawn(data.type, data.name);
         }
-        data.spawn(data.type, data.name);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
