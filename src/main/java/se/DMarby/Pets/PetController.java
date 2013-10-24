@@ -160,6 +160,8 @@ public class PetController implements Listener {
             Entity pet = data.pet;
             if (pet != null) {
                 return;
+            }else{
+                pet.teleport(player.getLocation());
             }
             data.spawn(data.type, data.name);
         }
