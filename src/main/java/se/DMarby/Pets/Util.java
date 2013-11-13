@@ -310,6 +310,16 @@ public class Util {
         System.err.println("Pet is null!");
         return null;
     }
+    
+    public static boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+                    return true;
+        }
+        catch(NumberFormatException nfe) {
+                return false;
+        }
+    }
 
     static {
         GOAL_FIELD = getField(PathfinderGoalSelector.class, "a");

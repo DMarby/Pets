@@ -40,6 +40,10 @@ public class Storage implements Listener {
     private String getName(Player player) {
         return store.getString(player.getName() + ".name");
     }
+    
+    private String getItem(Player player) {
+        return store.getString(player.getName() + ".item");
+    }
 
     private boolean isEnabled(Player player) {
         return store.getBoolean(player.getName() + ".active", false);
@@ -56,7 +60,7 @@ public class Storage implements Listener {
             return;
         }
         // backend.loadPlayer(player, getAliveTime(player), isEnabled(player), getType(player));
-        backend.loadPlayer(player, isEnabled(player), getType(player), getName(player));
+        backend.loadPlayer(player, isEnabled(player), getType(player), getName(player), getItem(player));
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -95,7 +99,9 @@ public class Storage implements Listener {
             store.set(player.getName() + ".type", type);
         }
         String name = backend.getName(player);
+        String item = backend.getItem(player);
         store.set(player.getName() + ".name", name);
+        store.set(player.getName() + ".item", item);
         backend.removePet(player, true);
     }
 }

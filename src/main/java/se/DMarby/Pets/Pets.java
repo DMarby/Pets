@@ -3,6 +3,7 @@ package se.DMarby.Pets;
 import com.google.common.base.Strings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -107,6 +108,26 @@ public class Pets extends JavaPlugin {
                     sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].substring(0, Math.min(args[1].length(), 24)));
                 }
                 return true;
+            }else if(args[0].equalsIgnoreCase("item")){
+                if (!sender.hasPermission("pet.item")) {
+                    sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+                    return true;
+                }
+                if(args[1].equalsIgnoreCase("reset")){
+                    controller.setItem((Player) sender, null);
+                    sender.sendMessage(ChatColor.GREEN + "Pet item removed.");
+                }else{
+                    Material mat;
+                    if(Util.isInt(args[1])) mat = Material.getMaterial(Integer.parseInt(args[1]));
+                    else mat = Material.getMaterial(args[1].toUpperCase());
+                    
+                    if(mat != null) {
+                    	controller.setItem((Player) sender, args[1]);
+                        sender.sendMessage(ChatColor.GREEN + "Pet item changed to " + mat.name());
+                    }
+                    else sender.sendMessage(ChatColor.RED + "Invalid item!");
+                }
+                return true;
             }else{
                 displayHelp(sender);
                 return true;
@@ -123,6 +144,8 @@ public class Pets extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "/pet list - Lists all available pet types");
         sender.sendMessage(ChatColor.GREEN + "/pet name <petName> - Gives your pet a name");
         sender.sendMessage(ChatColor.GREEN + "/pet name reset - Removes your pets name");
+        sender.sendMessage(ChatColor.GREEN + "/pet item <itemMaterial> - Gives your pet an item");
+        sender.sendMessage(ChatColor.GREEN + "/pet item reset - Removes your pets item");
         sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
     }
 
