@@ -17,6 +17,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -61,11 +62,15 @@ public class PetController implements Listener {
     public String getName(Player player) {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).name;
     }
+    
+    public String getItem(Player player) {
+        return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).item;
+    }
 
     //public void loadPlayer(Player player, long aliveTime, boolean enabled, String type) {
-    public void loadPlayer(Player player, boolean enabled, String type, String name) {
+    public void loadPlayer(Player player, boolean enabled, String type, String name, String item) {
         //PlayerData data = new PlayerData(player, aliveTime, enabled, type);
-        PlayerData data = new PlayerData(player, enabled, type, name);
+        PlayerData data = new PlayerData(player, enabled, type, name, item);
         playerData.put(player.getName(), data);
         /* scheduleTask(player, aliveTime);
         if(data.type != null){
@@ -163,7 +168,7 @@ public class PetController implements Listener {
                 return;
             }
 
-            data.spawn(data.type, data.name);
+            data.spawn(data.type, data.name, data.item);
         }
     }
 
@@ -228,6 +233,14 @@ public class PetController implements Listener {
         }
         data.setName(name);
     }
+    
+    public void setItem(Player player, String item){
+        PlayerData data = playerData.get(player.getName());
+        if (data == null) {
+            return;
+        }
+        data.setItem(item);
+    }
 
     /*private class CreationTask implements Runnable {
     private final Player player;
@@ -267,27 +280,30 @@ public class PetController implements Listener {
         Player player;
         String type;
         String name;
+        String item;
 
         // CreationTask task;
         //public PlayerData(Player player, long aliveTime, boolean enabled, String type) {
-        public PlayerData(Player player, boolean enabled, String type, String name) {
+        public PlayerData(Player player, boolean enabled, String type, String name, String item) {
             //this.aliveTime = aliveTime;
             this.player = player;
             this.type = type;
             this.name = name;
+            this.item = item;
             petActive = enabled;
             if (petActive && type != null) {
                 // long days = aliveTime / timePeriod;
                 // if (days > 0)
                 // spawnAtLevel((int) days);
-                spawn(type, name);
+                spawn(type, name, item);
             }
         }
 
-        private void spawn(String type, String name) {
+        private void spawn(String type, String name, String item) {
             Entity entity = Util.spawnPet(player, type);
             pet = entity;
             setName(name);
+            setItem(item);
         }
 
         /*private void spawnAtLevel(int level) {
@@ -330,7 +346,7 @@ public class PetController implements Listener {
             if (pet != null) {
                 removePet(player, false);
             }
-            spawn(type, name);
+            spawn(type, name, item);
             player.sendMessage(ChatColor.GREEN + type.substring(0, 1).toUpperCase() + type.substring(1)
                     + " spawned.");
         }
@@ -341,7 +357,7 @@ public class PetController implements Listener {
                 if (this.type == null) {
                     return;
                 }
-                spawn(this.type, name);
+                spawn(this.type, name, item);
                 player.sendMessage(ChatColor.GREEN + type.substring(0, 1).toUpperCase() + type.substring(1)
                         + " spawned.");
             } else {
@@ -364,6 +380,31 @@ public class PetController implements Listener {
                 ((LivingEntity) pet).setCustomName(null);
                 ((LivingEntity) pet).setCustomNameVisible(false);
             }
+
+        }
+        
+        public void setItem(String item){
+            if(pet == null){
+                return;
+            }
+            
+            if(item != null) {
+	            Material mat;
+	            if(Util.isInt(item)){
+	            	mat = Material.getMaterial(Integer.parseInt(item));
+	            }else{
+	            	mat = Material.getMaterial(item.toUpperCase());
+	            }
+	            
+	            if(mat != null){
+	                this.item = item;
+	                ((LivingEntity) pet).getEquipment().setItemInHand(new ItemStack(mat));
+	                ((LivingEntity) pet).getEquipment().setItemInHandDropChance(0);
+	                return;
+	            }
+            }
+            this.item = null;
+            ((LivingEntity) pet).getEquipment().clear();
 
         }
         /*public void upgradeSlime() {
