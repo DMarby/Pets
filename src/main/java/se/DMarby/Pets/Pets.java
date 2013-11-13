@@ -118,8 +118,11 @@ public class Pets extends JavaPlugin {
                     sender.sendMessage(ChatColor.GREEN + "Pet item removed.");
                 }else{
                     Material mat;
-                    if(Util.isInt(args[1])) mat = Material.getMaterial(Integer.parseInt(args[1]));
-                    else mat = Material.getMaterial(args[1].toUpperCase());
+    	            if(Util.isInt(args[1])){
+    	            	mat = Material.getMaterial(Integer.parseInt(args[1]));
+    	            }else{
+    	            	mat = Material.getMaterial(args[1].toUpperCase());
+    	            }
                     
                     if(mat != null) {
                     	controller.setItem((Player) sender, args[1]);

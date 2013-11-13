@@ -390,8 +390,11 @@ public class PetController implements Listener {
             
             if(item != null) {
 	            Material mat;
-	            if(Util.isInt(item)) mat = Material.getMaterial(Integer.parseInt(item));
-	            else mat = Material.getMaterial(item.toUpperCase());
+	            if(Util.isInt(item)){
+	            	mat = Material.getMaterial(Integer.parseInt(item));
+	            }else{
+	            	mat = Material.getMaterial(item.toUpperCase());
+	            }
 	            
 	            if(mat != null){
 	                this.item = item;
