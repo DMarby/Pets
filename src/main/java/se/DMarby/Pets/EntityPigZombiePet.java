@@ -48,8 +48,8 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         return false;
     }
 
-    public void l_() {
-        super.l_();
+    public void h() {
+        super.h();
         if (owner == null)
             return;
         this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
