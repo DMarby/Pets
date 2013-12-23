@@ -48,7 +48,11 @@ public class EntityHorsePet extends EntityHorse { // new AI
         super.bn();
         if (owner == null)
             return;
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
+        if(isRidable()){
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
+        }else{
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
+        }
         this.getNavigation().a(false);
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);

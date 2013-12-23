@@ -2,9 +2,7 @@ package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.EntityBlaze;
 import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.GenericAttributes;
 import net.minecraft.server.v1_7_R1.World;
-
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftBlaze;
@@ -37,15 +35,13 @@ public class EntityBlazePet extends EntityBlaze { // old AI
             super.bq();
             return;
         }
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 10F);
         this.getNavigation().a(false);
         getEntitySenses().a();
         getNavigation().f();
         getControllerMove().c();
         getControllerLook().a();
         getControllerJump().b();
-
-
 
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);

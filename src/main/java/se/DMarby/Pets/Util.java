@@ -322,7 +322,7 @@ public class Util {
     }
 
     static {
-        GOAL_FIELD = getField(PathfinderGoalSelector.class, "a");
+        GOAL_FIELD = getField(PathfinderGoalSelector.class, "b");
         try {
             Field field = getField(EntityTypes.class, "d");
             ENTITY_INT_TO_CLASS = (Map<Integer, Class<? extends Entity>>) field.get(null);
