@@ -326,7 +326,7 @@ public class Util {
         try {
             Field field = getField(EntityTypes.class, "d");
             ENTITY_INT_TO_CLASS = (Map<Integer, Class<? extends Entity>>) field.get(null);
-            field = getField(EntityTypes.class, "e");
+            field = getField(EntityTypes.class, "f");
             ENTITY_CLASS_TO_INT = (Map<Class<? extends Entity>, Integer>) field.get(null);
         } catch (Exception e) {
             e.printStackTrace();
