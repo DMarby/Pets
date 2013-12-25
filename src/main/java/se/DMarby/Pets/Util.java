@@ -300,6 +300,10 @@ public class Util {
             ((EntityHorse) entity).setType(0);
             ((EntityHorse) entity).setVariant(allvariants.get(rand.nextInt(allvariants.size())));
             ((EntityHorsePet) entity).giveShit();
+        } else if (pet.equalsIgnoreCase("enderman")) {
+            entity = new EntityEndermanPet(world, player, true);
+        } else if (pet.equalsIgnoreCase("spider")) {
+            entity = new EntitySpiderPet(world, player);
         }
         if (entity != null) {
             entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
@@ -352,6 +356,8 @@ public class Util {
         registerEntityClass(EntityPigZombiePet.class);
         registerEntityClass(EntityIronGolemPet.class);
         registerEntityClass(EntityHorsePet.class);
+        registerEntityClass(EntityEndermanPet.class);
+        registerEntityClass(EntitySpiderPet.class);
 
     }
 }

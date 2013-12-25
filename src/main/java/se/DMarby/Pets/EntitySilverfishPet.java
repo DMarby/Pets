@@ -49,6 +49,23 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
     }
 
     @Override
+    public boolean isInvulnerable(){
+        if(owner == null){
+            return super.isInvulnerable();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean L(){
+        if(owner == null){
+            return super.L();
+        }
+        return false;
+    }
+
+
+    @Override
     public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitSilverfishPet(this);

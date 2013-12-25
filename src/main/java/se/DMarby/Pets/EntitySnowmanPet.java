@@ -1,17 +1,19 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_7_R1.EntitySnowman;
-import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.GenericAttributes;
-import net.minecraft.server.v1_7_R1.World;
-
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftSnowman;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.entity.Snowman;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftSnowman;
+import org.bukkit.craftbukkit.v1_7_R1.util.CraftMagicNumbers;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowman;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntitySnowmanPet extends EntitySnowman { // new AI
 
@@ -41,13 +43,48 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
         if (owner == null){
             return;
         }
-        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.4F);
+        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5D);
         this.getNavigation().a(false);
+        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bn() * 0.15F);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }
     }
+
+    @Override
+    public void e() {
+        if (owner == null) {
+            super.e();
+            return;
+        }
+
+        try {
+            EntityCreature.class.getMethod("e").invoke(this);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isInvulnerable(){
+        if(owner == null){
+            return super.isInvulnerable();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean L(){
+        if(owner == null){
+            return super.L();
+        }
+        return false;
+    }
+
 
     @Override
     public CraftEntity getBukkitEntity() {

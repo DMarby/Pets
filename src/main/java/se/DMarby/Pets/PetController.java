@@ -10,10 +10,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -98,6 +95,15 @@ public class PetController implements Listener {
             return;
         }
         if (event.getBlock().getType() != Material.WHEAT || event.getBlock().getType() != Material.SOIL) {
+            return;
+        }
+        event.setCancelled(true);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityChangeBlock(EntityChangeBlockEvent event) {
+        PetEntity pet = getPet(event.getEntity());
+        if (pet == null) {
             return;
         }
         event.setCancelled(true);

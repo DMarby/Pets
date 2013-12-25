@@ -218,6 +218,8 @@ public class Pets extends JavaPlugin {
         pets.add("skeletonhorse");
         pets.add("ridablehorse");
 
+        pets.add("enderman");
+        pets.add("spider");
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");
         controller = new PetController(this);
