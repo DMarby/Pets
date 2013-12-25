@@ -37,13 +37,15 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
             super.bq();
             return;
         }
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.7F);
-        this.getNavigation().a(false);
-        getEntitySenses().a();
-        getNavigation().f();
-        getControllerMove().c();
-        getControllerLook().a();
-        getControllerJump().b();
+        if(distToOwner() > 3){
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.7F);
+            this.getNavigation().a(false);
+            getEntitySenses().a();
+            getNavigation().f();
+            getControllerMove().c();
+            getControllerLook().a();
+            getControllerJump().b();
+        }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }

@@ -50,13 +50,15 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
             super.bq();
             return;
         }
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 5F);
-        this.getNavigation().a(false);
-        getEntitySenses().a();
-        getNavigation().f();
-        getControllerMove().c(); // old API
-        getControllerLook().a(); // old API
-        getControllerJump().b(); // etc
+        if(distToOwner() > 3){
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 5F);
+            this.getNavigation().a(false);
+            getEntitySenses().a();
+            getNavigation().f();
+            getControllerMove().c(); // old API
+            getControllerLook().a(); // old API
+            getControllerJump().b(); // etc
+        }
         this.a(false);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);

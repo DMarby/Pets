@@ -52,7 +52,9 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         super.h();
         if (owner == null)
             return;
-        this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
+        if(distToOwner() > 3){
+            this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
+        }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
 

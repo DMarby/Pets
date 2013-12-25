@@ -41,8 +41,10 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
         if (owner == null){
             return;
         }
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
-        this.getNavigation().a(false);
+        if(distToOwner() > 3){
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
+            this.getNavigation().a(false);
+        }
         //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bn() * 0.15F);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);

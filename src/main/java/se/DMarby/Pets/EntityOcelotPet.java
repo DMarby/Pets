@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 
 public class EntityOcelotPet extends EntityOcelot { // new AI
     private final Player owner;
+    private int idletime = 0;
 
     public EntityOcelotPet(World world, Player owner) {
         super(world);
@@ -38,8 +39,17 @@ public class EntityOcelotPet extends EntityOcelot { // new AI
         super.bn();
         if (owner == null)
             return;
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1F);
-        this.getNavigation().a(false);
+        if(distToOwner() > 1){
+            idletime = 0;
+            this.setSitting(false);
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1F);
+            this.getNavigation().a(false);
+        }else{
+            idletime++;
+            if(idletime == 20){
+                this.setSitting(true);
+            }
+        }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }

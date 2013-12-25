@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 
 public class EntityWolfPet extends EntityWolf { // new AI
     private final Player owner;
+    private int idletime = 0;
 
     public EntityWolfPet(World world, Player owner) {
         super(world);
@@ -38,8 +39,17 @@ public class EntityWolfPet extends EntityWolf { // new AI
         super.bn();
         if (owner == null)
             return;
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.D);
-        this.getNavigation().a(false);
+        if(distToOwner() > 1){
+            idletime = 0;
+            this.setSitting(false);
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.D);
+            this.getNavigation().a(false);
+        }else{
+            idletime++;
+            if(idletime == 20){
+                this.setSitting(true);
+            }
+        }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }
