@@ -1,7 +1,7 @@
 package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.EntityZombie;
+import net.minecraft.server.v1_7_R1.EntityWitch;
 import net.minecraft.server.v1_7_R1.GenericAttributes;
 import net.minecraft.server.v1_7_R1.World;
 
@@ -9,23 +9,23 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftZombie;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftWitch;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.Witch;
 
-public class EntityZombiePet extends EntityZombie { // new AI
+public class EntityWitchPet extends EntityWitch { // new AI
     private final Player owner;
 
-    public EntityZombiePet(World world, Player owner) {
+    public EntityWitchPet(World world, Player owner) {
         super(world);
         this.owner = owner;
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
-            setBaby(true);
+            this.a(false);
         }
     }
 
-    public EntityZombiePet(World world) {
+    public EntityWitchPet(World world) {
         this(world, null);
     }
 
@@ -40,38 +40,32 @@ public class EntityZombiePet extends EntityZombie { // new AI
         super.bn();
         if (owner == null)
             return;
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
-        this.getNavigation().a(false);
+        this.a(false);
+        if(distToOwner() > 3){
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
+            this.getNavigation().a(false);
+        }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
-            return super.isInvulnerable();
-        }
-        return true;
-    }
-
-
-    @Override
     public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
-            bukkitEntity = new BukkitZombiePet(this);
+            bukkitEntity = new BukkitWitchPet(this);
         return super.getBukkitEntity();
     }
 
-    public static class BukkitZombiePet extends CraftZombie implements PetEntity {
+    public static class BukkitWitchPet extends CraftWitch implements PetEntity {
         private final Player owner;
 
-        public BukkitZombiePet(EntityZombiePet entity) {
+        public BukkitWitchPet(EntityWitchPet entity) {
             super((CraftServer) Bukkit.getServer(), entity);
             this.owner = entity.owner;
         }
 
         @Override
-        public Zombie getBukkitEntity() {
+        public Witch getBukkitEntity() {
             return this;
         }
 

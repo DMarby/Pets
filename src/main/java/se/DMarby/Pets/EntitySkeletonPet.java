@@ -1,7 +1,7 @@
 package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.EntityZombie;
+import net.minecraft.server.v1_7_R1.EntitySkeleton;
 import net.minecraft.server.v1_7_R1.GenericAttributes;
 import net.minecraft.server.v1_7_R1.World;
 
@@ -9,23 +9,36 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftZombie;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftSkeleton;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.Skeleton;
 
-public class EntityZombiePet extends EntityZombie { // new AI
+public class EntitySkeletonPet extends EntitySkeleton { // new AI
     private final Player owner;
+    private Boolean wither;
 
-    public EntityZombiePet(World world, Player owner) {
+    public EntitySkeletonPet(World world, Player owner) {
         super(world);
         this.owner = owner;
+        this.wither = false;
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
-            setBaby(true);
         }
     }
 
-    public EntityZombiePet(World world) {
+    public EntitySkeletonPet(World world, Player owner, Boolean wither) {
+        super(world);
+        this.owner = owner;
+        this.wither = wither;
+        if (owner != null) {
+            if(wither){
+                this.setSkeletonType(1);
+            }
+            Util.clearGoals(this.goalSelector, this.targetSelector);
+        }
+    }
+
+    public EntitySkeletonPet(World world) {
         this(world, null);
     }
 
@@ -40,10 +53,20 @@ public class EntityZombiePet extends EntityZombie { // new AI
         super.bn();
         if (owner == null)
             return;
-        this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
-        this.getNavigation().a(false);
+        if(distToOwner() > 3){
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
+            this.getNavigation().a(false);
+        }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
+    }
+
+    @Override
+    public float d(float f){
+        if(owner == null){
+            return super.d(f);
+        }
+        return 0;
     }
 
     @Override
@@ -58,20 +81,20 @@ public class EntityZombiePet extends EntityZombie { // new AI
     @Override
     public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
-            bukkitEntity = new BukkitZombiePet(this);
+            bukkitEntity = new BukkitSkeletonPet(this);
         return super.getBukkitEntity();
     }
 
-    public static class BukkitZombiePet extends CraftZombie implements PetEntity {
+    public static class BukkitSkeletonPet extends CraftSkeleton implements PetEntity {
         private final Player owner;
 
-        public BukkitZombiePet(EntityZombiePet entity) {
+        public BukkitSkeletonPet(EntitySkeletonPet entity) {
             super((CraftServer) Bukkit.getServer(), entity);
             this.owner = entity.owner;
         }
 
         @Override
-        public Zombie getBukkitEntity() {
+        public Skeleton getBukkitEntity() {
             return this;
         }
 

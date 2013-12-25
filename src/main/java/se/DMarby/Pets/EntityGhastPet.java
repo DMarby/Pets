@@ -3,21 +3,24 @@ package se.DMarby.Pets;
 import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftBlaze;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftGhast;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.entity.Blaze;
+import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Player;
 
-public class EntityBlazePet extends EntityBlaze { // old AI
+public class EntityGhastPet extends EntityGhast { // old AI
     private final Player owner;
 
-    public EntityBlazePet(World world, Player owner) {
+    public EntityGhastPet(World world, Player owner) {
         super(world);
         this.owner = owner;
+        if (owner != null){
+            this.f(false);
+        }
     }
 
-    public EntityBlazePet(World world) {
+    public EntityGhastPet(World world) {
         this(world, null);
     }
 
@@ -33,46 +36,36 @@ public class EntityBlazePet extends EntityBlaze { // old AI
             super.bq();
             return;
         }
-        /*this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 10F);
-        this.getNavigation().a(false);
-        getEntitySenses().a();
-        getNavigation().f();
-        getControllerMove().c();
-        getControllerLook().a();
-        getControllerJump().b();*/
+       /* this.getNavigation().a(owner.getLocation().getX(), owner.getEyeLocation().getY(), owner.getLocation().getZ(), 0.55F);
+        this.getNavigation().a(false);    */
 
-        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY(), (int)owner.getLocation().getZ());
+        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY() + 5, (int)owner.getLocation().getZ());
 
         double d1 = thing.x + 0.5D - this.locX;
         double d2 = thing.y + 0.1D - this.locY;
         double d3 = thing.z + 0.5D - this.locZ;
 
-        if (distToOwner() > 5) {
-            this.motY += (Math.signum(d2) * 1D - this.motY) * 0.1000000014901161D;
-            this.motX += (Math.signum(d1) * 0.25D - this.motX) * 0.1000000014901161D;
-            this.motZ += (Math.signum(d3) * 0.25D - this.motZ) * 0.1000000014901161D;
+        if (distToOwner() > 80) {
+            this.motY += (Math.signum(d2) * 0.5D - this.motY) * 0.1000000014901161D;
+            this.motX += (Math.signum(d1) * 0.3D - this.motX) * 0.1000000014901161D;
+            this.motZ += (Math.signum(d3) * 0.3D - this.motZ) * 0.1000000014901161D;
+            float f1 = (float)(Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
+            float f2 = MathHelper.g(f1 - this.yaw);
             this.bf = 0.5F;
+            this.yaw += f2;
         }else{
-            this.bf = 0;
             this.motX = 0;
             this.motZ = 0;
-
         }
 
-        float f1 = (float)(Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
-        float f2 = MathHelper.g(f1 - this.yaw);
-        this.yaw += f2;
+      /*  getEntitySenses().a();
+        getNavigation().f();
+        getControllerMove().c(); // old API
+        getControllerLook().a(); // old API
+        getControllerJump().b(); // etc     */
 
-        if (distToOwner() > Util.MAX_DISTANCE)
+        if (distToOwner() > (Util.MAX_DISTANCE * 2))
             this.getBukkitEntity().teleport(owner);
-    }
-
-    @Override
-    public boolean L(){
-        if(owner == null){
-            return super.L();
-        }
-        return false;
     }
 
     @Override
@@ -86,20 +79,20 @@ public class EntityBlazePet extends EntityBlaze { // old AI
     @Override
     public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
-            bukkitEntity = new BukkitBlazePet(this);
+            bukkitEntity = new BukkitGhastPet(this);
         return super.getBukkitEntity();
     }
 
-    public static class BukkitBlazePet extends CraftBlaze implements PetEntity {
+    public static class BukkitGhastPet extends CraftGhast implements PetEntity {
         private final Player owner;
 
-        public BukkitBlazePet(EntityBlazePet entity) {
+        public BukkitGhastPet(EntityGhastPet entity) {
             super((CraftServer) Bukkit.getServer(), entity);
             this.owner = entity.owner;
         }
 
         @Override
-        public Blaze getBukkitEntity() {
+        public Ghast getBukkitEntity() {
             return this;
         }
 

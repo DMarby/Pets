@@ -304,6 +304,14 @@ public class Util {
             entity = new EntityEndermanPet(world, player, true);
         } else if (pet.equalsIgnoreCase("spider")) {
             entity = new EntitySpiderPet(world, player);
+        } else if (pet.equalsIgnoreCase("ghast")) {
+            entity = new EntityGhastPet(world, player);
+        } else if (pet.equalsIgnoreCase("witch")) {
+            entity = new EntityWitchPet(world, player);
+        } else if (pet.equalsIgnoreCase("skeleton")) {
+            entity = new EntitySkeletonPet(world, player);
+        } else if (pet.equalsIgnoreCase("witherskeleton")) {
+            entity = new EntitySkeletonPet(world, player, true);
         }
         if (entity != null) {
             entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
@@ -358,6 +366,9 @@ public class Util {
         registerEntityClass(EntityHorsePet.class);
         registerEntityClass(EntityEndermanPet.class);
         registerEntityClass(EntitySpiderPet.class);
+        registerEntityClass(EntityGhastPet.class);
+        registerEntityClass(EntityWitchPet.class);
+        registerEntityClass(EntitySkeletonPet.class);
 
     }
 }
