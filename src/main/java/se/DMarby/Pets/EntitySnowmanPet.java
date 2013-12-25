@@ -52,24 +52,6 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    public void e() {
-        if (owner == null) {
-            super.e();
-            return;
-        }
-
-        try {
-            EntityCreature.class.getMethod("e").invoke(this);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public boolean isInvulnerable(){
         if(owner == null){
             return super.isInvulnerable();
