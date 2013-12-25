@@ -224,6 +224,11 @@ public class Pets extends JavaPlugin {
         pets.add("witch");
         pets.add("skeleton");
         pets.add("witherskeleton");
+        pets.add("wither");
+        pets.add("bluewither");
+        pets.add("witherskull");
+        pets.add("bluewitherskull");
+       // pets.add("enderdragon");
 
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");

@@ -1,7 +1,6 @@
 package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.*;
-
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
@@ -9,6 +8,9 @@ import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPigZombie;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class EntityPigZombiePet extends EntityPigZombie { // new AI
     private final Player owner;
@@ -19,6 +21,10 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
             setBaby(true);
+            String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
+            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+                Util.easterEgg(this.getBukkitEntity());
+            }
         }
     }
 
@@ -53,7 +59,12 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         if (owner == null)
             return;
         if(distToOwner() > 3){
-            this.getNavigation().a(((CraftPlayer) owner).getHandle(), 0.3F);
+            this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.3F);
+            this.getNavigation().a(false);
+        }else{
+            this.motX = 0;
+            this.bf = 0;
+            this.motZ = 0;
         }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);

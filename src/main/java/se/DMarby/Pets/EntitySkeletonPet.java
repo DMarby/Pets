@@ -2,9 +2,7 @@ package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.EntityHuman;
 import net.minecraft.server.v1_7_R1.EntitySkeleton;
-import net.minecraft.server.v1_7_R1.GenericAttributes;
 import net.minecraft.server.v1_7_R1.World;
-
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
@@ -12,6 +10,9 @@ import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftSkeleton;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class EntitySkeletonPet extends EntitySkeleton { // new AI
     private final Player owner;
@@ -23,6 +24,10 @@ public class EntitySkeletonPet extends EntitySkeleton { // new AI
         this.wither = false;
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
+            String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
+            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+                Util.easterEgg(this.getBukkitEntity());
+            }
         }
     }
 
@@ -31,10 +36,14 @@ public class EntitySkeletonPet extends EntitySkeleton { // new AI
         this.owner = owner;
         this.wither = wither;
         if (owner != null) {
+            Util.clearGoals(this.goalSelector, this.targetSelector);
             if(wither){
                 this.setSkeletonType(1);
             }
-            Util.clearGoals(this.goalSelector, this.targetSelector);
+            String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
+            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+                Util.easterEgg(this.getBukkitEntity());
+            }
         }
     }
 

@@ -2,9 +2,7 @@ package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.EntityHuman;
 import net.minecraft.server.v1_7_R1.EntityZombie;
-import net.minecraft.server.v1_7_R1.GenericAttributes;
 import net.minecraft.server.v1_7_R1.World;
-
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
@@ -12,6 +10,9 @@ import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class EntityZombiePet extends EntityZombie { // new AI
     private final Player owner;
@@ -22,6 +23,10 @@ public class EntityZombiePet extends EntityZombie { // new AI
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
             setBaby(true);
+            String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
+            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+                Util.easterEgg(this.getBukkitEntity());
+            }
         }
     }
 

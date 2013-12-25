@@ -2,14 +2,17 @@ package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.Entity;
 import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -89,9 +92,9 @@ public class Util {
         throw new IllegalArgumentException("unable to find valid entity superclass");
     }
 
-    public static LivingEntity spawnPet(Player player, String pet) {
+    public static org.bukkit.entity.Entity spawnPet(Player player, String pet) {
         World world = ((CraftWorld) player.getWorld()).getHandle();
-        EntityLiving entity = null;
+        Entity entity = null;
         if (pet.equalsIgnoreCase("slime")) {
             entity = new EntitySlimePet(world, player);
             ((Slime) entity.getBukkitEntity()).setSize(1);
@@ -312,12 +315,22 @@ public class Util {
             entity = new EntitySkeletonPet(world, player);
         } else if (pet.equalsIgnoreCase("witherskeleton")) {
             entity = new EntitySkeletonPet(world, player, true);
+        } else if (pet.equalsIgnoreCase("wither")) {
+            entity = new EntityWitherPet(world, player);
+        } else if (pet.equalsIgnoreCase("bluewither")) {
+            entity = new EntityWitherPet(world, player, true);
+        } else if (pet.equalsIgnoreCase("witherskull")) {
+            entity = new EntityWitherSkullPet(world, player);
+        } else if (pet.equalsIgnoreCase("bluewitherskull")) {
+            entity = new EntityWitherSkullPet(world, player, true);
+        } else if (pet.equalsIgnoreCase("enderdragon")) {
+            entity = new EntityEnderDragonPet(world, player);
         }
         if (entity != null) {
             entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
             world.addEntity(entity, SpawnReason.CUSTOM);
             entity.getBukkitEntity().teleport(player);
-            return (LivingEntity) entity.getBukkitEntity();
+            return (org.bukkit.entity.Entity) entity.getBukkitEntity();
         }
         System.err.println("Pet is null!");
         return null;
@@ -331,6 +344,17 @@ public class Util {
         catch(NumberFormatException nfe) {
                 return false;
         }
+    }
+
+    public static void easterEgg(CraftEntity entity){
+        ((LivingEntity) entity).getEquipment().setItemInHand(new org.bukkit.inventory.ItemStack(org.bukkit.Material.CHEST));
+        ((LivingEntity) entity).getEquipment().setItemInHandDropChance(0);
+        org.bukkit.inventory.ItemStack hat = new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_HELMET);
+        LeatherArmorMeta hm = (LeatherArmorMeta) hat.getItemMeta();;
+        hm.setColor(Color.RED);
+        hat.setItemMeta(hm);
+        ((LivingEntity) entity).getEquipment().setHelmet(hat);
+        ((LivingEntity) entity).getEquipment().setHelmetDropChance(0);
     }
 
     static {
@@ -369,6 +393,9 @@ public class Util {
         registerEntityClass(EntityGhastPet.class);
         registerEntityClass(EntityWitchPet.class);
         registerEntityClass(EntitySkeletonPet.class);
+        registerEntityClass(EntityWitherPet.class);
+        registerEntityClass(EntityWitherSkullPet.class);
+        registerEntityClass(EntityEnderDragonPet.class);
 
     }
 }

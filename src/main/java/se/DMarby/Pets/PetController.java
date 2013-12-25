@@ -18,6 +18,8 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
 
 public class PetController implements Listener {
@@ -318,8 +320,13 @@ public class PetController implements Listener {
         private void spawn(String type, String name, String item) {
             Entity entity = Util.spawnPet(player, type);
             pet = entity;
-            setName(name);
-            setItem(item);
+            if(pet instanceof LivingEntity){
+                setName(name);
+                String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
+                if(!timestamp.equalsIgnoreCase("1225") && !timestamp.equalsIgnoreCase("1224")){
+                    setItem(item);
+                }
+            }
         }
 
         /*private void spawnAtLevel(int level) {
