@@ -2,29 +2,35 @@ package se.DMarby.Pets;
 
 import net.minecraft.server.v1_7_R1.Entity;
 import net.minecraft.server.v1_7_R1.*;
-import org.bukkit.Color;
-import org.bukkit.DyeColor;
+import net.minecraft.server.v1_7_R1.World;
+import org.bukkit.*;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import se.DMarby.Pets.pet.*;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class Util {
 
     private static Map<Class<? extends Entity>, Integer> ENTITY_CLASS_TO_INT;
     private static Map<Integer, Class<? extends Entity>> ENTITY_INT_TO_CLASS;
+    private static List<String> spawned = new ArrayList();
+    public static String PERMISSIONS_MESSAGE;
     public static double MAX_DISTANCE = 10 * 10;
     public static boolean removeInFight = false;
     public static int MAX_LEVEL = -1;
@@ -72,6 +78,10 @@ public class Util {
         if(!config.isSet("remove-in-fight")){
             config.set("remove-in-fight", false);
         }
+        if(!config.isSet("permissions_message")){
+            config.set("permissions_message", "§cYou do not have access to this pet!");
+        }
+        PERMISSIONS_MESSAGE = config.getString("permissions_message");
         removeInFight = config.getBoolean("remove-in-fight");
     }
 
@@ -330,6 +340,30 @@ public class Util {
             entity.setPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
             world.addEntity(entity, SpawnReason.CUSTOM);
             entity.getBukkitEntity().teleport(player);
+            String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
+            if(timestamp.equalsIgnoreCase("1226") || timestamp.equalsIgnoreCase("1231") || timestamp.equalsIgnoreCase("0101")){
+                if(!spawned.contains(player.getName())){
+                    for(int i = 0; i < 10; i++){
+                        final Player finalPlayer = player;
+                        final Entity finalEntity = entity;
+                        Pets.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Pets.getInstance(), new Runnable() {
+                            @Override
+                            public void run() {
+                                Firework fw = finalPlayer.getPlayer().getWorld().spawn(finalEntity.getBukkitEntity().getLocation(), Firework.class);
+                                fw.setFireworkMeta(getFireworkMeta(fw.getFireworkMeta()));;
+                            }
+                        }, 7L * i);
+                    }
+                    spawned.add(player.getName());
+                    final String name = player.getName();
+                    Pets.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Pets.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            spawned.remove(name);
+                        }
+                    }, 20L * 15);
+                }
+            }
             return (org.bukkit.entity.Entity) entity.getBukkitEntity();
         }
         System.err.println("Pet is null!");
@@ -355,6 +389,124 @@ public class Util {
         hat.setItemMeta(hm);
         ((LivingEntity) entity).getEquipment().setHelmet(hat);
         ((LivingEntity) entity).getEquipment().setHelmetDropChance(0);
+    }
+
+    public static void setInventoryItem(int slot, CraftInventory inventory, CraftItemStack item) {
+        try {
+            Field field = CraftItemStack.class.getDeclaredField("handle");
+            field.setAccessible(true);
+            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_7_R1.ItemStack) field.get(item));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static CraftItemStack makeItemStack(org.bukkit.Material material, int amount, short damage, String name, List<String> description) {
+        ItemStack internal = new ItemStack(material, amount, damage);
+        return makeItemStack(internal, name, description);
+    }
+
+    public static CraftItemStack makeItemStack(ItemStack base, String name, List<String> description) {
+        base = base.clone();
+        ItemMeta meta = base.getItemMeta();
+        meta.setDisplayName(name);
+        meta.setLore(description);
+        base.setItemMeta(meta);
+        return removeAttributes(CraftItemStack.asCraftCopy(base));
+    }
+
+    public static CraftItemStack removeAttributes(CraftItemStack itemStack) {
+        if (itemStack == null)
+            return null;
+        net.minecraft.server.v1_7_R1.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
+        NBTTagCompound tag;
+        if (!item.hasTag()) {
+            tag = new NBTTagCompound();
+            item.setTag(tag);
+        } else {
+            tag = item.getTag();
+        }
+        NBTTagList am = new NBTTagList();
+        tag.set("AttributeModifiers", am);
+        item.setTag(tag);
+        return CraftItemStack.asCraftMirror(item);
+    }
+
+    public static CraftItemStack makeItemStack(Material material, int amount, String name, List<String> description) {
+        ItemStack internal = new ItemStack(material, amount);
+        return makeItemStack(internal, name, description);
+    }
+
+    public static FireworkMeta getFireworkMeta(FireworkMeta input) {
+        FireworkEffect effect = FireworkEffect.builder().flicker(rand.nextBoolean()).withColor(getColor(rand.nextInt(17) + 1)).withFade(getColor(rand.nextInt(17) + 1)).with(randomEnum(FireworkEffect.Type.class)).trail(rand.nextBoolean()).build();
+        input.addEffect(effect);
+        int power = rand.nextInt(2) + 1;
+        input.setPower(power);
+        return input;
+    }
+
+    public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
+        int x = rand.nextInt(clazz.getEnumConstants().length);
+        return clazz.getEnumConstants()[x];
+    }
+
+    public static Color getColor(int c) {
+        switch (c) {
+            case 1:
+            default:
+                return Color.AQUA;
+            case 2:
+                return Color.BLACK;
+            case 3:
+                return Color.BLUE;
+            case 4:
+                return Color.FUCHSIA;
+            case 5:
+                return Color.GRAY;
+            case 6:
+                return Color.GREEN;
+            case 7:
+                return Color.LIME;
+            case 8:
+                return Color.MAROON;
+            case 9:
+                return Color.NAVY;
+            case 10:
+                return Color.OLIVE;
+            case 11:
+                return Color.ORANGE;
+            case 12:
+                return Color.PURPLE;
+            case 13:
+                return Color.RED;
+            case 14:
+                return Color.SILVER;
+            case 15:
+                return Color.TEAL;
+            case 16:
+                return Color.YELLOW;
+            case 17:
+                return Color.WHITE;
+        }
+    }
+
+    public static CraftItemStack[] makeCraftItemStacks(ItemStack base, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
+        base = base.clone();
+        CraftItemStack[] out = new CraftItemStack[colors.length];
+        for (int i = 0; i < colors.length; i++) {
+            CraftItemStack itemStack = CraftItemStack.asCraftCopy(base);
+            ItemMeta meta = itemStack.getItemMeta();
+            meta.setDisplayName(colors[i] + (stripColors[i] ? ChatColor.stripColor(name) : name));
+            meta.setLore(description);
+            itemStack.setItemMeta(meta);
+            out[i] = removeAttributes(itemStack);
+        }
+        return out;
+    }
+
+    public static CraftItemStack[] makeCraftItemStacks(Material material, int amount, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
+        ItemStack internal = new ItemStack(material, amount);
+        return makeCraftItemStacks(internal, name, description, colors, stripColors);
     }
 
     static {
