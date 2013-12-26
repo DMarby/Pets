@@ -32,7 +32,7 @@ public class Pets extends JavaPlugin {
             return false;
         }
         if (args.length == 1) {
-            if (!sender.hasPermission("pet.toggle")) {
+            if (!sender.hasPermission("pet.toggle") && !sender.hasPermission("pet.admin")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
@@ -59,7 +59,7 @@ public class Pets extends JavaPlugin {
                 return true;
             }
 
-            if (!sender.hasPermission("pet." + args[0].toLowerCase())) {
+            if (!sender.hasPermission("pet." + args[0].toLowerCase()) && !sender.hasPermission("pet.admin")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
@@ -80,14 +80,14 @@ public class Pets extends JavaPlugin {
                 sender.sendMessage(ChatColor.GRAY + "Must be ingame.");
                 return true;
             }
-            if (!sender.hasPermission("pet.toggle")) {
+            if (!sender.hasPermission("pet.toggle") && !sender.hasPermission("pet.admin")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
             if (Strings.isNullOrEmpty(controller.getType((Player) sender))) {
                 String list = "";
                 for (String pet : pets) {
-                    if (sender.hasPermission("pet." + pet.toLowerCase())) {
+                    if (sender.hasPermission("pet." + pet.toLowerCase()) && !sender.hasPermission("pet.admin")) {
                         String the_pet = pet.substring(0, 1).toUpperCase() + pet.substring(1);
                         list += the_pet + ", ";
                     }
