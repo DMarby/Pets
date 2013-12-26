@@ -3,6 +3,7 @@ package se.DMarby.Pets;
 import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import se.DMarby.Pets.pet.EntityHorsePet;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,7 +64,7 @@ public class PetController implements Listener {
     public String getName(Player player) {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).name;
     }
-    
+
     public String getItem(Player player) {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).item;
     }
@@ -191,6 +193,17 @@ public class PetController implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
+    public void onExplosionPrime(ExplosionPrimeEvent event){
+        PetEntity pet = getPet(event.getEntity());
+        if (pet == null) {
+            return;
+        }
+        ((CraftEntity) event.getEntity()).getHandle().getDataWatcher().watch(16, Byte.valueOf((byte)-1));
+        ((CraftEntity) event.getEntity()).getHandle().getDataWatcher().watch(18, Byte.valueOf((byte)0));
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDamage(EntityDamageByEntityEvent event){
         if(Util.removeInFight){
             if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
@@ -251,7 +264,7 @@ public class PetController implements Listener {
         }
         data.setName(name);
     }
-    
+
     public void setItem(Player player, String item){
         PlayerData data = playerData.get(player.getName());
         if (data == null) {
@@ -264,19 +277,19 @@ public class PetController implements Listener {
     private final Player player;
     private final long startTime = System.currentTimeMillis();
     private int taskId;
-    
+
     CreationTask(Player player) {
     this.player = player;
     }
-    
+
     void cancel() {
     Bukkit.getScheduler().cancelTask(taskId);
     }
-    
+
     long getRunDuration() {
     return System.currentTimeMillis() - startTime;
     }
-    
+
     @Override
     public void run() {
     PlayerData data = playerData.get(player.getName());
@@ -284,7 +297,7 @@ public class PetController implements Listener {
     data.upgradeSlime();
     scheduleTask(player, 0);
     }
-    
+
     void schedule(long ticks) {
     taskId = Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, ticks);
     playerData.get(player.getName()).task = this;
@@ -340,7 +353,7 @@ public class PetController implements Listener {
         /*public long getAliveTime() {
         return aliveTime + (task == null ? 0 : task.getRunDuration());
         }
-        
+
         private int getLevel() {
         return (int) (getAliveTime() / timePeriod);
         }*/
@@ -405,12 +418,12 @@ public class PetController implements Listener {
             }
 
         }
-        
+
         public void setItem(String item){
             if(pet == null){
                 return;
             }
-            
+
             if(item != null) {
 	            Material mat;
 	            if(Util.isInt(item)){
@@ -418,7 +431,7 @@ public class PetController implements Listener {
 	            }else{
 	            	mat = Material.getMaterial(item.toUpperCase());
 	            }
-	            
+
 	            if(mat != null){
 	                this.item = item;
 	                ((LivingEntity) pet).getEquipment().setItemInHand(new ItemStack(mat));
