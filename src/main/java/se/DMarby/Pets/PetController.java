@@ -409,12 +409,16 @@ public class PetController implements Listener {
 
             if(name != null){
                 this.name = name;
-                ((LivingEntity) pet).setCustomName(name);
-                ((LivingEntity) pet).setCustomNameVisible(true);
+                if(pet instanceof LivingEntity){
+                    ((LivingEntity) pet).setCustomName(name);
+                    ((LivingEntity) pet).setCustomNameVisible(true);
+                }
             }else{
                 this.name = null;
-                ((LivingEntity) pet).setCustomName(null);
-                ((LivingEntity) pet).setCustomNameVisible(false);
+                if(pet instanceof LivingEntity){
+                    ((LivingEntity) pet).setCustomName(null);
+                    ((LivingEntity) pet).setCustomNameVisible(false);
+                }
             }
 
         }
@@ -434,14 +438,17 @@ public class PetController implements Listener {
 
 	            if(mat != null){
 	                this.item = item;
-	                ((LivingEntity) pet).getEquipment().setItemInHand(new ItemStack(mat));
-	                ((LivingEntity) pet).getEquipment().setItemInHandDropChance(0);
+                    if(pet instanceof LivingEntity){
+                        ((LivingEntity) pet).getEquipment().setItemInHand(new ItemStack(mat));
+	                    ((LivingEntity) pet).getEquipment().setItemInHandDropChance(0);
+                    }
 	                return;
 	            }
             }
             this.item = null;
-            ((LivingEntity) pet).getEquipment().clear();
-
+            if(pet instanceof LivingEntity){
+                ((LivingEntity) pet).getEquipment().clear();
+            }
         }
         /*public void upgradeSlime() {
         if (!petActive)
