@@ -43,7 +43,7 @@ public class Pets extends JavaPlugin {
             if (args[0].equalsIgnoreCase("list")) {
                 String list = "";
                 for (String pet : pets) {
-                    String the_pet = (sender.hasPermission("pet." + pet.toLowerCase()) ? ChatColor.GREEN : ChatColor.RED) + pet.substring(0, 1).toUpperCase() + pet.substring(1);
+                    String the_pet = ((sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.admin")) ? ChatColor.GREEN : ChatColor.RED) + pet.substring(0, 1).toUpperCase() + pet.substring(1);
                     list += the_pet + ", ";
                 }
                 if (list.length() <= 1) {
@@ -87,7 +87,7 @@ public class Pets extends JavaPlugin {
             if (Strings.isNullOrEmpty(controller.getType((Player) sender))) {
                 String list = "";
                 for (String pet : pets) {
-                    if (sender.hasPermission("pet." + pet.toLowerCase()) && !sender.hasPermission("pet.admin")) {
+                    if (sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.admin")) {
                         String the_pet = pet.substring(0, 1).toUpperCase() + pet.substring(1);
                         list += the_pet + ", ";
                     }
