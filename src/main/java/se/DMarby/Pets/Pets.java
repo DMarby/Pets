@@ -254,7 +254,7 @@ public class Pets extends JavaPlugin {
         pets.add("cow");
         pets.add("magmacube");
         pets.add("mooshroom");
-        pets.add("ocelot");
+        pets.add("wildcat");
         pets.add("pig");
         pets.add("silverfish");
         pets.add("slime");

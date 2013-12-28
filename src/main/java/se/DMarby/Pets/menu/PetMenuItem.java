@@ -26,10 +26,9 @@ public class PetMenuItem {
             case "zombiepigman":
                 return EntityType.PIG_ZOMBIE.getTypeId();
             case "blackcat":
-            case "ocelot":
+            case "wildcat":
             case "redcat":
             case "siamesecat":
-            case "bigcat":
                 return EntityType.OCELOT.getTypeId();
             case "wolf":
             case "dog":
