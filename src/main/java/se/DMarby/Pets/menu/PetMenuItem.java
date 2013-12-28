@@ -110,9 +110,7 @@ public class PetMenuItem {
             }
         } else {
             String the_name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            if (name.equalsIgnoreCase("bigcat")) {
-                the_name = "Adult Ocelot";
-            } else if (name.endsWith("horse") && !name.equalsIgnoreCase("horse")) {
+            if (name.endsWith("horse") && !name.equalsIgnoreCase("horse")) {
                 String temp = name.replace("horse", "");
                 the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " horse";
             } else if (name.endsWith("cat") && !name.equalsIgnoreCase("cat")) {
