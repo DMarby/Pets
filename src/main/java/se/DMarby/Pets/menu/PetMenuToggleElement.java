@@ -21,6 +21,10 @@ public class PetMenuToggleElement extends MenuElement {
             player.getPlayer().sendMessage(ChatColor.RED + "You need to select a pet before you can toggle it!");
             return true;
         }
+        if (!player.hasPermission("pet.toggle")  && !player.hasPermission("pet.admin")) {
+            player.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+            return true;
+        }
         Pets.getInstance().controller.togglePet(player.getPlayer());
         return true;
     }

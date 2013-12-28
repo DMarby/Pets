@@ -146,7 +146,7 @@ public class PetMenuItem {
     }
 
     public Boolean hasPermission(Player player) {
-        if(player.hasPermission(s) || player.hasPermission("pet.admin")){
+        if(player.hasPermission(s) || player.hasPermission("pet.baby" + name) || player.hasPermission("pet.admin")){
             return true;
         }
         return false;

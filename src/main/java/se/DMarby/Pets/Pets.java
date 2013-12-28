@@ -41,25 +41,14 @@ public class Pets extends JavaPlugin {
                 return true;
             }
             if (args[0].equalsIgnoreCase("list")) {
-                String list = "";
-                for (String pet : pets) {
-                    String the_pet = ((sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.admin")) ? ChatColor.GREEN : ChatColor.RED) + pet.substring(0, 1).toUpperCase() + pet.substring(1);
-                    list += the_pet + ", ";
-                }
-                if (list.length() <= 1) {
-                    sender.sendMessage(ChatColor.GRAY + "No available pets.");
-                    return true;
-                }
-                sender.sendMessage(ChatColor.GREEN + "Available pets:");
-                sender.sendMessage(ChatColor.GREEN + list.substring(0, list.length() - 2));
-                sender.sendMessage(ChatColor.GREEN + "Do /pet <pettype> to select a pet!");
+                listPets(sender);
                 return true;
             }else if(args[0].equalsIgnoreCase("help")){
                 displayHelp(sender);
                 return true;
             }
 
-            if (!sender.hasPermission("pet." + args[0].toLowerCase()) && !sender.hasPermission("pet.admin")) {
+            if (!sender.hasPermission("pet." + args[0].toLowerCase()) && !sender.hasPermission("pet.baby" + args[0].toLowerCase()) && !sender.hasPermission("pet.admin")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
@@ -80,25 +69,12 @@ public class Pets extends JavaPlugin {
                 sender.sendMessage(ChatColor.GRAY + "Must be ingame.");
                 return true;
             }
-            if (!sender.hasPermission("pet.toggle") && !sender.hasPermission("pet.admin")) {
+            if (!sender.hasPermission("pet.toggle")  && !sender.hasPermission("pet.admin")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
             if (Strings.isNullOrEmpty(controller.getType((Player) sender))) {
-                String list = "";
-                for (String pet : pets) {
-                    if (sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.admin")) {
-                        String the_pet = pet.substring(0, 1).toUpperCase() + pet.substring(1);
-                        list += the_pet + ", ";
-                    }
-                }
-                if (list.length() <= 1) {
-                    sender.sendMessage(ChatColor.RED + "No pet available.");
-                    return true;
-                }
-                sender.sendMessage(ChatColor.GREEN + "Available pets:");
-                sender.sendMessage(ChatColor.GREEN + list.substring(0, list.length() - 2));
-                sender.sendMessage(ChatColor.GREEN + "Do /pet <petType> to select a pet!");
+                listPets(sender);
                 return true;
             }
             controller.togglePet((Player) sender);
@@ -223,6 +199,21 @@ public class Pets extends JavaPlugin {
             displayHelp(sender);
             return true;
         }
+    }
+
+    public void listPets(CommandSender sender){
+        String list = "";
+        for (String pet : pets) {
+            String the_pet = ((sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.baby" + pet.toLowerCase()) || sender.hasPermission("pet.admin")) ? ChatColor.GREEN : ChatColor.RED) + pet.substring(0, 1).toUpperCase() + pet.substring(1);
+            list += the_pet + ", ";
+        }
+        if (list.length() <= 1) {
+            sender.sendMessage(ChatColor.GRAY + "No available pets.");
+            return;
+        }
+        sender.sendMessage(ChatColor.GREEN + "Available pets:");
+        sender.sendMessage(ChatColor.GREEN + list.substring(0, list.length() - 2));
+        sender.sendMessage(ChatColor.GREEN + "Do /pet <pettype> to select a pet!");
     }
 
     public void displayHelp(CommandSender sender){
