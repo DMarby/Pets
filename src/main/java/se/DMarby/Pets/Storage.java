@@ -1,9 +1,8 @@
 package se.DMarby.Pets;
 
-import java.io.File;
-import java.io.IOException;
-
+import com.google.common.io.Files;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,7 +11,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.google.common.io.Files;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Storage implements Listener {
 
@@ -31,22 +33,22 @@ public class Storage implements Listener {
     }
 
     /*private long getAliveTime(Player player) {
-    return store.getLong(player.getName() + ".alivetime", 0);
+    return store.getLong(player.getUniqueId().toString() + ".alivetime", 0);
     }*/
     private String getType(Player player) {
-        return store.getString(player.getName() + ".type");
+        return store.getString(player.getUniqueId().toString() + ".type");
     }
 
     private String getName(Player player) {
-        return store.getString(player.getName() + ".name");
+        return store.getString(player.getUniqueId().toString() + ".name");
     }
     
     private String getItem(Player player) {
-        return store.getString(player.getName() + ".item");
+        return store.getString(player.getUniqueId().toString() + ".item");
     }
 
     private boolean isEnabled(Player player) {
-        return store.getBoolean(player.getName() + ".active", false);
+        return store.getBoolean(player.getUniqueId().toString() + ".active", false);
     }
 
     public void load() {
@@ -56,6 +58,15 @@ public class Storage implements Listener {
     }
 
     private void loadPlayer(Player player) {
+        ConfigurationSection cs = store.getConfigurationSection(player.getName());
+        if(cs != null){
+            Map<String, Object> section = new HashMap();
+            for(String s : cs.getKeys(false)){
+                section.put(s, cs.get(s));
+            }
+            store.createSection(player.getUniqueId().toString(), section);
+            store.set(player.getName(), null);
+        }
         if (!player.hasPermission("pet.toggle")) {
             return;
         }
@@ -92,16 +103,16 @@ public class Storage implements Listener {
         /*if (!player.hasPermission("pet.spawn"))
         return;
         long newAliveTime = backend.getAliveTime(player);
-        store.set(player.getName() + ".alivetime", newAliveTime); */
-        store.set(player.getName() + ".active", backend.isActive(player));
+        store.set(player.getUniqueId().toString() + ".alivetime", newAliveTime); */
+        store.set(player.getUniqueId().toString() + ".active", backend.isActive(player));
         String type = backend.getType(player);
         if (type != null) {
-            store.set(player.getName() + ".type", type);
+            store.set(player.getUniqueId().toString() + ".type", type);
         }
         String name = backend.getName(player);
         String item = backend.getItem(player);
-        store.set(player.getName() + ".name", name);
-        store.set(player.getName() + ".item", item);
+        store.set(player.getUniqueId().toString() + ".name", name);
+        store.set(player.getUniqueId().toString() + ".item", item);
         backend.removePet(player, true);
     }
 }
