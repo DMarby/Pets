@@ -91,8 +91,8 @@ public class Pets extends JavaPlugin {
                         sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
                         return true;
                     }
-                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1].substring(0, Math.min(args[1].length(), 24))).replace("&s", " "));
-                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].substring(0, Math.min(args[1].length(), 24)).replace("&s", " "));
+                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1].replace("&b&b&r","").substring(0, Math.min(args[1].length(), 24))).replace("&s", " "));
+                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].replace("&b&b&r","").substring(0, Math.min(args[1].length(), 24)).replace("&s", " "));
                 }else if(args.length == 3){
                     if(!sender.hasPermission("pet.admin")){
                         displayHelp(sender);
@@ -108,8 +108,8 @@ public class Pets extends JavaPlugin {
                         sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
                         return true;
                     }
-                    controller.setName(player, ChatColor.translateAlternateColorCodes('&', args[2].substring(0, Math.min(args[2].length(), 24))).replace("&s", " "));
-                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[2].substring(0, Math.min(args[2].length(), 24)).replace("&s", " "));
+                    controller.setName(player, ChatColor.translateAlternateColorCodes('&', args[2].substring(0, Math.min(args[2].length(), 30))).replace("&s", " "));
+                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[2].substring(0, Math.min(args[2].length(), 30)).replace("&s", " "));
 
                 }
                 return true;
