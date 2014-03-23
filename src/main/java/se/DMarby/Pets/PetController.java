@@ -3,7 +3,7 @@ package se.DMarby.Pets;
 import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -213,7 +213,7 @@ public class PetController implements Listener {
                      removePet(a, false);
                      removePet(b, false);
                  }else{
-                     Entity shooter = ((Projectile) event.getDamager()).getShooter();
+                     Entity shooter = ((Projectile) event.getDamager())._INVALID_getShooter();
                      if (shooter instanceof Player) {
                          Player a = (Player) event.getEntity();
                          Player b = (Player) shooter;

@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPigZombie;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPigZombie;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import se.DMarby.Pets.PetEntity;
@@ -61,7 +61,7 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         if (owner == null){
             return;
         }
-        this.X = 10F;
+        this.W = 10F;
         if(distToOwner() > 3){
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.3F);
             this.getNavigation().a(false);

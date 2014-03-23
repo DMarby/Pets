@@ -1,12 +1,12 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftWither;
+import org.bukkit.craftbukkit.v1_7_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftWither;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wither;
 import se.DMarby.Pets.PetEntity;
@@ -48,9 +48,9 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    protected void bn() {
+    protected void bm() {
         if (owner == null){
-            super.bn();
+            super.bm();
             return;
         }
 
@@ -87,9 +87,9 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    public boolean bZ(){
+    public boolean cb(){
         if(owner == null || blue){
-            return super.bZ();
+            return super.cb();
         }
         return false;
     }

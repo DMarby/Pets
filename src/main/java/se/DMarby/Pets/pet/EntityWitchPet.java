@@ -1,14 +1,14 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.EntityWitch;
-import net.minecraft.server.v1_7_R1.World;
+import net.minecraft.server.v1_7_R2.EntityHuman;
+import net.minecraft.server.v1_7_R2.EntityWitch;
+import net.minecraft.server.v1_7_R2.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftWitch;
+import org.bukkit.craftbukkit.v1_7_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftWitch;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Witch;
 import se.DMarby.Pets.PetEntity;
@@ -37,12 +37,12 @@ public class EntityWitchPet extends EntityWitch { // new AI
     }
 
     @Override
-    protected void bn() {
-        super.bn();
+    protected void bm() {
+        super.bm();
         if (owner == null){
             return;
         }
-        this.X = 10F;
+        this.W = 10F;
         this.a(false);
         if(distToOwner() > 3){
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);

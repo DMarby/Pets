@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftBat;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftBat;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -19,7 +19,7 @@ public class EntityBatPet extends EntityBat { // old AI
         this.owner = owner;
         if (owner != null){
             this.f(false);
-            this.a(false);
+            setStartled(false);
         }
     }
 
@@ -34,9 +34,9 @@ public class EntityBatPet extends EntityBat { // old AI
     }
 
     @Override
-    protected void bn() {
+    protected void bm() {
         if (owner == null) {
-            super.bn();
+            super.bm();
             return;
         }
 
