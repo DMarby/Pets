@@ -213,7 +213,7 @@ public class PetController implements Listener {
                      removePet(a, false);
                      removePet(b, false);
                  }else{
-                     Entity shooter = ((Projectile) event.getDamager())._INVALID_getShooter();
+                     Entity shooter = ((Entity)((Projectile) event.getDamager()).getShooter());
                      if (shooter instanceof Player) {
                          Player a = (Player) event.getEntity();
                          Player b = (Player) shooter;
