@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.projectiles.ProjectileSource;
 import se.DMarby.Pets.pet.EntityHorsePet;
 
 import java.text.SimpleDateFormat;
@@ -213,7 +214,7 @@ public class PetController implements Listener {
                      removePet(a, false);
                      removePet(b, false);
                  }else{
-                     Entity shooter = ((Entity)((Projectile) event.getDamager()).getShooter());
+                     ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
                      if (shooter instanceof Player) {
                          Player a = (Player) event.getEntity();
                          Player b = (Player) shooter;
