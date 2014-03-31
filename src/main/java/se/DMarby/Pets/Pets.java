@@ -27,7 +27,7 @@ public class Pets extends JavaPlugin {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand (CommandSender sender, Command command, String label, String[] args) {
         if (!label.equalsIgnoreCase("pet")) {
             return false;
         }
@@ -43,7 +43,7 @@ public class Pets extends JavaPlugin {
             if (args[0].equalsIgnoreCase("list")) {
                 listPets(sender);
                 return true;
-            }else if(args[0].equalsIgnoreCase("help")){
+            } else if (args[0].equalsIgnoreCase("help")) {
                 displayHelp(sender);
                 return true;
             }
@@ -79,31 +79,31 @@ public class Pets extends JavaPlugin {
             }
             controller.togglePet((Player) sender);
             return true;
-        }else if (args.length >= 2){
-            if(args[0].equalsIgnoreCase("name")){
+        } else if (args.length >= 2) {
+            if (args[0].equalsIgnoreCase("name")) {
                 if (!sender.hasPermission("pet.name") && !sender.hasPermission("pet.admin"))  {
                     sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                     return true;
                 }
-                if(args.length == 2){
-                    if(args[1].equalsIgnoreCase("reset")){
+                if (args.length == 2) {
+                    if (args[1].equalsIgnoreCase("reset")) {
                         controller.setName((Player) sender, null);
                         sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
                         return true;
                     }
                     controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1].replace("&b&b&r","").substring(0, Math.min(args[1].length(), 24))).replace("&s", " "));
                     sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].replace("&b&b&r","").substring(0, Math.min(args[1].length(), 24)).replace("&s", " "));
-                }else if(args.length == 3){
-                    if(!sender.hasPermission("pet.admin")){
+                } else if (args.length == 3) {
+                    if (!sender.hasPermission("pet.admin")) {
                         displayHelp(sender);
                         return true;
                     }
                     Player player = Bukkit.getPlayer(args[1]);
-                    if(player == null){
+                    if (player == null) {
                         sender.sendMessage(ChatColor.RED + "This player is not online!");
                         return true;
                     }
-                    if(args[2].equalsIgnoreCase("reset")){
+                    if (args[2].equalsIgnoreCase("reset")) {
                         controller.setName(player, null);
                         sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
                         return true;
@@ -113,95 +113,97 @@ public class Pets extends JavaPlugin {
 
                 }
                 return true;
-            }else if(args[0].equalsIgnoreCase("item")){
+            } else if (args[0].equalsIgnoreCase("item")) {
                 if (!sender.hasPermission("pet.item") && !sender.hasPermission("pet.admin")) {
                     sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                     return true;
                 }
-                if(args.length == 2){
-                    if(args[1].equalsIgnoreCase("reset")){
+                if (args.length == 2) {
+                    if (args[1].equalsIgnoreCase("reset")) {
                         controller.setItem((Player) sender, null);
                         sender.sendMessage(ChatColor.GREEN + "Pet item removed.");
-                    }else{
+                    } else {
                         Material mat;
-                        if(Util.isInt(args[1])){
+                        if (Util.isInt(args[1])) {
                             mat = Material.getMaterial(Integer.parseInt(args[1]));
-                        }else{
+                        } else {
                             mat = Material.getMaterial(args[1].toUpperCase());
                         }
 
-                        if(mat != null) {
+                        if (mat != null) {
                             controller.setItem((Player) sender, args[1]);
                             sender.sendMessage(ChatColor.GREEN + "Pet item changed to " + mat.name());
+                        } else {
+                            sender.sendMessage(ChatColor.RED + "Invalid item!");
                         }
-                        else sender.sendMessage(ChatColor.RED + "Invalid item!");
                     }
-                }else if(args.length == 3){
-                    if(!sender.hasPermission("pet.admin")){
+                } else if (args.length == 3) {
+                    if (!sender.hasPermission("pet.admin")) {
                         displayHelp(sender);
                         return true;
                     }
                     Player player = Bukkit.getPlayer(args[1]);
-                    if(player == null){
+                    if (player == null) {
                         sender.sendMessage(ChatColor.RED + "This player is not online!");
                         return true;
                     }
-                    if(args[2].equalsIgnoreCase("reset")){
+                    if (args[2].equalsIgnoreCase("reset")) {
                         controller.setItem(player, null);
                         sender.sendMessage(ChatColor.GREEN + "Pet item removed.");
-                    }else{
+                    } else {
                         Material mat;
-                        if(Util.isInt(args[2])){
+                        if (Util.isInt(args[2])) {
                             mat = Material.getMaterial(Integer.parseInt(args[2]));
-                        }else{
+                        } else {
                             mat = Material.getMaterial(args[2].toUpperCase());
                         }
 
-                        if(mat != null) {
+                        if (mat != null) {
                             controller.setItem(player, args[2]);
                             sender.sendMessage(ChatColor.GREEN + "Pet item changed to " + mat.name());
+                        } else {
+                            sender.sendMessage(ChatColor.RED + "Invalid item!");
                         }
-                        else sender.sendMessage(ChatColor.RED + "Invalid item!");
                     }
                 }
                 return true;
-            }else if(args[0].equalsIgnoreCase("type") && args.length == 3){
-                if(!sender.hasPermission("pet.admin")){
+            } else if (args[0].equalsIgnoreCase("type") && args.length == 3) {
+                if (!sender.hasPermission("pet.admin")) {
                     displayHelp(sender);
                     return true;
                 }
                 Player player = Bukkit.getPlayer(args[1]);
-                if(player == null){
+                if (player == null) {
                     sender.sendMessage(ChatColor.RED + "This player is not online!");
                     return true;
                 }
                 controller.togglePet(player, args[2]);
                 sender.sendMessage(ChatColor.GREEN + "Pet changed to " + args[2]);
                 return true;
-            }else if(args[0].equalsIgnoreCase("toggle") && args.length == 2){
-                if(!sender.hasPermission("pet.admin")){
+            } else if (args[0].equalsIgnoreCase("toggle") && args.length == 2) {
+                if (!sender.hasPermission("pet.admin")) {
                     displayHelp(sender);
                     return true;
                 }
                 Player player = Bukkit.getPlayer(args[1]);
-                if(player == null){
+                if (player == null) {
                     sender.sendMessage(ChatColor.RED + "This player is not online!");
                     return true;
                 }
                 controller.togglePet(player);
                 sender.sendMessage(ChatColor.GREEN + "Pet toggled");
                 return true;
-            }else{
+            } else {
                 displayHelp(sender);
                 return true;
             }
-        }else{
+        } else {
             displayHelp(sender);
             return true;
         }
     }
 
-    public void listPets(CommandSender sender){
+    public void listPets (CommandSender sender) {
         String list = "";
         for (String pet : pets) {
             String the_pet = ((sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.baby" + pet.toLowerCase()) || sender.hasPermission("pet.admin")) ? ChatColor.GREEN : ChatColor.RED) + pet.substring(0, 1).toUpperCase() + pet.substring(1);
@@ -216,7 +218,7 @@ public class Pets extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "Do /pet <pettype> to select a pet!");
     }
 
-    public void displayHelp(CommandSender sender){
+    public void displayHelp (CommandSender sender) {
         sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
         sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
         sender.sendMessage(ChatColor.GREEN + "/pet menu - Brings up a menu to select & toggle pets");
@@ -226,7 +228,7 @@ public class Pets extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "/pet item <itemMaterial> - Gives your pet an item");
         sender.sendMessage(ChatColor.GREEN + "/pet item reset - Removes your pets item");
         sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
-        if(sender.hasPermission("pet.admin")){
+        if (sender.hasPermission("pet.admin")) {
             sender.sendMessage(ChatColor.YELLOW + "/pet type <player> <type> - Sets the players pet");
             sender.sendMessage(ChatColor.YELLOW  + "/pet toggle <player> - Toggles a players pet");
             sender.sendMessage(ChatColor.YELLOW  + "/pet name <player> <name> - Set a players pet's name");
@@ -237,16 +239,16 @@ public class Pets extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
+    public void onDisable () {
         storage.save();
     }
 
-    public static Pets getInstance(){
+    public static Pets getInstance () {
         return instance;
     }
 
     @Override
-    public void onEnable() {
+    public void onEnable () {
         this.instance = this;
         pets.add("blaze");
         pets.add("cavespider");
@@ -333,7 +335,7 @@ public class Pets extends JavaPlugin {
         i += 3;
         int x = 0;
         for (String s : pets) {
-            if (!s.endsWith("sheep")){
+            if (!s.endsWith("sheep")) {
                 continue;
             }
             sheep.getElements().put(x, new PetMenuElement(new PetMenuItem("pet." + s)));

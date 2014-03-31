@@ -24,7 +24,7 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
             Util.clearGoals(this.goalSelector, this.targetSelector);
             setBaby(true);
             String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
-            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+            if (timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")) {
                 Util.easterEgg(this.getBukkitEntity());
             }
         }
@@ -42,7 +42,7 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
 
     @Override
     protected Entity findTarget() {
-        if(owner == null){
+        if (owner == null) {
             return super.findTarget();
         }
         return  ((CraftPlayer) owner).getHandle();
@@ -50,7 +50,7 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
 
     @Override
     public boolean damageEntity(DamageSource damagesource, float f) {
-        if(owner == null){
+        if (owner == null) {
             return super.damageEntity(damagesource, f);
         }
         return false;
@@ -58,14 +58,14 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
 
     public void h() {
         super.h();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.3F);
             this.getNavigation().a(false);
-        }else{
+        } else {
             this.motX = 0;
             this.bf = 0;
             this.motZ = 0;

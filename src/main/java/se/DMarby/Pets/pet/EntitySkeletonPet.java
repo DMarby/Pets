@@ -27,7 +27,7 @@ public class EntitySkeletonPet extends EntitySkeleton { // new AI
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
             String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
-            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+            if (timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")) {
                 Util.easterEgg(this.getBukkitEntity());
             }
         }
@@ -39,11 +39,11 @@ public class EntitySkeletonPet extends EntitySkeleton { // new AI
         this.wither = wither;
         if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
-            if(wither){
+            if (wither) {
                 this.setSkeletonType(1);
             }
             String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
-            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+            if (timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")) {
                 Util.easterEgg(this.getBukkitEntity());
             }
         }
@@ -62,11 +62,11 @@ public class EntitySkeletonPet extends EntitySkeleton { // new AI
     @Override
     protected void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
             this.getNavigation().a(false);
         }
@@ -75,16 +75,16 @@ public class EntitySkeletonPet extends EntitySkeleton { // new AI
     }
 
     @Override
-    public float d(float f){
-        if(owner == null){
+    public float d(float f) {
+        if (owner == null) {
             return super.d(f);
         }
         return 0;
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;

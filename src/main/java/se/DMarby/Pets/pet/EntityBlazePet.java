@@ -19,18 +19,18 @@ public class EntityBlazePet extends EntityBlaze { // old AI
         this.owner = owner;
     }
 
-    public EntityBlazePet(World world) {
+    public EntityBlazePet (World world) {
         this(world, null);
     }
 
-    private int distToOwner() {
+    private int distToOwner () {
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
 
     @Override
-    protected void bp() {
+    protected void bp () {
         if (owner == null) {
             super.bp();
             return;
@@ -54,7 +54,7 @@ public class EntityBlazePet extends EntityBlaze { // old AI
             this.motX += (Math.signum(d1) * 0.25D - this.motX) * 0.1000000014901161D;
             this.motZ += (Math.signum(d3) * 0.25D - this.motZ) * 0.1000000014901161D;
             this.bf = 0.5F;
-        }else{
+        } else {
             this.bf = 0;
             this.motX = 0;
             this.motZ = 0;
@@ -70,16 +70,16 @@ public class EntityBlazePet extends EntityBlaze { // old AI
     }
 
     @Override
-    public boolean L(){
-        if(owner == null){
+    public boolean L () {
+        if (owner == null) {
             return super.L();
         }
         return false;
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;

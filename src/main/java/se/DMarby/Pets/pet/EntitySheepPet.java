@@ -37,11 +37,11 @@ public class EntitySheepPet extends EntitySheep { // new AI
     @Override
     protected void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.3F);
             this.getNavigation().a(false);
         }

@@ -39,7 +39,7 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
             this.getNavigation().a(false);
             getEntitySenses().a();
@@ -53,16 +53,16 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;
     }
 
     @Override
-    public boolean L(){
-        if(owner == null){
+    public boolean L () {
+        if (owner == null) {
             return super.L();
         }
         return false;

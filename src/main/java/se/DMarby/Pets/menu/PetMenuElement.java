@@ -10,12 +10,12 @@ public class PetMenuElement extends MenuElement {
     private PetMenuItem petMenuItem;
 
 
-    public PetMenuElement(PetMenuItem item) {
+    public PetMenuElement (PetMenuItem item) {
         this.petMenuItem = item;
     }
 
     @Override
-    public Boolean click(Player player) {
+    public Boolean click (Player player) {
         if (!petMenuItem.hasPermission(player)) {
             player.getPlayer().sendMessage(Util.PERMISSIONS_MESSAGE);
             return true;
@@ -25,7 +25,7 @@ public class PetMenuElement extends MenuElement {
     }
 
     @Override
-    public CraftItemStack getItem(Player player) {
+    public CraftItemStack getItem (Player player) {
         return petMenuItem.getItem(player);
     }
 }

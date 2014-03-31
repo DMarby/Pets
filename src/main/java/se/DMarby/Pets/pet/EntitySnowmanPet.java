@@ -36,11 +36,11 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     @Override
     public void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.7D);
             this.getNavigation().a(false);
         }
@@ -51,16 +51,16 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;
     }
 
     @Override
-    public boolean L(){
-        if(owner == null){
+    public boolean L () {
+        if (owner == null) {
             return super.L();
         }
         return false;

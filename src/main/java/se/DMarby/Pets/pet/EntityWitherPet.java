@@ -21,7 +21,7 @@ public class EntityWitherPet extends EntityWither { // new AI
         this.owner = owner;
         this.blue = blue;
         if (owner != null) {
-            if(blue){
+            if (blue) {
                 this.setHealth(1F);
             }
             Util.clearGoals(this.goalSelector, this.targetSelector);
@@ -49,7 +49,7 @@ public class EntityWitherPet extends EntityWither { // new AI
 
     @Override
     protected void bm() {
-        if (owner == null){
+        if (owner == null) {
             super.bm();
             return;
         }
@@ -64,7 +64,7 @@ public class EntityWitherPet extends EntityWither { // new AI
             this.motY += (Math.signum(d2) * 1D - this.motY) * 0.1000000014901161D;
             this.motX += (Math.signum(d1) * 0.2D - this.motX) * 0.1000000014901161D;
             this.motZ += (Math.signum(d3) * 0.2D - this.motZ) * 0.1000000014901161D;
-        }else{
+        } else {
             this.motX = 0;
             this.motZ = 0;
         }
@@ -79,16 +79,16 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;
     }
 
     @Override
-    public boolean cb(){
-        if(owner == null || blue){
+    public boolean cb () {
+        if (owner == null || blue) {
             return super.cb();
         }
         return false;

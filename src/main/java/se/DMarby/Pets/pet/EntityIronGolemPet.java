@@ -39,11 +39,11 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
     @Override
     public void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
             this.getNavigation().a(false);
         }

@@ -16,7 +16,7 @@ public class PetMenuToggleElement extends MenuElement {
     }
 
     @Override
-    public Boolean click(Player player) {
+    public Boolean click (Player player) {
         if (Strings.isNullOrEmpty(Pets.getInstance().controller.getType(player.getPlayer()))) {
             player.getPlayer().sendMessage(ChatColor.RED + "You need to select a pet before you can toggle it!");
             return true;
@@ -30,7 +30,7 @@ public class PetMenuToggleElement extends MenuElement {
     }
 
     @Override
-    public CraftItemStack getItem(Player player) {
+    public CraftItemStack getItem (Player player) {
         return Util.makeItemStack(Material.BONE, 1, ChatColor.GREEN + "Toggle pet", Arrays.asList(ChatColor.GRAY + "Toggles your pet on and off."));
     }
 }

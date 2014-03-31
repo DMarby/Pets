@@ -19,7 +19,7 @@ public class PetMenuItem {
     private String s;
     private String name;
 
-    public short getShort(String mob) {
+    public short getShort (String mob) {
         switch (mob) {
             case "zombie":
                 return EntityType.ZOMBIE.getTypeId();
@@ -93,7 +93,7 @@ public class PetMenuItem {
         }
     }
 
-    public PetMenuItem(String s) {
+    public PetMenuItem (String s) {
         this.s = s;
         CraftItemStack[] stacks;
         String[] split = s.split("\\.");
@@ -142,18 +142,18 @@ public class PetMenuItem {
         deny = stacks[1];
     }
 
-    public Boolean hasPermission(Player player) {
-        if(player.hasPermission(s) || player.hasPermission("pet.baby" + name) || player.hasPermission("pet.admin")){
+    public Boolean hasPermission (Player player) {
+        if (player.hasPermission(s) || player.hasPermission("pet.baby" + name) || player.hasPermission("pet.admin")) {
             return true;
         }
         return false;
     }
 
-    public String getName() {
+    public String getName () {
         return name;
     }
 
-    public CraftItemStack getItem(Player player) {
+    public CraftItemStack getItem (Player player) {
         if (hasPermission(player)) {
             return allow;
         }

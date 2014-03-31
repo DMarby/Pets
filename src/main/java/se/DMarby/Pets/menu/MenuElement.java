@@ -13,9 +13,9 @@ public abstract class MenuElement {
      * @param player The player who clicked it
      * @return Whether to close the menu or not
      */
-    public abstract Boolean click(Player player);
+    public abstract Boolean click (Player player);
 
-    public CraftItemStack getItem(Player player) {
+    public CraftItemStack getItem (Player player) {
         return item;
     }
 }

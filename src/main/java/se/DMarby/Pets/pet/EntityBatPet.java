@@ -14,27 +14,27 @@ import se.DMarby.Pets.Util;
 public class EntityBatPet extends EntityBat { // old AI
     private final Player owner;
 
-    public EntityBatPet(World world, Player owner) {
+    public EntityBatPet (World world, Player owner) {
         super(world);
         this.owner = owner;
-        if (owner != null){
+        if (owner != null) {
             this.f(false);
             setStartled(false);
         }
     }
 
-    public EntityBatPet(World world) {
+    public EntityBatPet (World world) {
         this(world, null);
     }
 
-    private int distToOwner() {
+    private int distToOwner () {
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
 
     @Override
-    protected void bm() {
+    protected void bm () {
         if (owner == null) {
             super.bm();
             return;
@@ -54,7 +54,7 @@ public class EntityBatPet extends EntityBat { // old AI
             this.motX += (Math.signum(d1) * 0.5D - this.motX) * 0.1000000014901161D;
             this.motZ += (Math.signum(d3) * 0.5D - this.motZ) * 0.1000000014901161D;
 
-        }else{
+        } else {
             this.motX = 0;
             this.motZ = 0;
         }
@@ -75,15 +75,15 @@ public class EntityBatPet extends EntityBat { // old AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;
     }
 
     @Override
-    public CraftEntity getBukkitEntity() {
+    public CraftEntity getBukkitEntity () {
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitBatPet(this);
         return super.getBukkitEntity();

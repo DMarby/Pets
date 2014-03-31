@@ -41,14 +41,14 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
 
     @Override
     protected void a(MovingObjectPosition movingobjectposition) {
-      if(owner == null){
+      if (owner == null) {
           super.a(movingobjectposition);
       }
     }
 
     @Override
     public float e() {
-        if(owner == null){
+        if (owner == null) {
             return super.e();
         }
         return 0;
@@ -56,12 +56,12 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
 
     @Override
     public void h() {
-        if (owner == null){
+        if (owner == null) {
             super.h();
             return;
         }
 
-        if(this.blue){
+        if (this.blue) {
             this.a(true);
         }
 
@@ -89,7 +89,7 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
             this.pitch = this.lastPitch + (this.pitch - this.lastPitch) * 0.2F;
             this.yaw = this.lastYaw + (this.yaw - this.lastYaw) * 0.2F;
 
-        }else{
+        } else {
             this.motX = 0;
             this.motY = 0;
             this.motZ = 0;
@@ -110,15 +110,15 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
     }
 
     @Override
-    public void die(){
-        if(owner == null){
+    public void die () {
+        if (owner == null) {
             super.die();
         }
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;

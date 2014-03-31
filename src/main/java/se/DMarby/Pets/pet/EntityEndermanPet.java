@@ -39,7 +39,7 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
 
     @Override
     protected Entity findTarget() {
-        if(owner == null){
+        if (owner == null) {
             return super.findTarget();
         }
         return null;
@@ -47,12 +47,12 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
 
     @Override
     public void bp() {;
-        if (owner == null){
+        if (owner == null) {
             super.bp();
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 5F);
             this.getNavigation().a(false);
             getEntitySenses().a();
@@ -69,7 +69,7 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
 
     @Override
     protected boolean bZ() {
-        if(owner == null){
+        if (owner == null) {
             return super.bZ();
         }
         return false;
@@ -77,39 +77,39 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
 
     @Override
     protected boolean k(double d0, double d1, double d2) {
-        if(owner == null){
+        if (owner == null) {
             return super.k(d0, d1, d2);
         }
         return false;
     }
 
     @Override
-    public Block getCarried(){
-        if(owner == null){
+    public Block getCarried () {
+        if (owner == null) {
             return super.getCarried();
         }
         return Block.e(1);
     }
 
     @Override
-    public int getCarriedData(){
-        if(owner == null){
+    public int getCarriedData () {
+        if (owner == null) {
             return super.getCarriedData();
         }
         return 1;
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;
     }
 
     @Override
-    public boolean L(){
-        if(owner == null){
+    public boolean L () {
+        if (owner == null) {
             return super.L();
         }
         return false;

@@ -38,18 +38,18 @@ public class EntityWolfPet extends EntityWolf { // new AI
     @Override
     protected void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 1){
+        if (distToOwner() > 1) {
             idletime = 0;
             this.setSitting(false);
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.D);
             this.getNavigation().a(false);
-        }else{
+        } else {
             idletime++;
-            if(idletime == 20){
+            if (idletime == 20) {
                 this.setSitting(true);
             }
         }

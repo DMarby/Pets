@@ -26,7 +26,7 @@ public class EntityZombiePet extends EntityZombie { // new AI
             Util.clearGoals(this.goalSelector, this.targetSelector);
             setBaby(true);
             String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
-            if(timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")){
+            if (timestamp.equalsIgnoreCase("1225") || timestamp.equalsIgnoreCase("1224")) {
                 Util.easterEgg(this.getBukkitEntity());
             }
         }
@@ -45,11 +45,11 @@ public class EntityZombiePet extends EntityZombie { // new AI
     @Override
     protected void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.1F);
             this.getNavigation().a(false);
         }
@@ -58,8 +58,8 @@ public class EntityZombiePet extends EntityZombie { // new AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;

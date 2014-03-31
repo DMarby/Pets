@@ -17,7 +17,7 @@ public class EntityGhastPet extends EntityGhast { // old AI
     public EntityGhastPet(World world, Player owner) {
         super(world);
         this.owner = owner;
-        if (owner != null){
+        if (owner != null) {
             this.f(false);
         }
     }
@@ -55,7 +55,7 @@ public class EntityGhastPet extends EntityGhast { // old AI
             float f2 = MathHelper.g(f1 - this.yaw);
             this.bf = 0.5F;
             this.yaw += f2;
-        }else{
+        } else {
             this.motX = 0;
             this.motZ = 0;
         }
@@ -71,8 +71,8 @@ public class EntityGhastPet extends EntityGhast { // old AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;

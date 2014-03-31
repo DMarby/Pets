@@ -35,7 +35,7 @@ public class EntityEnderDragonPet extends EntityEnderDragon { // new AI
 
     @Override
     public void h() {
-        if (owner == null){
+        if (owner == null) {
             super.h();
             return;
         }
@@ -67,21 +67,21 @@ public class EntityEnderDragonPet extends EntityEnderDragon { // new AI
         }         */
 
         double max = Util.MAX_DISTANCE * 5;
-        if (distToOwner() > max){
+        if (distToOwner() > max) {
             this.getBukkitEntity().teleport(owner);
         }
     }
 
     @Override
-    public void e(){
-        if(owner == null){
+    public void e () {
+        if (owner == null) {
             super.e();
         }
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;

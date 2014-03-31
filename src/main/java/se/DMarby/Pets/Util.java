@@ -41,7 +41,7 @@ public class Util {
     private static List<Integer> allvariants = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 256, 257, 258, 259, 260, 261, 262, 512, 513, 514, 515, 516, 517, 518, 768, 769, 770, 771, 772, 773, 774, 1024, 1025, 1026, 1027, 1028, 1029, 1030);
     private static List<ItemStack> armor = Arrays.asList(new ItemStack(417), new ItemStack(418), new ItemStack(419));
 
-    public static void clearGoals(PathfinderGoalSelector... goalSelectors) {
+    public static void clearGoals (PathfinderGoalSelector... goalSelectors) {
         if (GOAL_FIELD == null || goalSelectors == null) {
             return;
         }
@@ -55,7 +55,7 @@ public class Util {
         }
     }
 
-    private static Field getField(Class<?> clazz, String field) {
+    private static Field getField (Class<?> clazz, String field) {
         Field f = null;
         try {
             f = clazz.getDeclaredField(field);
@@ -66,7 +66,7 @@ public class Util {
         return f;
     }
 
-    public static void load(FileConfiguration config) {
+    public static void load (FileConfiguration config) {
         /* if (!config.isSet("pet.max-distance-squared")) {
         config.set("pet.max-distance-squared", MAX_DISTANCE);
         }
@@ -75,17 +75,17 @@ public class Util {
         config.set("pet.max-level", MAX_LEVEL);
         }
         MAX_LEVEL = config.getInt("pet.max-level");*/
-        if(!config.isSet("remove-in-fight")){
+        if (!config.isSet("remove-in-fight")) {
             config.set("remove-in-fight", false);
         }
-        if(!config.isSet("permissions_message")){
+        if (!config.isSet("permissions_message")) {
             config.set("permissions_message", "§cYou do not have access to this pet!");
         }
         PERMISSIONS_MESSAGE = config.getString("permissions_message");
         removeInFight = config.getBoolean("remove-in-fight");
     }
 
-    public static void registerEntityClass(Class<? extends Entity> clazz) {
+    public static void registerEntityClass (Class<? extends Entity> clazz) {
         if (ENTITY_CLASS_TO_INT.containsKey(clazz)) {
             return;
         }
@@ -102,7 +102,7 @@ public class Util {
         throw new IllegalArgumentException("unable to find valid entity superclass");
     }
 
-    public static org.bukkit.entity.Entity spawnPet(Player player, String pet) {
+    public static org.bukkit.entity.Entity spawnPet (Player player, String pet) {
         World world = ((CraftWorld) player.getWorld()).getHandle();
         Entity entity = null;
         if (pet.equalsIgnoreCase("slime")) {
@@ -127,7 +127,7 @@ public class Util {
             entity = new EntityMushroomCowPet(world, player);
             ((MushroomCow) entity.getBukkitEntity()).setBaby();
             ((MushroomCow) entity.getBukkitEntity()).setAgeLock(true);
-        } else if (pet.equalsIgnoreCase("ocelot") || pet.equalsIgnoreCase("wildcat")){
+        } else if (pet.equalsIgnoreCase("ocelot") || pet.equalsIgnoreCase("wildcat")) {
             entity = new EntityOcelotPet(world, player);
             ((Ocelot) entity.getBukkitEntity()).setBaby();
             ((Ocelot) entity.getBukkitEntity()).setCatType(Type.WILD_OCELOT);
@@ -341,9 +341,9 @@ public class Util {
             world.addEntity(entity, SpawnReason.CUSTOM);
             entity.getBukkitEntity().teleport(player);
             String timestamp = new SimpleDateFormat("MMdd").format(Calendar.getInstance().getTime());
-            if(timestamp.equalsIgnoreCase("1231") || timestamp.equalsIgnoreCase("0101")){
-                if(!spawned.contains(player.getName())){
-                    for(int i = 0; i < 10; i++){
+            if (timestamp.equalsIgnoreCase("1231") || timestamp.equalsIgnoreCase("0101")) {
+                if (!spawned.contains(player.getName())) {
+                    for (int i = 0; i < 10; i++) {
                         final Player finalPlayer = player;
                         final Entity finalEntity = entity;
                         Pets.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Pets.getInstance(), new Runnable() {
@@ -370,7 +370,7 @@ public class Util {
         return null;
     }
     
-    public static boolean isInt(String str) {
+    public static boolean isInt (String str) {
         try {
             Integer.parseInt(str);
                     return true;
@@ -380,7 +380,7 @@ public class Util {
         }
     }
 
-    public static void easterEgg(CraftEntity entity){
+    public static void easterEgg (CraftEntity entity) {
         ((LivingEntity) entity).getEquipment().setItemInHand(new org.bukkit.inventory.ItemStack(org.bukkit.Material.CHEST));
         ((LivingEntity) entity).getEquipment().setItemInHandDropChance(0);
         org.bukkit.inventory.ItemStack hat = new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_HELMET);
@@ -391,7 +391,7 @@ public class Util {
         ((LivingEntity) entity).getEquipment().setHelmetDropChance(0);
     }
 
-    public static void setInventoryItem(int slot, CraftInventory inventory, CraftItemStack item) {
+    public static void setInventoryItem (int slot, CraftInventory inventory, CraftItemStack item) {
         try {
             Field field = CraftItemStack.class.getDeclaredField("handle");
             field.setAccessible(true);
@@ -401,12 +401,12 @@ public class Util {
         }
     }
 
-    public static CraftItemStack makeItemStack(org.bukkit.Material material, int amount, short damage, String name, List<String> description) {
+    public static CraftItemStack makeItemStack (org.bukkit.Material material, int amount, short damage, String name, List<String> description) {
         ItemStack internal = new ItemStack(material, amount, damage);
         return makeItemStack(internal, name, description);
     }
 
-    public static CraftItemStack makeItemStack(ItemStack base, String name, List<String> description) {
+    public static CraftItemStack makeItemStack (ItemStack base, String name, List<String> description) {
         base = base.clone();
         ItemMeta meta = base.getItemMeta();
         meta.setDisplayName(name);
@@ -415,7 +415,7 @@ public class Util {
         return removeAttributes(CraftItemStack.asCraftCopy(base));
     }
 
-    public static CraftItemStack removeAttributes(CraftItemStack itemStack) {
+    public static CraftItemStack removeAttributes (CraftItemStack itemStack) {
         if (itemStack == null)
             return null;
         net.minecraft.server.v1_7_R2.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
@@ -432,12 +432,12 @@ public class Util {
         return CraftItemStack.asCraftMirror(item);
     }
 
-    public static CraftItemStack makeItemStack(Material material, int amount, String name, List<String> description) {
+    public static CraftItemStack makeItemStack (Material material, int amount, String name, List<String> description) {
         ItemStack internal = new ItemStack(material, amount);
         return makeItemStack(internal, name, description);
     }
 
-    public static FireworkMeta getFireworkMeta(FireworkMeta input) {
+    public static FireworkMeta getFireworkMeta (FireworkMeta input) {
         FireworkEffect effect = FireworkEffect.builder().flicker(rand.nextBoolean()).withColor(getColor(rand.nextInt(17) + 1)).withFade(getColor(rand.nextInt(17) + 1)).with(randomEnum(FireworkEffect.Type.class)).trail(rand.nextBoolean()).build();
         input.addEffect(effect);
         int power = rand.nextInt(2) + 1;
@@ -445,12 +445,12 @@ public class Util {
         return input;
     }
 
-    public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
+    public static <T extends Enum<?>> T randomEnum (Class<T> clazz) {
         int x = rand.nextInt(clazz.getEnumConstants().length);
         return clazz.getEnumConstants()[x];
     }
 
-    public static Color getColor(int c) {
+    public static Color getColor (int c) {
         switch (c) {
             case 1:
             default:
@@ -490,7 +490,7 @@ public class Util {
         }
     }
 
-    public static CraftItemStack[] makeCraftItemStacks(ItemStack base, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
+    public static CraftItemStack[] makeCraftItemStacks (ItemStack base, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
         base = base.clone();
         CraftItemStack[] out = new CraftItemStack[colors.length];
         for (int i = 0; i < colors.length; i++) {
@@ -504,7 +504,7 @@ public class Util {
         return out;
     }
 
-    public static CraftItemStack[] makeCraftItemStacks(Material material, int amount, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
+    public static CraftItemStack[] makeCraftItemStacks (Material material, int amount, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
         ItemStack internal = new ItemStack(material, amount);
         return makeCraftItemStacks(internal, name, description, colors, stripColors);
     }

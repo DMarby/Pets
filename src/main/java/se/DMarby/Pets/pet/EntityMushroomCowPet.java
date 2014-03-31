@@ -39,7 +39,7 @@ public class EntityMushroomCowPet extends EntityMushroomCow { // new AI
         if (owner == null)
             return;
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.3F);
             this.getNavigation().a(false);
         }

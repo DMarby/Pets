@@ -51,10 +51,10 @@ public class EntityHorsePet extends EntityHorse { // new AI
         if (owner == null)
             return;
         this.W = 10F;
-        if(distToOwner() > 3){
-            if(isRidable()){
+        if (distToOwner() > 3) {
+            if (isRidable()) {
                 this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
-            }else{
+            } else {
                 this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.3F);
             }
             this.getNavigation().a(false);

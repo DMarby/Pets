@@ -18,35 +18,35 @@ public class Menu extends MenuElement {
     protected Size size;
     protected HashMap<Integer, MenuElement> elements = new HashMap();
 
-    public Menu(String name, ItemStack item, Size size) {
+    public Menu (String name, ItemStack item, Size size) {
         this.name = name;
         this.item = CraftItemStack.asCraftCopy(item);
         this.size = size;
     }
 
-    public Menu(String name, Size size) {
+    public Menu (String name, Size size) {
         this(name, CraftItemStack.asCraftCopy(new ItemStack(Material.BEDROCK)), size);
     }
 
     @Deprecated
-    public Menu(String name, ItemStack item, Integer size) {
+    public Menu (String name, ItemStack item, Integer size) {
         this.name = name;
         this.item = CraftItemStack.asCraftCopy(item);
         this.size = Size.parse(size);
     }
 
     @Deprecated
-    public Menu(String name, Integer size) {
+    public Menu (String name, Integer size) {
         this(name, CraftItemStack.asCraftCopy(new ItemStack(Material.BEDROCK)), size);
     }
 
     @Override
-    public Boolean click(Player player) {
+    public Boolean click (Player player) {
         display(player);
         return false;
     }
 
-    public Inventory getInventory(Player player) {
+    public Inventory getInventory (Player player) {
         CraftInventory inventory = (CraftInventory) Bukkit.createInventory(new MenuHolder(this, Bukkit.createInventory(player.getPlayer(), size.getSize())), size.getSize(), name);
         for (Integer key : elements.keySet()) {
             Util.setInventoryItem(key, inventory, elements.get(key).getItem(player));
@@ -54,11 +54,11 @@ public class Menu extends MenuElement {
         return inventory;
     }
 
-    public final void display(Player player) {
+    public final void display (Player player) {
         player.getPlayer().openInventory(getInventory(player));
     }
 
-    public final void hide(final Player player) {
+    public final void hide (final Player player) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Pets.getInstance(), new Runnable() {
             public void run() {
                 if (player.getPlayer() != null) {
@@ -68,15 +68,15 @@ public class Menu extends MenuElement {
         });
     }
 
-    public HashMap<Integer, MenuElement> getElements() {
+    public HashMap<Integer, MenuElement> getElements () {
         return elements;
     }
 
-    public void setSize(Size size) {
+    public void setSize (Size size) {
         this.size = size;
     }
 
-    public Size getSize() {
+    public Size getSize () {
         return size;
     }
 
@@ -90,15 +90,15 @@ public class Menu extends MenuElement {
 
         private int size;
 
-        private Size(int i) {
+        private Size (int i) {
             this.size = i;
         }
 
-        public int getSize() {
+        public int getSize () {
             return size;
         }
 
-        public static Size parse(int i) {
+        public static Size parse (int i) {
             switch (i) {
                 case 9:
                     return ONE_LINE;
@@ -116,7 +116,7 @@ public class Menu extends MenuElement {
             throw new IllegalArgumentException("Invalid menu size");
         }
 
-        public static Size fit(int i) {
+        public static Size fit (int i) {
             if (i < 10) {
                 return ONE_LINE;
             } else if (i < 19) {

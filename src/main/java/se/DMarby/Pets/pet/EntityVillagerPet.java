@@ -25,7 +25,7 @@ public class EntityVillagerPet extends EntityVillager { // new AI
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable entity){
+    public EntityAgeable createChild(EntityAgeable entity) {
         return entity;
     }
     
@@ -42,11 +42,11 @@ public class EntityVillagerPet extends EntityVillager { // new AI
     @Override
     protected void bm() {
         super.bm();
-        if (owner == null){
+        if (owner == null) {
             return;
         }
         this.W = 10F;
-        if(distToOwner() > 3){
+        if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.7F);
             this.getNavigation().a(false);
         }

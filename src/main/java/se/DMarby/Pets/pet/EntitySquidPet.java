@@ -36,7 +36,7 @@ public class EntitySquidPet extends EntitySquid { // old AI
             super.bp();
             return;
         }
-       /* if(distToOwner() > 3){
+       /* if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.55F);
             this.getNavigation().a(false);
             getEntitySenses().a();
@@ -56,7 +56,7 @@ public class EntitySquidPet extends EntitySquid { // old AI
             this.motX += (Math.signum(d1) * 3D - this.motX) * 0.1000000014901161D;
             this.motZ += (Math.signum(d3) * 3D - this.motZ) * 0.1000000014901161D;
 
-        }else{
+        } else {
             this.motX = 0;
             this.motZ = 0;
         }
@@ -70,16 +70,16 @@ public class EntitySquidPet extends EntitySquid { // old AI
     }
 
     @Override
-    public boolean isInvulnerable(){
-        if(owner == null){
+    public boolean isInvulnerable () {
+        if (owner == null) {
             return super.isInvulnerable();
         }
         return true;
     }
 
     @Override
-    public boolean L(){
-        if(owner == null){
+    public boolean L () {
+        if (owner == null) {
             return super.L();
         }
         return false;

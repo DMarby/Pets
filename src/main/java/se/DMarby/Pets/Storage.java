@@ -22,7 +22,7 @@ public class Storage implements Listener {
     private final File dataFile;
     private final FileConfiguration store;
 
-    Storage(File file, PetController controller) {
+    Storage (File file, PetController controller) {
         try {
             Files.createParentDirs(file);
         } catch (IOException e) {
@@ -35,33 +35,33 @@ public class Storage implements Listener {
     /*private long getAliveTime(Player player) {
     return store.getLong(player.getUniqueId().toString() + ".alivetime", 0);
     }*/
-    private String getType(Player player) {
+    private String getType (Player player) {
         return store.getString(player.getUniqueId().toString() + ".type");
     }
 
-    private String getName(Player player) {
+    private String getName (Player player) {
         return store.getString(player.getUniqueId().toString() + ".name");
     }
     
-    private String getItem(Player player) {
+    private String getItem (Player player) {
         return store.getString(player.getUniqueId().toString() + ".item");
     }
 
-    private boolean isEnabled(Player player) {
+    private boolean isEnabled (Player player) {
         return store.getBoolean(player.getUniqueId().toString() + ".active", false);
     }
 
-    public void load() {
+    public void load () {
         for (Player player : Bukkit.getOnlinePlayers()) {
             loadPlayer(player);
         }
     }
 
-    private void loadPlayer(Player player) {
+    private void loadPlayer (Player player) {
         ConfigurationSection cs = store.getConfigurationSection(player.getName());
-        if(cs != null){
+        if (cs != null) {
             Map<String, Object> section = new HashMap();
-            for(String s : cs.getKeys(false)){
+            for(String s : cs.getKeys(false)) {
                 section.put(s, cs.get(s));
             }
             store.createSection(player.getUniqueId().toString(), section);
@@ -75,16 +75,16 @@ public class Storage implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin (PlayerJoinEvent event) {
         loadPlayer(event.getPlayer());
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPlayerLeave(PlayerQuitEvent event) {
+    public void onPlayerLeave (PlayerQuitEvent event) {
         savePlayer(event.getPlayer());
     }
 
-    public void save() {
+    public void save () {
         for (Player player : Bukkit.getOnlinePlayers()) {
             savePlayer(player);
         }
@@ -99,7 +99,7 @@ public class Storage implements Listener {
         }
     }
 
-    private void savePlayer(Player player) {
+    private void savePlayer (Player player) {
         /*if (!player.hasPermission("pet.spawn"))
         return;
         long newAliveTime = backend.getAliveTime(player);
