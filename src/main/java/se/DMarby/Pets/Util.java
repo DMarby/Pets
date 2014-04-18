@@ -1,15 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_7_R2.Entity;
-import net.minecraft.server.v1_7_R2.*;
-import net.minecraft.server.v1_7_R2.World;
+import net.minecraft.server.v1_7_R3.Entity;
+import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R3.World;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_7_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R2.inventory.CraftInventory;
-import org.bukkit.craftbukkit.v1_7_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Villager.Profession;
@@ -395,7 +395,7 @@ public class Util {
         try {
             Field field = CraftItemStack.class.getDeclaredField("handle");
             field.setAccessible(true);
-            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_7_R2.ItemStack) field.get(item));
+            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_7_R3.ItemStack) field.get(item));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -418,7 +418,7 @@ public class Util {
     public static CraftItemStack removeAttributes (CraftItemStack itemStack) {
         if (itemStack == null)
             return null;
-        net.minecraft.server.v1_7_R2.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_7_R3.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag;
         if (!item.hasTag()) {
             tag = new NBTTagCompound();

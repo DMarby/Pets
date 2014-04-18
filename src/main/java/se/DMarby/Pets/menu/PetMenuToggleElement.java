@@ -3,7 +3,7 @@ package se.DMarby.Pets.menu;
 import com.google.common.base.Strings;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.Pets;
 import se.DMarby.Pets.Util;

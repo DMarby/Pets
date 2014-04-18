@@ -1,14 +1,14 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R2.EntityIronGolem;
-import net.minecraft.server.v1_7_R2.EntityHuman;
-import net.minecraft.server.v1_7_R2.World;
+import net.minecraft.server.v1_7_R3.EntityIronGolem;
+import net.minecraft.server.v1_7_R3.EntityHuman;
+import net.minecraft.server.v1_7_R3.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftIronGolem;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftIronGolem;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
