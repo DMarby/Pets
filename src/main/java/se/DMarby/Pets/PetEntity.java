@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 public interface PetEntity {
     Entity getBukkitEntity();
 
-    Player getOwner ();
+    Player getOwner();
 
-    void upgrade ();
+    void upgrade();
 
-    void setLevel (int level);
+    void setLevel(int level);
 }

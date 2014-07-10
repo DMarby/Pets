@@ -3,7 +3,8 @@ package se.DMarby.Pets;
 import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.util.CraftMagicNumbers;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -17,9 +18,12 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
+import se.DMarby.Pets.pet.EntityEndermanPet;
 import se.DMarby.Pets.pet.EntityHorsePet;
+import se.DMarby.Pets.pet.EntityIronGolemPet;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +36,7 @@ public class PetController implements Listener {
 
     // private long timePeriod = TimeUnit.MILLISECONDS.convert(1,
     // TimeUnit.DAYS);
-    public PetController (Plugin plugin) {
+    public PetController(Plugin plugin) {
         this.plugin = plugin;
         // if (!plugin.getConfig().isSet("player.level-up-period"))
         // plugin.getConfig().set("player.level-up-period", timePeriod);
@@ -50,28 +54,28 @@ public class PetController implements Listener {
     /*private long getRemainder(long time) {
     return (timePeriod - (time % timePeriod)) * 20;
     }*/
-    private PetEntity getPet (Entity entity) {
+    private PetEntity getPet(Entity entity) {
         return entity instanceof PetEntity ? (PetEntity) entity : null;
     }
 
-    public boolean isActive (Player player) {
+    public boolean isActive(Player player) {
         return !playerData.containsKey(player.getName()) ? false : playerData.get(player.getName()).petActive;
     }
 
-    public String getType (Player player) {
+    public String getType(Player player) {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).type;
     }
 
-    public String getName (Player player) {
+    public String getName(Player player) {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).name;
     }
 
-    public String getItem (Player player) {
+    public String getItem(Player player) {
         return !playerData.containsKey(player.getName()) ? null : playerData.get(player.getName()).item;
     }
 
     //public void loadPlayer(Player player, long aliveTime, boolean enabled, String type) {
-    public void loadPlayer (Player player, boolean enabled, String type, String name, String item) {
+    public void loadPlayer(Player player, boolean enabled, String type, String name, String item) {
         //PlayerData data = new PlayerData(player, aliveTime, enabled, type);
         PlayerData data = new PlayerData(player, enabled, type, name, item);
         playerData.put(player.getName(), data);
@@ -82,7 +86,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPlayerInteractEntity (PlayerInteractEntityEvent event) {
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         PetEntity pet = getPet(event.getRightClicked());
         if (pet == null || !(pet instanceof EntityHorsePet.BukkitHorsePet)) {
             return;
@@ -95,7 +99,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onEntityInteract (EntityInteractEvent event) {
+    public void onEntityInteract(EntityInteractEvent event) {
         PetEntity pet = getPet(event.getEntity());
         if (pet == null) {
             return;
@@ -107,7 +111,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onEntityChangeBlock (EntityChangeBlockEvent event) {
+    public void onEntityChangeBlock(EntityChangeBlockEvent event) {
         PetEntity pet = getPet(event.getEntity());
         if (pet == null) {
             return;
@@ -116,7 +120,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onEntityFormBlock (EntityBlockFormEvent event) {
+    public void onEntityFormBlock(EntityBlockFormEvent event) {
         PetEntity pet = getPet(event.getEntity());
         if (pet == null) {
             return;
@@ -125,7 +129,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onEntityDamage (EntityDamageEvent event) {
+    public void onEntityDamage(EntityDamageEvent event) {
         PetEntity pet = getPet(event.getEntity());
         if (pet == null) {
             if (event instanceof EntityDamageByEntityEvent) {
@@ -154,7 +158,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPlayerTeleport (PlayerTeleportEvent event) {
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         if (isActive(player)) {
             PlayerData data = playerData.get(player.getName());
@@ -170,13 +174,13 @@ public class PetController implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPlayerDeath (PlayerDeathEvent event) {
+    public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         removePet(player, false);
     }
 
     @EventHandler
-    public void onPlayerRespawn (PlayerRespawnEvent event) {
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         if (isActive(player)) {
             PlayerData data = playerData.get(player.getName());
@@ -194,39 +198,39 @@ public class PetController implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onExplosionPrime (ExplosionPrimeEvent event) {
+    public void onExplosionPrime(ExplosionPrimeEvent event) {
         PetEntity pet = getPet(event.getEntity());
         if (pet == null) {
             return;
         }
-        ((CraftEntity) event.getEntity()).getHandle().getDataWatcher().watch(16, Byte.valueOf((byte)-1));
-        ((CraftEntity) event.getEntity()).getHandle().getDataWatcher().watch(18, Byte.valueOf((byte)0));
+        ((CraftEntity) event.getEntity()).getHandle().getDataWatcher().watch(16, Byte.valueOf((byte) -1));
+        ((CraftEntity) event.getEntity()).getHandle().getDataWatcher().watch(18, Byte.valueOf((byte) 0));
         event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerDamage (EntityDamageByEntityEvent event) {
+    public void onPlayerDamage(EntityDamageByEntityEvent event) {
         if (Util.removeInFight) {
             if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Player || event.getDamager() instanceof Projectile)) {
-                 if (event.getDamager() instanceof Player) {
-                     Player a = (Player) event.getEntity();
-                     Player b = (Player) event.getDamager();
-                     removePet(a, false);
-                     removePet(b, false);
-                 } else {
-                     ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
-                     if (shooter instanceof Player) {
-                         Player a = (Player) event.getEntity();
-                         Player b = (Player) shooter;
-                         removePet(a, false);
-                         removePet(b, false);
-                     }
-                 }
+                if (event.getDamager() instanceof Player) {
+                    Player a = (Player) event.getEntity();
+                    Player b = (Player) event.getDamager();
+                    removePet(a, false);
+                    removePet(b, false);
+                } else {
+                    ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
+                    if (shooter instanceof Player) {
+                        Player a = (Player) event.getEntity();
+                        Player b = (Player) shooter;
+                        removePet(a, false);
+                        removePet(b, false);
+                    }
+                }
             }
         }
     }
 
-    public void removePet (Player player, boolean both) {
+    public void removePet(Player player, boolean both) {
         PlayerData data = playerData.get(player.getName());
         if (data == null) {
             return;
@@ -242,7 +246,7 @@ public class PetController implements Listener {
     long ticks = getRemainder(aliveTime);
     new CreationTask(player).schedule(ticks);
     }*/
-    public void togglePet (Player player, String type) {
+    public void togglePet(Player player, String type) {
         PlayerData data = playerData.get(player.getName());
         if (data == null) {
             return;
@@ -250,7 +254,7 @@ public class PetController implements Listener {
         data.toggle(type);
     }
 
-    public void togglePet (Player player) {
+    public void togglePet(Player player) {
         PlayerData data = playerData.get(player.getName());
         if (data == null) {
             return;
@@ -258,7 +262,7 @@ public class PetController implements Listener {
         data.toggle();
     }
 
-    public void setName (Player player, String name) {
+    public void setName(Player player, String name) {
         PlayerData data = playerData.get(player.getName());
         if (data == null) {
             return;
@@ -266,7 +270,7 @@ public class PetController implements Listener {
         data.setName(name);
     }
 
-    public void setItem (Player player, String item) {
+    public void setItem(Player player, String item) {
         PlayerData data = playerData.get(player.getName());
         if (data == null) {
             return;
@@ -316,7 +320,7 @@ public class PetController implements Listener {
 
         // CreationTask task;
         //public PlayerData(Player player, long aliveTime, boolean enabled, String type) {
-        public PlayerData (Player player, boolean enabled, String type, String name, String item) {
+        public PlayerData(Player player, boolean enabled, String type, String name, String item) {
             //this.aliveTime = aliveTime;
             this.player = player;
             this.type = type;
@@ -331,7 +335,7 @@ public class PetController implements Listener {
             }
         }
 
-        private void spawn (String type, String name, String item) {
+        private void spawn(String type, String name, String item) {
             Entity entity = Util.spawnPet(player, type);
             pet = entity;
             if (pet instanceof LivingEntity) {
@@ -358,7 +362,7 @@ public class PetController implements Listener {
         private int getLevel() {
         return (int) (getAliveTime() / timePeriod);
         }*/
-        void removeThePet () {
+        void removeThePet() {
             if (pet != null) {
                 pet.remove();
                 pet = null;
@@ -376,7 +380,7 @@ public class PetController implements Listener {
         task = null;
         }
         }*/
-        public void toggle (String type) {
+        public void toggle(String type) {
             //petActive = !petActive;
             petActive = true;
             this.type = type;
@@ -388,7 +392,7 @@ public class PetController implements Listener {
                     + " spawned.");
         }
 
-        public void toggle () {
+        public void toggle() {
             petActive = !petActive;
             if (pet == null) {
                 if (this.type == null) {
@@ -403,7 +407,7 @@ public class PetController implements Listener {
             }
         }
 
-        public void setName (String name) {
+        public void setName(String name) {
             if (pet == null) {
                 return;
             }
@@ -430,21 +434,40 @@ public class PetController implements Listener {
             }
 
             if (item != null) {
-	            Material mat;
-	            if (Util.isInt(item)) {
-	            	mat = Material.getMaterial(Integer.parseInt(item));
-	            } else {
-	            	mat = Material.getMaterial(item.toUpperCase());
-	            }
+                Material mat;
+                if (Util.isInt(item)) {
+                    mat = Material.getMaterial(Integer.parseInt(item));
+                } else {
+                    mat = Material.getMaterial(item.toUpperCase());
+                }
 
-	            if (mat != null) {
-	                this.item = item;
+                if (mat != null) {
+                    this.item = item;
+
+                    net.minecraft.server.v1_7_R4.Entity craftPet = ((CraftEntity) pet).getHandle();
+                    if (craftPet instanceof EntityIronGolemPet) {
+                        if (mat.equals(Material.RED_ROSE)) {
+                            ((EntityIronGolemPet) craftPet).setCarryFlower(true);
+                        } else if (((EntityIronGolemPet) craftPet).getCarryFlower()) {
+                            removeThePet();
+                            spawn(this.type, this.name, this.item);
+                        }
+                        return;
+                    }
+
+                    if (craftPet instanceof EntityEndermanPet) {
+                        MaterialData materialData = new MaterialData(mat);
+                        ((EntityEndermanPet) craftPet).setCarried(CraftMagicNumbers.getBlock(materialData.getItemTypeId()));
+                        ((EntityEndermanPet) craftPet).setCarriedData(materialData.getData());
+                        return;
+                    }
+
                     if (pet instanceof LivingEntity) {
                         ((LivingEntity) pet).getEquipment().setItemInHand(new ItemStack(mat));
-	                    ((LivingEntity) pet).getEquipment().setItemInHandDropChance(0);
+                        ((LivingEntity) pet).getEquipment().setItemInHandDropChance(0);
                     }
-	                return;
-	            }
+                    return;
+                }
             }
             this.item = null;
             if (pet instanceof LivingEntity) {

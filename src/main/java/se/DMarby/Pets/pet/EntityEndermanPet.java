@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEnderman;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEnderman;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -13,18 +13,21 @@ import se.DMarby.Pets.Util;
 
 public class EntityEndermanPet extends EntityEnderman { // new AI
     private final Player owner;
+
     public EntityEndermanPet(World world, Player owner) {
         super(world);
         this.owner = owner;
-        if (owner != null)
+        if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
+        }
     }
 
     public EntityEndermanPet(World world, Player owner, Boolean ridable) {
         super(world);
         this.owner = owner;
-        if (owner != null)
+        if (owner != null) {
             Util.clearGoals(this.goalSelector, this.targetSelector);
+        }
     }
 
     public EntityEndermanPet(World world) {
@@ -46,13 +49,13 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
     }
 
     @Override
-    public void bp() {;
+    public void bq() {
         if (owner == null) {
-            super.bp();
+            super.bq();
             return;
         }
         this.W = 10F;
-        if (distToOwner() > 3) {
+        if (distToOwner() > 5) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 5F);
             this.getNavigation().a(false);
             getEntitySenses().a();
@@ -84,23 +87,7 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
     }
 
     @Override
-    public Block getCarried () {
-        if (owner == null) {
-            return super.getCarried();
-        }
-        return Block.e(1);
-    }
-
-    @Override
-    public int getCarriedData () {
-        if (owner == null) {
-            return super.getCarriedData();
-        }
-        return 1;
-    }
-
-    @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }
@@ -108,7 +95,7 @@ public class EntityEndermanPet extends EntityEnderman { // new AI
     }
 
     @Override
-    public boolean L () {
+    public boolean L() {
         if (owner == null) {
             return super.L();
         }

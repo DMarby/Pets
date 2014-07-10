@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftBlaze;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftBlaze;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Blaze;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -19,20 +19,20 @@ public class EntityBlazePet extends EntityBlaze { // old AI
         this.owner = owner;
     }
 
-    public EntityBlazePet (World world) {
+    public EntityBlazePet(World world) {
         this(world, null);
     }
 
-    private int distToOwner () {
+    private int distToOwner() {
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
 
     @Override
-    protected void bp () {
+    protected void bq() {
         if (owner == null) {
-            super.bp();
+            super.bq();
             return;
         }
         /*this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 10F);
@@ -43,7 +43,7 @@ public class EntityBlazePet extends EntityBlaze { // old AI
         getControllerLook().a();
         getControllerJump().b();*/
 
-        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY(), (int)owner.getLocation().getZ());
+        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY(), (int) owner.getLocation().getZ());
 
         double d1 = thing.x + 0.5D - this.locX;
         double d2 = thing.y + 0.1D - this.locY;
@@ -61,7 +61,7 @@ public class EntityBlazePet extends EntityBlaze { // old AI
 
         }
 
-        float f1 = (float)(Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
+        float f1 = (float) (Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
         float f2 = MathHelper.g(f1 - this.yaw);
         this.yaw += f2;
 
@@ -70,7 +70,7 @@ public class EntityBlazePet extends EntityBlaze { // old AI
     }
 
     @Override
-    public boolean L () {
+    public boolean L() {
         if (owner == null) {
             return super.L();
         }
@@ -78,7 +78,7 @@ public class EntityBlazePet extends EntityBlaze { // old AI
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }

@@ -1,11 +1,13 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.EntitySnowman;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftSnowman;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftSnowman;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowman;
 import se.DMarby.Pets.PetEntity;
@@ -34,8 +36,8 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    public void bm() {
-        super.bm();
+    public void bn() {
+        super.bn();
         if (owner == null) {
             return;
         }
@@ -44,14 +46,14 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.7D);
             this.getNavigation().a(false);
         }
-        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bm() * 0.15F);
+        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bn() * 0.15F);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }
@@ -59,7 +61,7 @@ public class EntitySnowmanPet extends EntitySnowman { // new AI
     }
 
     @Override
-    public boolean L () {
+    public boolean L() {
         if (owner == null) {
             return super.L();
         }

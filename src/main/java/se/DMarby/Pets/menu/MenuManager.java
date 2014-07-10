@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryType;
 public class MenuManager implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onInventoryClickEvent (InventoryClickEvent event) {
+    public void onInventoryClickEvent(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             if (event.getInventory().getHolder() instanceof MenuHolder) {
                 Menu openMenu = ((MenuHolder) event.getInventory().getHolder()).getMenu();

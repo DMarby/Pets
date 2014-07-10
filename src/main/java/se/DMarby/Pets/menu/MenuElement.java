@@ -1,6 +1,6 @@
 package se.DMarby.Pets.menu;
 
-import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 public abstract class MenuElement {
@@ -13,9 +13,9 @@ public abstract class MenuElement {
      * @param player The player who clicked it
      * @return Whether to close the menu or not
      */
-    public abstract Boolean click (Player player);
+    public abstract Boolean click(Player player);
 
-    public CraftItemStack getItem (Player player) {
+    public CraftItemStack getItem(Player player) {
         return item;
     }
 }

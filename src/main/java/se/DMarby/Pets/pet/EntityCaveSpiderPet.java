@@ -1,14 +1,13 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.EntityCaveSpider;
-import net.minecraft.server.v1_7_R3.EntityHuman;
-import net.minecraft.server.v1_7_R3.World;
-
+import net.minecraft.server.v1_7_R4.EntityCaveSpider;
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftCaveSpider;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftCaveSpider;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -33,9 +32,9 @@ public class EntityCaveSpiderPet extends EntityCaveSpider { // old AI
     }
 
     @Override
-    protected void bp() {
+    protected void bq() {
         if (owner == null) {
-            super.bp();
+            super.bq();
             return;
         }
         this.W = 10F;

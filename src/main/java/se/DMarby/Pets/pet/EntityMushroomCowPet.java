@@ -1,14 +1,13 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.EntityMushroomCow;
-import net.minecraft.server.v1_7_R3.EntityHuman;
-import net.minecraft.server.v1_7_R3.World;
-
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.EntityMushroomCow;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftMushroomCow;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftMushroomCow;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.MushroomCow;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -23,10 +22,11 @@ public class EntityMushroomCowPet extends EntityMushroomCow { // new AI
         if (owner != null)
             Util.clearGoals(this.goalSelector, this.targetSelector);
     }
-  public EntityMushroomCowPet(World world) {
+
+    public EntityMushroomCowPet(World world) {
         this(world, null);
     }
-    
+
     private int distToOwner() {
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
@@ -34,8 +34,8 @@ public class EntityMushroomCowPet extends EntityMushroomCow { // new AI
     }
 
     @Override
-    protected void bm() {
-        super.bm();
+    protected void bn() {
+        super.bn();
         if (owner == null)
             return;
         this.W = 10F;

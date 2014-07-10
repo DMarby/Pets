@@ -1,14 +1,13 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.EntityCreeper;
-import net.minecraft.server.v1_7_R3.EntityHuman;
-import net.minecraft.server.v1_7_R3.World;
-
+import net.minecraft.server.v1_7_R4.EntityCreeper;
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftCreeper;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftCreeper;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -23,7 +22,7 @@ public class EntityCreeperPet extends EntityCreeper { // new AI
         if (owner != null)
             Util.clearGoals(this.goalSelector, this.targetSelector);
     }
-    
+
     public EntityCreeperPet(World world) {
         this(world, null);
     }
@@ -35,8 +34,8 @@ public class EntityCreeperPet extends EntityCreeper { // new AI
     }
 
     @Override
-    protected void bm() {
-        super.bm();
+    protected void bn() {
+        super.bn();
         if (owner == null)
             return;
         this.W = 10F;

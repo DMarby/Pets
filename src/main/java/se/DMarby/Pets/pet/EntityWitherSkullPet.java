@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftWitherSkull;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftWitherSkull;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.WitherSkull;
 import se.DMarby.Pets.PetEntity;
@@ -41,9 +41,9 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
 
     @Override
     protected void a(MovingObjectPosition movingobjectposition) {
-      if (owner == null) {
-          super.a(movingobjectposition);
-      }
+        if (owner == null) {
+            super.a(movingobjectposition);
+        }
     }
 
     @Override
@@ -62,7 +62,7 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
         }
 
         if (this.blue) {
-            this.a(true);
+            this.setCharged(true);
         }
 
         //super.C();
@@ -71,7 +71,7 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
         this.dirZ = 0;
 
 
-        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY() + 1, (int)owner.getLocation().getZ());
+        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY() + 1, (int) owner.getLocation().getZ());
 
         double d1 = thing.x + 0.5D - this.locX;
         double d2 = thing.y + 0.1D - this.locY;
@@ -110,14 +110,14 @@ public class EntityWitherSkullPet extends EntityWitherSkull { // new AI
     }
 
     @Override
-    public void die () {
+    public void die() {
         if (owner == null) {
             super.die();
         }
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }

@@ -1,14 +1,13 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.EntityPig;
-import net.minecraft.server.v1_7_R3.EntityHuman;
-import net.minecraft.server.v1_7_R3.World;
-
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.EntityPig;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPig;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPig;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -23,8 +22,8 @@ public class EntityPigPet extends EntityPig { // new AI
         if (owner != null)
             Util.clearGoals(this.goalSelector, this.targetSelector);
     }
-    
-      public EntityPigPet(World world) {
+
+    public EntityPigPet(World world) {
         this(world, null);
     }
 
@@ -35,8 +34,8 @@ public class EntityPigPet extends EntityPig { // new AI
     }
 
     @Override
-    protected void bm() {
-        super.bm();
+    protected void bn() {
+        super.bn();
         if (owner == null) {
             return;
         }
