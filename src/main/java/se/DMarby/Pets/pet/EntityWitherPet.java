@@ -1,12 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
-
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftWither;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftWither;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wither;
 import se.DMarby.Pets.PetEntity;
@@ -48,13 +47,13 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    protected void bm() {
+    protected void bn() {
         if (owner == null) {
-            super.bm();
+            super.bn();
             return;
         }
 
-        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY(), (int)owner.getLocation().getZ());
+        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY(), (int) owner.getLocation().getZ());
 
         double d1 = thing.x + 0.5D - this.locX;
         double d2 = thing.y + 0.1D - this.locY;
@@ -69,7 +68,7 @@ public class EntityWitherPet extends EntityWither { // new AI
             this.motZ = 0;
         }
 
-        float f1 = (float)(Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
+        float f1 = (float) (Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
         float f2 = MathHelper.g(f1 - this.yaw);
         this.bf = 0.5F;
         this.yaw += f2;
@@ -79,7 +78,7 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }
@@ -87,7 +86,7 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    public boolean cb () {
+    public boolean cb() {
         if (owner == null || blue) {
             return super.cb();
         }

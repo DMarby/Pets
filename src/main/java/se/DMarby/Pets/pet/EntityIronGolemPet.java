@@ -1,14 +1,13 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.EntityIronGolem;
-import net.minecraft.server.v1_7_R3.EntityHuman;
-import net.minecraft.server.v1_7_R3.World;
-
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.EntityIronGolem;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftIronGolem;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftIronGolem;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -17,6 +16,7 @@ import se.DMarby.Pets.Util;
 public class EntityIronGolemPet extends EntityIronGolem { // new AI
 
     private final Player owner;
+    private boolean carryFlower = false;
 
     public EntityIronGolemPet(World world, Player owner) {
         super(world);
@@ -37,20 +37,31 @@ public class EntityIronGolemPet extends EntityIronGolem { // new AI
     }
 
     @Override
-    public void bm() {
-        super.bm();
+    public void bn() {
+        super.bn();
         if (owner == null) {
             return;
         }
         this.W = 10F;
+        if (carryFlower) {
+            this.a(true);
+        }
         if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
             this.getNavigation().a(false);
         }
-        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bm() * 0.15F);
+        //this.getNavigation().a(((CraftPlayer) owner).getHandle(), super.bn() * 0.15F);
         if (distToOwner() > Util.MAX_DISTANCE) {
             this.getBukkitEntity().teleport(owner);
         }
+    }
+
+    public boolean getCarryFlower() {
+        return carryFlower;
+    }
+
+    public void setCarryFlower(boolean carryFlower) {
+        this.carryFlower = carryFlower;
     }
 
     @Override

@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftGhast;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftGhast;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -33,15 +33,15 @@ public class EntityGhastPet extends EntityGhast { // old AI
     }
 
     @Override
-    protected void bp() {
+    protected void bq() {
         if (owner == null) {
-            super.bp();
+            super.bq();
             return;
         }
        /* this.getNavigation().a(owner.getLocation().getX(), owner.getEyeLocation().getY(), owner.getLocation().getZ(), 0.55F);
         this.getNavigation().a(false);    */
 
-        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY() + 5, (int)owner.getLocation().getZ());
+        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY() + 5, (int) owner.getLocation().getZ());
 
         double d1 = thing.x + 0.5D - this.locX;
         double d2 = thing.y + 0.1D - this.locY;
@@ -51,7 +51,7 @@ public class EntityGhastPet extends EntityGhast { // old AI
             this.motY += (Math.signum(d2) * 0.5D - this.motY) * 0.1000000014901161D;
             this.motX += (Math.signum(d1) * 0.3D - this.motX) * 0.1000000014901161D;
             this.motZ += (Math.signum(d3) * 0.3D - this.motZ) * 0.1000000014901161D;
-            float f1 = (float)(Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
+            float f1 = (float) (Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
             float f2 = MathHelper.g(f1 - this.yaw);
             this.bf = 0.5F;
             this.yaw += f2;
@@ -71,7 +71,7 @@ public class EntityGhastPet extends EntityGhast { // old AI
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }

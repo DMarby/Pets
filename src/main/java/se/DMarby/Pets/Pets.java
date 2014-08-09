@@ -19,15 +19,18 @@ import java.util.List;
 
 public class Pets extends JavaPlugin {
 
+    private static Pets instance;
+    private final List<String> pets = new ArrayList();
     public PetController controller;
     private Storage storage;
-    private final List<String> pets = new ArrayList();
-    private static Pets instance;
     private Menu menu;
 
+    public static Pets getInstance() {
+        return instance;
+    }
 
     @Override
-    public boolean onCommand (CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!label.equalsIgnoreCase("pet")) {
             return false;
         }
@@ -69,7 +72,7 @@ public class Pets extends JavaPlugin {
                 sender.sendMessage(ChatColor.GRAY + "Must be ingame.");
                 return true;
             }
-            if (!sender.hasPermission("pet.toggle")  && !sender.hasPermission("pet.admin")) {
+            if (!sender.hasPermission("pet.toggle") && !sender.hasPermission("pet.admin")) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 return true;
             }
@@ -81,7 +84,7 @@ public class Pets extends JavaPlugin {
             return true;
         } else if (args.length >= 2) {
             if (args[0].equalsIgnoreCase("name")) {
-                if (!sender.hasPermission("pet.name") && !sender.hasPermission("pet.admin"))  {
+                if (!sender.hasPermission("pet.name") && !sender.hasPermission("pet.admin")) {
                     sender.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                     return true;
                 }
@@ -91,8 +94,8 @@ public class Pets extends JavaPlugin {
                         sender.sendMessage(ChatColor.GREEN + "Pet name removed.");
                         return true;
                     }
-                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1].replace("&b&b&r","").substring(0, Math.min(args[1].length(), 24))).replace("&s", " "));
-                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].replace("&b&b&r","").substring(0, Math.min(args[1].length(), 24)).replace("&s", " "));
+                    controller.setName((Player) sender, ChatColor.translateAlternateColorCodes('&', args[1].replace("&b&b&r", "").substring(0, Math.min(args[1].length(), 24))).replace("&s", " "));
+                    sender.sendMessage(ChatColor.GREEN + "Pet name changed to " + args[1].replace("&b&b&r", "").substring(0, Math.min(args[1].length(), 24)).replace("&s", " "));
                 } else if (args.length == 3) {
                     if (!sender.hasPermission("pet.admin")) {
                         displayHelp(sender);
@@ -203,7 +206,7 @@ public class Pets extends JavaPlugin {
         }
     }
 
-    public void listPets (CommandSender sender) {
+    public void listPets(CommandSender sender) {
         String list = "";
         for (String pet : pets) {
             String the_pet = ((sender.hasPermission("pet." + pet.toLowerCase()) || sender.hasPermission("pet.baby" + pet.toLowerCase()) || sender.hasPermission("pet.admin")) ? ChatColor.GREEN : ChatColor.RED) + pet.substring(0, 1).toUpperCase() + pet.substring(1);
@@ -218,7 +221,7 @@ public class Pets extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "Do /pet <pettype> to select a pet!");
     }
 
-    public void displayHelp (CommandSender sender) {
+    public void displayHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.GREEN + "/pet - Toggles your pet");
         sender.sendMessage(ChatColor.GREEN + "/pet <petType> - Selects a pet");
         sender.sendMessage(ChatColor.GREEN + "/pet menu - Brings up a menu to select & toggle pets");
@@ -230,25 +233,21 @@ public class Pets extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "/pet help - Displays this helpmenu");
         if (sender.hasPermission("pet.admin")) {
             sender.sendMessage(ChatColor.YELLOW + "/pet type <player> <type> - Sets the players pet");
-            sender.sendMessage(ChatColor.YELLOW  + "/pet toggle <player> - Toggles a players pet");
-            sender.sendMessage(ChatColor.YELLOW  + "/pet name <player> <name> - Set a players pet's name");
-            sender.sendMessage(ChatColor.YELLOW  + "/pet name <player> reset - Reset a players pet's name");
-            sender.sendMessage(ChatColor.YELLOW  + "/pet item <player> <itemMaterial> - Set a players pet's item");
-            sender.sendMessage(ChatColor.YELLOW  + "/pet item <player> reset - Reset a players pet's item");
+            sender.sendMessage(ChatColor.YELLOW + "/pet toggle <player> - Toggles a players pet");
+            sender.sendMessage(ChatColor.YELLOW + "/pet name <player> <name> - Set a players pet's name");
+            sender.sendMessage(ChatColor.YELLOW + "/pet name <player> reset - Reset a players pet's name");
+            sender.sendMessage(ChatColor.YELLOW + "/pet item <player> <itemMaterial> - Set a players pet's item");
+            sender.sendMessage(ChatColor.YELLOW + "/pet item <player> reset - Reset a players pet's item");
         }
     }
 
     @Override
-    public void onDisable () {
+    public void onDisable() {
         storage.save();
     }
 
-    public static Pets getInstance () {
-        return instance;
-    }
-
     @Override
-    public void onEnable () {
+    public void onEnable() {
         this.instance = this;
         pets.add("blaze");
         pets.add("cavespider");
@@ -308,7 +307,7 @@ public class Pets extends JavaPlugin {
         pets.add("bluewither");
         pets.add("witherskull");
         pets.add("bluewitherskull");
-       // pets.add("enderdragon");
+        // pets.add("enderdragon");
 
         Util.load(getConfig());
         File dataFile = new File(getDataFolder(), "saves.yml");

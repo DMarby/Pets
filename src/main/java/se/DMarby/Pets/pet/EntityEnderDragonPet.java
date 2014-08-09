@@ -1,14 +1,15 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
-
+import net.minecraft.server.v1_7_R4.EntityEnderDragon;
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEnderDragon;
-import org.bukkit.entity.Player;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEnderDragon;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
 
@@ -73,14 +74,14 @@ public class EntityEnderDragonPet extends EntityEnderDragon { // new AI
     }
 
     @Override
-    public void e () {
+    public void e() {
         if (owner == null) {
             super.e();
         }
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }

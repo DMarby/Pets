@@ -1,15 +1,15 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_7_R3.Entity;
-import net.minecraft.server.v1_7_R3.*;
-import net.minecraft.server.v1_7_R3.World;
+import net.minecraft.server.v1_7_R4.Entity;
+import net.minecraft.server.v1_7_R4.*;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftInventory;
-import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Ocelot.Type;
 import org.bukkit.entity.Villager.Profession;
@@ -27,13 +27,13 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class Util {
 
-    private static Map<Class<? extends Entity>, Integer> ENTITY_CLASS_TO_INT;
-    private static Map<Integer, Class<? extends Entity>> ENTITY_INT_TO_CLASS;
-    private static List<String> spawned = new ArrayList();
     public static String PERMISSIONS_MESSAGE;
     public static double MAX_DISTANCE = 10 * 10;
     public static boolean removeInFight = false;
     public static int MAX_LEVEL = -1;
+    private static Map<Class<? extends Entity>, Integer> ENTITY_CLASS_TO_INT;
+    private static Map<Integer, Class<? extends Entity>> ENTITY_INT_TO_CLASS;
+    private static List<String> spawned = new ArrayList();
     private static Field GOAL_FIELD;
     private static DyeColor[] colors = DyeColor.values();
     private static Profession[] professions = Profession.values();
@@ -41,7 +41,7 @@ public class Util {
     private static List<Integer> allvariants = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 256, 257, 258, 259, 260, 261, 262, 512, 513, 514, 515, 516, 517, 518, 768, 769, 770, 771, 772, 773, 774, 1024, 1025, 1026, 1027, 1028, 1029, 1030);
     private static List<ItemStack> armor = Arrays.asList(new ItemStack(417), new ItemStack(418), new ItemStack(419));
 
-    public static void clearGoals (PathfinderGoalSelector... goalSelectors) {
+    public static void clearGoals(PathfinderGoalSelector... goalSelectors) {
         if (GOAL_FIELD == null || goalSelectors == null) {
             return;
         }
@@ -55,7 +55,7 @@ public class Util {
         }
     }
 
-    private static Field getField (Class<?> clazz, String field) {
+    private static Field getField(Class<?> clazz, String field) {
         Field f = null;
         try {
             f = clazz.getDeclaredField(field);
@@ -66,7 +66,7 @@ public class Util {
         return f;
     }
 
-    public static void load (FileConfiguration config) {
+    public static void load(FileConfiguration config) {
         /* if (!config.isSet("pet.max-distance-squared")) {
         config.set("pet.max-distance-squared", MAX_DISTANCE);
         }
@@ -85,7 +85,7 @@ public class Util {
         removeInFight = config.getBoolean("remove-in-fight");
     }
 
-    public static void registerEntityClass (Class<? extends Entity> clazz) {
+    public static void registerEntityClass(Class<? extends Entity> clazz) {
         if (ENTITY_CLASS_TO_INT.containsKey(clazz)) {
             return;
         }
@@ -102,7 +102,7 @@ public class Util {
         throw new IllegalArgumentException("unable to find valid entity superclass");
     }
 
-    public static org.bukkit.entity.Entity spawnPet (Player player, String pet) {
+    public static org.bukkit.entity.Entity spawnPet(Player player, String pet) {
         World world = ((CraftWorld) player.getWorld()).getHandle();
         Entity entity = null;
         if (pet.equalsIgnoreCase("slime")) {
@@ -151,82 +151,82 @@ public class Util {
             entity = new EntityPigPet(world, player);
             ((Pig) entity.getBukkitEntity()).setBaby();
             ((Pig) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("blacksheep")) {
+        } else if (pet.equalsIgnoreCase("blacksheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.BLACK);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("bluesheep")) {
+        } else if (pet.equalsIgnoreCase("bluesheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.BLUE);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("brownsheep")) {
+        } else if (pet.equalsIgnoreCase("brownsheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.BROWN);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("cyansheep")) {
+        } else if (pet.equalsIgnoreCase("cyansheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.CYAN);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("graysheep")) {
+        } else if (pet.equalsIgnoreCase("graysheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.GRAY);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("greensheep")) {
+        } else if (pet.equalsIgnoreCase("greensheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.GREEN);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("lightbluesheep")) {
+        } else if (pet.equalsIgnoreCase("lightbluesheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.LIGHT_BLUE);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("limesheep")) {
+        } else if (pet.equalsIgnoreCase("limesheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.LIME);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("magentasheep")) {
+        } else if (pet.equalsIgnoreCase("magentasheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.MAGENTA);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("orangesheep")) {
+        } else if (pet.equalsIgnoreCase("orangesheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.ORANGE);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("pinksheep")) {
+        } else if (pet.equalsIgnoreCase("pinksheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.PINK);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("purplesheep")) {
+        } else if (pet.equalsIgnoreCase("purplesheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.PURPLE);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("redsheep")) {
+        } else if (pet.equalsIgnoreCase("redsheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.RED);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("silversheep")) {
+        } else if (pet.equalsIgnoreCase("silversheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.SILVER);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("whitesheep") || pet.equalsIgnoreCase("sheep")) {
+        } else if (pet.equalsIgnoreCase("whitesheep") || pet.equalsIgnoreCase("sheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.WHITE);
             ((Sheep) entity.getBukkitEntity()).setAgeLock(true);
-        }else if (pet.equalsIgnoreCase("yellowsheep")) {
+        } else if (pet.equalsIgnoreCase("yellowsheep")) {
             entity = new EntitySheepPet(world, player);
             ((Sheep) entity.getBukkitEntity()).setBaby();
             ((Sheep) entity.getBukkitEntity()).setColor(DyeColor.YELLOW);
@@ -350,7 +350,8 @@ public class Util {
                             @Override
                             public void run() {
                                 Firework fw = finalPlayer.getPlayer().getWorld().spawn(finalEntity.getBukkitEntity().getLocation(), Firework.class);
-                                fw.setFireworkMeta(getFireworkMeta(fw.getFireworkMeta()));;
+                                fw.setFireworkMeta(getFireworkMeta(fw.getFireworkMeta()));
+                                ;
                             }
                         }, 7L * i);
                     }
@@ -369,44 +370,44 @@ public class Util {
         System.err.println("Pet is null!");
         return null;
     }
-    
-    public static boolean isInt (String str) {
+
+    public static boolean isInt(String str) {
         try {
             Integer.parseInt(str);
-                    return true;
-        }
-        catch(NumberFormatException nfe) {
-                return false;
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
         }
     }
 
-    public static void easterEgg (CraftEntity entity) {
+    public static void easterEgg(CraftEntity entity) {
         ((LivingEntity) entity).getEquipment().setItemInHand(new org.bukkit.inventory.ItemStack(org.bukkit.Material.CHEST));
         ((LivingEntity) entity).getEquipment().setItemInHandDropChance(0);
         org.bukkit.inventory.ItemStack hat = new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_HELMET);
-        LeatherArmorMeta hm = (LeatherArmorMeta) hat.getItemMeta();;
+        LeatherArmorMeta hm = (LeatherArmorMeta) hat.getItemMeta();
+        ;
         hm.setColor(Color.RED);
         hat.setItemMeta(hm);
         ((LivingEntity) entity).getEquipment().setHelmet(hat);
         ((LivingEntity) entity).getEquipment().setHelmetDropChance(0);
     }
 
-    public static void setInventoryItem (int slot, CraftInventory inventory, CraftItemStack item) {
+    public static void setInventoryItem(int slot, CraftInventory inventory, CraftItemStack item) {
         try {
             Field field = CraftItemStack.class.getDeclaredField("handle");
             field.setAccessible(true);
-            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_7_R3.ItemStack) field.get(item));
+            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_7_R4.ItemStack) field.get(item));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static CraftItemStack makeItemStack (org.bukkit.Material material, int amount, short damage, String name, List<String> description) {
+    public static CraftItemStack makeItemStack(org.bukkit.Material material, int amount, short damage, String name, List<String> description) {
         ItemStack internal = new ItemStack(material, amount, damage);
         return makeItemStack(internal, name, description);
     }
 
-    public static CraftItemStack makeItemStack (ItemStack base, String name, List<String> description) {
+    public static CraftItemStack makeItemStack(ItemStack base, String name, List<String> description) {
         base = base.clone();
         ItemMeta meta = base.getItemMeta();
         meta.setDisplayName(name);
@@ -415,10 +416,10 @@ public class Util {
         return removeAttributes(CraftItemStack.asCraftCopy(base));
     }
 
-    public static CraftItemStack removeAttributes (CraftItemStack itemStack) {
+    public static CraftItemStack removeAttributes(CraftItemStack itemStack) {
         if (itemStack == null)
             return null;
-        net.minecraft.server.v1_7_R3.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_7_R4.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag;
         if (!item.hasTag()) {
             tag = new NBTTagCompound();
@@ -432,12 +433,12 @@ public class Util {
         return CraftItemStack.asCraftMirror(item);
     }
 
-    public static CraftItemStack makeItemStack (Material material, int amount, String name, List<String> description) {
+    public static CraftItemStack makeItemStack(Material material, int amount, String name, List<String> description) {
         ItemStack internal = new ItemStack(material, amount);
         return makeItemStack(internal, name, description);
     }
 
-    public static FireworkMeta getFireworkMeta (FireworkMeta input) {
+    public static FireworkMeta getFireworkMeta(FireworkMeta input) {
         FireworkEffect effect = FireworkEffect.builder().flicker(rand.nextBoolean()).withColor(getColor(rand.nextInt(17) + 1)).withFade(getColor(rand.nextInt(17) + 1)).with(randomEnum(FireworkEffect.Type.class)).trail(rand.nextBoolean()).build();
         input.addEffect(effect);
         int power = rand.nextInt(2) + 1;
@@ -445,12 +446,12 @@ public class Util {
         return input;
     }
 
-    public static <T extends Enum<?>> T randomEnum (Class<T> clazz) {
+    public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
         int x = rand.nextInt(clazz.getEnumConstants().length);
         return clazz.getEnumConstants()[x];
     }
 
-    public static Color getColor (int c) {
+    public static Color getColor(int c) {
         switch (c) {
             case 1:
             default:
@@ -490,7 +491,7 @@ public class Util {
         }
     }
 
-    public static CraftItemStack[] makeCraftItemStacks (ItemStack base, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
+    public static CraftItemStack[] makeCraftItemStacks(ItemStack base, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
         base = base.clone();
         CraftItemStack[] out = new CraftItemStack[colors.length];
         for (int i = 0; i < colors.length; i++) {
@@ -504,7 +505,7 @@ public class Util {
         return out;
     }
 
-    public static CraftItemStack[] makeCraftItemStacks (Material material, int amount, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
+    public static CraftItemStack[] makeCraftItemStacks(Material material, int amount, String name, List<String> description, ChatColor[] colors, Boolean[] stripColors) {
         ItemStack internal = new ItemStack(material, amount);
         return makeCraftItemStacks(internal, name, description, colors, stripColors);
     }

@@ -3,7 +3,7 @@ package se.DMarby.Pets.menu;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +19,56 @@ public class PetMenuItem {
     private String s;
     private String name;
 
-    public short getShort (String mob) {
+    public PetMenuItem(String s) {
+        this.s = s;
+        CraftItemStack[] stacks;
+        String[] split = s.split("\\.");
+        this.name = split[1];
+        List<String> description = Arrays.asList(ChatColor.GRAY + "A Pet");
+        if (s.endsWith("sheep")) {
+            String color = name.replace("sheep", "");
+            String the_name = color.substring(0, 1).toUpperCase() + color.substring(1);
+            if (color.equalsIgnoreCase("lightblue")) {
+                the_name = "Lightblue";
+                stacks = Util.makeCraftItemStacks(new ItemStack(Material.WOOL, 1, DyeColor.LIGHT_BLUE.getWoolData()), the_name + " sheep", description, new ChatColor[]{ChatColor.GREEN, ChatColor.RED}, new Boolean[]{false, false});
+            } else {
+                stacks = Util.makeCraftItemStacks(new ItemStack(Material.WOOL, 1, DyeColor.valueOf(color.toUpperCase()).getWoolData()), the_name + " sheep", description, new ChatColor[]{ChatColor.GREEN, ChatColor.RED}, new Boolean[]{false, false});
+            }
+        } else {
+            String the_name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            if (name.endsWith("horse") && !name.equalsIgnoreCase("horse")) {
+                String temp = name.replace("horse", "");
+                the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " horse";
+            } else if (name.endsWith("cat") && !name.equalsIgnoreCase("cat")) {
+                String temp = name.replace("cat", "");
+                the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " cat";
+            } else if (name.endsWith("villager") && !name.equalsIgnoreCase("villager")) {
+                String temp = name.replace("villager", "");
+                the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " villager";
+            } else if (name.equalsIgnoreCase("zombiepigman")) {
+                the_name = "Zombie pigman";
+            } else if (name.equalsIgnoreCase("irongolem")) {
+                the_name = "Iron Golem";
+            } else if (name.equalsIgnoreCase("witherskull")) {
+                the_name = "Wither Skull";
+            } else if (name.equalsIgnoreCase("bluewitherskull")) {
+                the_name = "Blue Wither Skull";
+            } else if (name.equalsIgnoreCase("bluewither")) {
+                the_name = "Blue Wither";
+            } else if (name.equalsIgnoreCase("witherskeleton")) {
+                the_name = "Wither Skeleton";
+            }
+
+            if (name.equalsIgnoreCase("ridablehorse")) {
+                description = Arrays.asList(ChatColor.GOLD + "Ridable Pet");
+            }
+            stacks = Util.makeCraftItemStacks(new ItemStack(Material.MONSTER_EGG, 1, getShort(name.toLowerCase())), the_name, description, new ChatColor[]{ChatColor.GREEN, ChatColor.RED}, new Boolean[]{false, false});
+        }
+        allow = stacks[0];
+        deny = stacks[1];
+    }
+
+    public short getShort(String mob) {
         switch (mob) {
             case "zombie":
                 return EntityType.ZOMBIE.getTypeId();
@@ -93,67 +142,18 @@ public class PetMenuItem {
         }
     }
 
-    public PetMenuItem (String s) {
-        this.s = s;
-        CraftItemStack[] stacks;
-        String[] split = s.split("\\.");
-        this.name = split[1];
-        List<String> description = Arrays.asList(ChatColor.GRAY + "A Pet");
-        if (s.endsWith("sheep")) {
-            String color = name.replace("sheep", "");
-            String the_name = color.substring(0, 1).toUpperCase() + color.substring(1);
-            if (color.equalsIgnoreCase("lightblue")) {
-                the_name = "Lightblue";
-                stacks = Util.makeCraftItemStacks(new ItemStack(Material.WOOL, 1, DyeColor.LIGHT_BLUE.getWoolData()), the_name + " sheep", description, new ChatColor[]{ChatColor.GREEN, ChatColor.RED}, new Boolean[]{false, false});
-            } else {
-                stacks = Util.makeCraftItemStacks(new ItemStack(Material.WOOL, 1, DyeColor.valueOf(color.toUpperCase()).getWoolData()), the_name + " sheep", description, new ChatColor[]{ChatColor.GREEN, ChatColor.RED}, new Boolean[]{false, false});
-            }
-        } else {
-            String the_name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            if (name.endsWith("horse") && !name.equalsIgnoreCase("horse")) {
-                String temp = name.replace("horse", "");
-                the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " horse";
-            } else if (name.endsWith("cat") && !name.equalsIgnoreCase("cat")) {
-                String temp = name.replace("cat", "");
-                the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " cat";
-            } else if (name.endsWith("villager") && !name.equalsIgnoreCase("villager")) {
-                String temp = name.replace("villager", "");
-                the_name = temp.substring(0, 1).toUpperCase() + temp.substring(1) + " villager";
-            } else if (name.equalsIgnoreCase("zombiepigman")) {
-                the_name = "Zombie pigman";
-            } else if (name.equalsIgnoreCase("irongolem")) {
-                the_name = "Iron Golem";
-            } else if (name.equalsIgnoreCase("witherskull")) {
-                the_name = "Wither Skull";
-            } else if (name.equalsIgnoreCase("bluewitherskull")) {
-                the_name = "Blue Wither Skull";
-            } else if (name.equalsIgnoreCase("bluewither")) {
-                the_name = "Blue Wither";
-            } else if (name.equalsIgnoreCase("witherskeleton")) {
-                the_name = "Wither Skeleton";
-            }
-
-            if (name.equalsIgnoreCase("ridablehorse")) {
-                description = Arrays.asList(ChatColor.GOLD + "Ridable Pet");
-            }
-            stacks = Util.makeCraftItemStacks(new ItemStack(Material.MONSTER_EGG, 1, getShort(name.toLowerCase())), the_name, description, new ChatColor[]{ChatColor.GREEN, ChatColor.RED}, new Boolean[]{false, false});
-        }
-        allow = stacks[0];
-        deny = stacks[1];
-    }
-
-    public Boolean hasPermission (Player player) {
+    public Boolean hasPermission(Player player) {
         if (player.hasPermission(s) || player.hasPermission("pet.baby" + name) || player.hasPermission("pet.admin")) {
             return true;
         }
         return false;
     }
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
-    public CraftItemStack getItem (Player player) {
+    public CraftItemStack getItem(Player player) {
         if (hasPermission(player)) {
             return allow;
         }

@@ -1,11 +1,11 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftBat;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftBat;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -14,36 +14,36 @@ import se.DMarby.Pets.Util;
 public class EntityBatPet extends EntityBat { // old AI
     private final Player owner;
 
-    public EntityBatPet (World world, Player owner) {
+    public EntityBatPet(World world, Player owner) {
         super(world);
         this.owner = owner;
         if (owner != null) {
             this.f(false);
-            setStartled(false);
+            setAsleep(false);
         }
     }
 
-    public EntityBatPet (World world) {
+    public EntityBatPet(World world) {
         this(world, null);
     }
 
-    private int distToOwner () {
+    private int distToOwner() {
         EntityHuman handle = ((CraftPlayer) owner).getHandle();
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
 
     @Override
-    protected void bm () {
+    protected void bn() {
         if (owner == null) {
-            super.bm();
+            super.bn();
             return;
         }
 
        /* this.getNavigation().a(owner.getLocation().getX(), owner.getEyeLocation().getY(), owner.getLocation().getZ(), 0.55F);
         this.getNavigation().a(false);    */
 
-        ChunkCoordinates thing = new ChunkCoordinates((int)this.owner.getLocation().getX(), (int)this.owner.getEyeLocation().getY(), (int)owner.getLocation().getZ());
+        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY(), (int) owner.getLocation().getZ());
 
         double d1 = thing.x + 0.5D - this.locX;
         double d2 = thing.y + 0.1D - this.locY;
@@ -59,7 +59,7 @@ public class EntityBatPet extends EntityBat { // old AI
             this.motZ = 0;
         }
 
-        float f1 = (float)(Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
+        float f1 = (float) (Math.atan2(this.motZ, this.motX) * 180.0D / 3.141592741012573D) - 90.0F;
         float f2 = MathHelper.g(f1 - this.yaw);
         this.bf = 0.5F;
         this.yaw += f2;
@@ -75,7 +75,7 @@ public class EntityBatPet extends EntityBat { // old AI
     }
 
     @Override
-    public boolean isInvulnerable () {
+    public boolean isInvulnerable() {
         if (owner == null) {
             return super.isInvulnerable();
         }
@@ -83,7 +83,7 @@ public class EntityBatPet extends EntityBat { // old AI
     }
 
     @Override
-    public CraftEntity getBukkitEntity () {
+    public CraftEntity getBukkitEntity() {
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitBatPet(this);
         return super.getBukkitEntity();

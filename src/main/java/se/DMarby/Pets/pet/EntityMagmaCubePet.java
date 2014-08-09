@@ -1,17 +1,16 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R3.EntityHuman;
-import net.minecraft.server.v1_7_R3.EntityMagmaCube;
-import net.minecraft.server.v1_7_R3.World;
-
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.EntityMagmaCube;
+import net.minecraft.server.v1_7_R4.World;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_7_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftMagmaCube;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftMagmaCube;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Player;
 import se.DMarby.Pets.PetEntity;
@@ -42,9 +41,9 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
 
 
     @Override
-    protected void bp() {
+    protected void bq() {
         if (owner == null) {
-            super.bp();
+            super.bq();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -58,12 +57,12 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
             return;
         if (this.onGround && this.jumpDelay-- <= 0) {
             this.jumpDelay = this.bR();
-            // if (entityhuman != null)
+            //if (entityhuman != null)
             this.jumpDelay /= 3;
 
             this.bc = true;
             if (this.bY()) {
-                this.makeSound(this.bV(), this.be(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.makeSound(this.bV(), this.bf(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.bd = 1.0F - this.random.nextFloat() * 2.0F;
@@ -71,7 +70,7 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
         } else {
             this.bc = false;
             if (this.onGround) {
-                this.bd = this.bf = 0.0F;
+                this.bd = this.be = 0.0F;
             }
         }
     }
