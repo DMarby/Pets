@@ -30,6 +30,7 @@ public class Util {
     public static String PERMISSIONS_MESSAGE;
     public static double MAX_DISTANCE = 10 * 10;
     public static boolean removeInFight = false;
+    public static boolean removeInBoat = false;
     public static int MAX_LEVEL = -1;
     private static Map<Class<? extends Entity>, Integer> ENTITY_CLASS_TO_INT;
     private static Map<Integer, Class<? extends Entity>> ENTITY_INT_TO_CLASS;
@@ -83,6 +84,7 @@ public class Util {
         }
         PERMISSIONS_MESSAGE = config.getString("permissions_message");
         removeInFight = config.getBoolean("remove-in-fight");
+        removeInBoat = config.getBoolean("remove-in-boat");
     }
 
     public static void registerEntityClass(Class<? extends Entity> clazz) {
