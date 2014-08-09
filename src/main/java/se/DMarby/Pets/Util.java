@@ -76,6 +76,9 @@ public class Util {
         config.set("pet.max-level", MAX_LEVEL);
         }
         MAX_LEVEL = config.getInt("pet.max-level");*/
+        if (!config.isSet("remove-in-boat")) {
+            config.set("remove-in-boat", false);
+        }
         if (!config.isSet("remove-in-fight")) {
             config.set("remove-in-fight", false);
         }
