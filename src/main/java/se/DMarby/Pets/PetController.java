@@ -268,7 +268,7 @@ public class PetController implements Listener {
     }
 
     @EventHandler
-    public void onVehicleDestry(VehicleDestroyEvent event) {
+    public void onVehicleDestroy(VehicleDestroyEvent event) {
         if (Util.removeInBoat) {
             if (event.getVehicle() instanceof Boat && event.getVehicle().getPassenger() instanceof Player) {
                 Player player = (Player) event.getVehicle().getPassenger();
