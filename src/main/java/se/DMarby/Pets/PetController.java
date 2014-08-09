@@ -1,10 +1,12 @@
 package se.DMarby.Pets;
 
 import com.google.common.collect.Maps;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R4.util.CraftMagicNumbers;
+import org.bukkit.entity.Boat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -17,10 +19,14 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.vehicle.VehicleDestroyEvent;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
+import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
+
 import se.DMarby.Pets.pet.EntityEndermanPet;
 import se.DMarby.Pets.pet.EntityHorsePet;
 import se.DMarby.Pets.pet.EntityIronGolemPet;
@@ -225,6 +231,59 @@ public class PetController implements Listener {
                         removePet(a, false);
                         removePet(b, false);
                     }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onVehicleEnter(VehicleEnterEvent event) {
+        if (Util.removeInBoat) {
+            if (event.getVehicle() instanceof Boat && event.getEntered() instanceof Player) {
+                removePet((Player) event.getEntered(), false);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onVehicleExit(VehicleExitEvent event) {
+        if (Util.removeInBoat) {
+            if (event.getVehicle() instanceof Boat && event.getExited() instanceof Player) {
+                Player player = (Player) event.getExited();
+                if (isActive(player)) {
+                    PlayerData data = playerData.get(player.getName());
+                    if (data == null) {
+                        return;
+                    }
+                    Entity pet = data.pet;
+                    if (pet != null) {
+                        pet.teleport(player.getLocation());
+                        return;
+                    }
+    
+                    data.spawn(data.type, data.name, data.item);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onVehicleDestry(VehicleDestroyEvent event) {
+        if (Util.removeInBoat) {
+            if (event.getVehicle() instanceof Boat && event.getVehicle().getPassenger() instanceof Player) {
+                Player player = (Player) event.getVehicle().getPassenger();
+                if (isActive(player)) {
+                    PlayerData data = playerData.get(player.getName());
+                    if (data == null) {
+                        return;
+                    }
+                    Entity pet = data.pet;
+                    if (pet != null) {
+                        pet.teleport(player.getLocation());
+                        return;
+                    }
+    
+                    data.spawn(data.type, data.name, data.item);
                 }
             }
         }
