@@ -1,19 +1,22 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.EntityHorse;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.World;
+import java.util.Random;
+
+import net.minecraft.server.v1_8_R1.EntityHorse;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.Navigation;
+import net.minecraft.server.v1_8_R1.World;
+
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftHorse;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftHorse;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
+
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
-
-import java.util.Random;
 
 public class EntityHorsePet extends EntityHorse { // new AI
     private final Player owner;
@@ -46,18 +49,18 @@ public class EntityHorsePet extends EntityHorse { // new AI
     }
 
     @Override
-    protected void bn() {
-        super.bn();
+    protected void doTick() {
+        super.doTick();
         if (owner == null)
             return;
-        this.W = 10F;
+        this.S = 10F;
         if (distToOwner() > 3) {
             if (isRidable()) {
                 this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
             } else {
                 this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.3F);
             }
-            this.getNavigation().a(false);
+            ((Navigation)this.getNavigation()).d(false);
         }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);

@@ -1,15 +1,19 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntitySilverfish;
-import net.minecraft.server.v1_7_R4.World;
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntitySilverfish;
+import net.minecraft.server.v1_8_R1.Navigation;
+import net.minecraft.server.v1_8_R1.World;
+
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftSilverfish;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftSilverfish;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
+
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
 
@@ -32,17 +36,17 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
     }
 
     @Override
-    protected void bq() {
+    protected void doTick() {
         if (owner == null) {
-            super.bq();
+            super.doTick();
             return;
         }
-        this.W = 10F;
+        this.S = 10F;
         if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1.5F);
-            this.getNavigation().a(false);
+            ((Navigation)this.getNavigation()).d(false);
             getEntitySenses().a();
-            getNavigation().f();
+            getNavigation().k();
             getControllerMove().c();
             getControllerLook().a();
             getControllerJump().b();
@@ -52,17 +56,17 @@ public class EntitySilverfishPet extends EntitySilverfish { // old AI
     }
 
     @Override
-    public boolean isInvulnerable() {
+    public boolean isInvulnerable(DamageSource d) {
         if (owner == null) {
-            return super.isInvulnerable();
+            return super.isInvulnerable(d);
         }
         return true;
     }
 
     @Override
-    public boolean L() {
+    public boolean U() {
         if (owner == null) {
-            return super.L();
+            return super.U();
         }
         return false;
     }

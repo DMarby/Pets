@@ -1,16 +1,20 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.EntityAgeable;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntityVillager;
-import net.minecraft.server.v1_7_R4.World;
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.EntityAgeable;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntityVillager;
+import net.minecraft.server.v1_8_R1.Navigation;
+import net.minecraft.server.v1_8_R1.World;
+
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftVillager;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftVillager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
 
@@ -27,6 +31,14 @@ public class EntityVillagerPet extends EntityVillager { // new AI
     public EntityVillagerPet(World world) {
         this(world, null);
     }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
+    }
 
     @Override
     public EntityAgeable createChild(EntityAgeable entity) {
@@ -40,15 +52,15 @@ public class EntityVillagerPet extends EntityVillager { // new AI
     }
 
     @Override
-    protected void bn() {
-        super.bn();
+    protected void doTick() {
+        super.doTick();
         if (owner == null) {
             return;
         }
-        this.W = 10F;
+        this.S = 10F;
         if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.7F);
-            this.getNavigation().a(false);
+            ((Navigation)this.getNavigation()).d(false);
         }
         if (distToOwner() > Util.MAX_DISTANCE)
             this.getBukkitEntity().teleport(owner);
