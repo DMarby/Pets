@@ -1,13 +1,20 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.*;
+import net.minecraft.server.v1_8_R1.BlockPosition;
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.EntityGhast;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.MathHelper;
+import net.minecraft.server.v1_8_R1.World;
+
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftGhast;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftGhast;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Player;
+
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
 
@@ -33,19 +40,19 @@ public class EntityGhastPet extends EntityGhast { // old AI
     }
 
     @Override
-    protected void bq() {
+    protected void doTick() {
         if (owner == null) {
-            super.bq();
+            super.doTick();
             return;
         }
        /* this.getNavigation().a(owner.getLocation().getX(), owner.getEyeLocation().getY(), owner.getLocation().getZ(), 0.55F);
-        this.getNavigation().a(false);    */
+        ((Navigation)this.getNavigation()).d(false);    */
 
-        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY() + 5, (int) owner.getLocation().getZ());
+        BlockPosition thing = new BlockPosition((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY() + 5, (int) owner.getLocation().getZ());
 
-        double d1 = thing.x + 0.5D - this.locX;
-        double d2 = thing.y + 0.1D - this.locY;
-        double d3 = thing.z + 0.5D - this.locZ;
+        double d1 = thing.getX() + 0.5D - this.locX;
+        double d2 = thing.getY() + 0.1D - this.locY;
+        double d3 = thing.getZ() + 0.5D - this.locZ;
 
         if (distToOwner() > 80) {
             this.motY += (Math.signum(d2) * 0.5D - this.motY) * 0.1000000014901161D;
@@ -61,7 +68,7 @@ public class EntityGhastPet extends EntityGhast { // old AI
         }
 
       /*  getEntitySenses().a();
-        getNavigation().f();
+        getNavigation().k();
         getControllerMove().c(); // old API
         getControllerLook().a(); // old API
         getControllerJump().b(); // etc     */
@@ -71,9 +78,9 @@ public class EntityGhastPet extends EntityGhast { // old AI
     }
 
     @Override
-    public boolean isInvulnerable() {
+    public boolean isInvulnerable(DamageSource d) {
         if (owner == null) {
-            return super.isInvulnerable();
+            return super.isInvulnerable(d);
         }
         return true;
     }

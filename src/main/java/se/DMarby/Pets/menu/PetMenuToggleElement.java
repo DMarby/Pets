@@ -1,14 +1,16 @@
 package se.DMarby.Pets.menu;
 
-import com.google.common.base.Strings;
+import java.util.Arrays;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+
 import se.DMarby.Pets.Pets;
 import se.DMarby.Pets.Util;
 
-import java.util.Arrays;
+import com.google.common.base.Strings;
 
 public class PetMenuToggleElement extends MenuElement {
 

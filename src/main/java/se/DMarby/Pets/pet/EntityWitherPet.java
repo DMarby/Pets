@@ -1,13 +1,20 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.*;
+import net.minecraft.server.v1_8_R1.BlockPosition;
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntityWither;
+import net.minecraft.server.v1_8_R1.MathHelper;
+import net.minecraft.server.v1_8_R1.World;
+
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftWither;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftWither;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wither;
+
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
 
@@ -47,17 +54,17 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    protected void bn() {
+    protected void doTick() {
         if (owner == null) {
-            super.bn();
+            super.doTick();
             return;
         }
 
-        ChunkCoordinates thing = new ChunkCoordinates((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY(), (int) owner.getLocation().getZ());
+        BlockPosition thing = new BlockPosition((int) this.owner.getLocation().getX(), (int) this.owner.getEyeLocation().getY(), (int) owner.getLocation().getZ());
 
-        double d1 = thing.x + 0.5D - this.locX;
-        double d2 = thing.y + 0.1D - this.locY;
-        double d3 = thing.z + 0.5D - this.locZ;
+        double d1 = thing.getX() + 0.5D - this.locX;
+        double d2 = thing.getY() + 0.1D - this.locY;
+        double d3 = thing.getZ() + 0.5D - this.locZ;
 
         if (distToOwner() > 10) {
             this.motY += (Math.signum(d2) * 1D - this.motY) * 0.1000000014901161D;
@@ -78,9 +85,9 @@ public class EntityWitherPet extends EntityWither { // new AI
     }
 
     @Override
-    public boolean isInvulnerable() {
+    public boolean isInvulnerable(DamageSource d) {
         if (owner == null) {
-            return super.isInvulnerable();
+            return super.isInvulnerable(d);
         }
         return true;
     }

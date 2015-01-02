@@ -1,18 +1,25 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.*;
-import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPigZombie;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
-import se.DMarby.Pets.PetEntity;
-import se.DMarby.Pets.Util;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.Entity;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntityPigZombie;
+import net.minecraft.server.v1_8_R1.Navigation;
+import net.minecraft.server.v1_8_R1.World;
+
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPigZombie;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
+
+import se.DMarby.Pets.PetEntity;
+import se.DMarby.Pets.Util;
 
 public class EntityPigZombiePet extends EntityPigZombie { // new AI
     private final Player owner;
@@ -41,14 +48,6 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
     }
 
     @Override
-    protected Entity findTarget() {
-        if (owner == null) {
-            return super.findTarget();
-        }
-        return ((CraftPlayer) owner).getHandle();
-    }
-
-    @Override
     public boolean damageEntity(DamageSource damagesource, float f) {
         if (owner == null) {
             return super.damageEntity(damagesource, f);
@@ -61,10 +60,10 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
         if (owner == null) {
             return;
         }
-        this.W = 10F;
+        this.S = 10F;
         if (distToOwner() > 3) {
             this.getNavigation().a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 0.3F);
-            this.getNavigation().a(false);
+            ((Navigation)this.getNavigation()).d(false);
         } else {
             this.motX = 0;
             this.bf = 0;

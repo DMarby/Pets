@@ -1,7 +1,8 @@
 package se.DMarby.Pets.menu;
 
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+
 import se.DMarby.Pets.Pets;
 import se.DMarby.Pets.Util;
 

@@ -1,11 +1,15 @@
 package se.DMarby.Pets;
 
-import com.google.common.collect.Maps;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Map;
+
+import net.minecraft.server.v1_8_R1.Block;
+import net.minecraft.server.v1_8_R1.IBlockData;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.util.CraftMagicNumbers;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,7 +19,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.EntityBlockFormEvent;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -31,9 +40,7 @@ import se.DMarby.Pets.pet.EntityEndermanPet;
 import se.DMarby.Pets.pet.EntityHorsePet;
 import se.DMarby.Pets.pet.EntityIronGolemPet;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Map;
+import com.google.common.collect.Maps;
 
 public class PetController implements Listener {
 
@@ -503,7 +510,7 @@ public class PetController implements Listener {
                 if (mat != null) {
                     this.item = item;
 
-                    net.minecraft.server.v1_7_R4.Entity craftPet = ((CraftEntity) pet).getHandle();
+                    net.minecraft.server.v1_8_R1.Entity craftPet = ((CraftEntity) pet).getHandle();
                     if (craftPet instanceof EntityIronGolemPet) {
                         if (mat.equals(Material.RED_ROSE)) {
                             ((EntityIronGolemPet) craftPet).setCarryFlower(true);
@@ -516,8 +523,8 @@ public class PetController implements Listener {
 
                     if (craftPet instanceof EntityEndermanPet) {
                         MaterialData materialData = new MaterialData(mat);
-                        ((EntityEndermanPet) craftPet).setCarried(CraftMagicNumbers.getBlock(materialData.getItemTypeId()));
-                        ((EntityEndermanPet) craftPet).setCarriedData(materialData.getData());
+                        IBlockData data = Block.getById(materialData.getItemTypeId()).fromLegacyData(materialData.getData());
+                        ((EntityEndermanPet) craftPet).setCarried(data);
                         return;
                     }
 

@@ -1,28 +1,86 @@
 package se.DMarby.Pets;
 
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.*;
-import net.minecraft.server.v1_7_R4.World;
-import org.bukkit.*;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import net.minecraft.server.v1_8_R1.Entity;
+import net.minecraft.server.v1_8_R1.EntityHorse;
+import net.minecraft.server.v1_8_R1.EntityTypes;
+import net.minecraft.server.v1_8_R1.EntityVillager;
+import net.minecraft.server.v1_8_R1.EntityZombie;
+import net.minecraft.server.v1_8_R1.NBTTagCompound;
+import net.minecraft.server.v1_8_R1.NBTTagList;
+import net.minecraft.server.v1_8_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_8_R1.World;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.DyeColor;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftInventory;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
-import org.bukkit.entity.*;
+import org.bukkit.craftbukkit.v1_8_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack;
+import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Firework;
+import org.bukkit.entity.Horse;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.MagmaCube;
+import org.bukkit.entity.MushroomCow;
+import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Ocelot.Type;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
+import org.bukkit.entity.Wolf;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import se.DMarby.Pets.pet.*;
 
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import se.DMarby.Pets.pet.EntityBatPet;
+import se.DMarby.Pets.pet.EntityBlazePet;
+import se.DMarby.Pets.pet.EntityCaveSpiderPet;
+import se.DMarby.Pets.pet.EntityChickenPet;
+import se.DMarby.Pets.pet.EntityCowPet;
+import se.DMarby.Pets.pet.EntityCreeperPet;
+import se.DMarby.Pets.pet.EntityEnderDragonPet;
+import se.DMarby.Pets.pet.EntityEndermanPet;
+import se.DMarby.Pets.pet.EntityGhastPet;
+import se.DMarby.Pets.pet.EntityHorsePet;
+import se.DMarby.Pets.pet.EntityIronGolemPet;
+import se.DMarby.Pets.pet.EntityMagmaCubePet;
+import se.DMarby.Pets.pet.EntityMushroomCowPet;
+import se.DMarby.Pets.pet.EntityOcelotPet;
+import se.DMarby.Pets.pet.EntityPigPet;
+import se.DMarby.Pets.pet.EntityPigZombiePet;
+import se.DMarby.Pets.pet.EntitySheepPet;
+import se.DMarby.Pets.pet.EntitySilverfishPet;
+import se.DMarby.Pets.pet.EntitySkeletonPet;
+import se.DMarby.Pets.pet.EntitySlimePet;
+import se.DMarby.Pets.pet.EntitySnowmanPet;
+import se.DMarby.Pets.pet.EntitySpiderPet;
+import se.DMarby.Pets.pet.EntitySquidPet;
+import se.DMarby.Pets.pet.EntityVillagerPet;
+import se.DMarby.Pets.pet.EntityWitchPet;
+import se.DMarby.Pets.pet.EntityWitherPet;
+import se.DMarby.Pets.pet.EntityWitherSkullPet;
+import se.DMarby.Pets.pet.EntityWolfPet;
+import se.DMarby.Pets.pet.EntityZombiePet;
 
 @SuppressWarnings("unchecked")
 public class Util {
@@ -401,7 +459,7 @@ public class Util {
         try {
             Field field = CraftItemStack.class.getDeclaredField("handle");
             field.setAccessible(true);
-            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_7_R4.ItemStack) field.get(item));
+            inventory.getInventory().setItem(slot, (net.minecraft.server.v1_8_R1.ItemStack) field.get(item));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -424,7 +482,7 @@ public class Util {
     public static CraftItemStack removeAttributes(CraftItemStack itemStack) {
         if (itemStack == null)
             return null;
-        net.minecraft.server.v1_7_R4.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_8_R1.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag;
         if (!item.hasTag()) {
             tag = new NBTTagCompound();

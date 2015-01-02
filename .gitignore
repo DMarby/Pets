@@ -3,3 +3,8 @@ target/*
 pets.txt
 .idea/*
 Pets.iml
+/target/
+.classpath
+.gitignore
+.project
+.settings/

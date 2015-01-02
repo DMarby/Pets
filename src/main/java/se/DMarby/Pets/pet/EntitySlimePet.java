@@ -1,22 +1,28 @@
 package se.DMarby.Pets.pet;
 
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntitySlime;
-import net.minecraft.server.v1_7_R4.World;
+import java.util.Random;
+
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntitySlime;
+import net.minecraft.server.v1_8_R1.World;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftSlime;
+import org.bukkit.craftbukkit.v1_8_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftSlime;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
+
 import se.DMarby.Pets.PetEntity;
 import se.DMarby.Pets.Util;
 
 public class EntitySlimePet extends EntitySlime { // old AI
+	
+	private Random rnd = new Random();
     private final Player owner;
     private int jumpDelay = jumpDelay();
 
@@ -40,9 +46,9 @@ public class EntitySlimePet extends EntitySlime { // old AI
     }
 
     @Override
-    protected void bq() {
+    protected void doTick() {
         if (owner == null) {
-            super.bq();
+            super.doTick();
             return;
         }
         EntityHuman entityhuman = ((CraftPlayer) owner).getHandle();
@@ -56,19 +62,19 @@ public class EntitySlimePet extends EntitySlime { // old AI
             return;
 
         if (this.onGround && this.jumpDelay-- <= 0) {
-            this.jumpDelay = this.bR();
+            this.jumpDelay = rnd.nextInt(20) + 10;
             //if (entityhuman != null)
             this.jumpDelay /= 3;
 
-            this.bc = true;
-            if (this.bY()) {
-                this.makeSound(this.bV(), this.bf(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.aW = true;
+            if (this.getSize() > 0) {
+                this.makeSound(this.bn(), this.bA(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.bd = 1.0F - this.random.nextFloat() * 2.0F;
             this.be = (float) (1 * this.getSize());
         } else {
-            this.bc = false;
+            this.aW = false;
             if (this.onGround) {
                 this.bd = this.be = 0.0F;
             }
