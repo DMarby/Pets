@@ -4,6 +4,10 @@ Pets
 Pets plugin for Bukkit.
 To build you need craftbukkit and bukkit in your local maven cache. Install manually
 
+## Contributors
+* [fullwall](https://github.com/fullwall)
+* [unknownloner](https://github.com/unknownloner)
+
 ## License
 
 ```
