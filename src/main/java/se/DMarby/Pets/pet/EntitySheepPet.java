@@ -1,5 +1,6 @@
 package se.DMarby.Pets.pet;
 
+import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.EntityHuman;
 import net.minecraft.server.v1_8_R1.EntitySheep;
 import net.minecraft.server.v1_8_R1.Navigation;
@@ -56,6 +57,14 @@ public class EntitySheepPet extends EntitySheep { // new AI
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitSheepPet(this);
         return super.getBukkitEntity();
+    }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
     }
 
     public static class BukkitSheepPet extends CraftSheep implements PetEntity {

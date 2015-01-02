@@ -80,6 +80,14 @@ public class EntityPigZombiePet extends EntityPigZombie { // new AI
             bukkitEntity = new BukkitPigZombiePet(this);
         return super.getBukkitEntity();
     }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
+    }
 
     public static class BukkitPigZombiePet extends CraftPigZombie implements PetEntity {
         private final Player owner;

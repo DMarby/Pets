@@ -2,6 +2,7 @@ package se.DMarby.Pets.pet;
 
 import java.util.Random;
 
+import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.EntityHorse;
 import net.minecraft.server.v1_8_R1.EntityHuman;
 import net.minecraft.server.v1_8_R1.Navigation;
@@ -80,6 +81,14 @@ public class EntityHorsePet extends EntityHorse { // new AI
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitHorsePet(this);
         return super.getBukkitEntity();
+    }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
     }
 
     public static class BukkitHorsePet extends CraftHorse implements PetEntity {

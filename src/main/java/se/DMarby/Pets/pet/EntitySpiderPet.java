@@ -1,5 +1,6 @@
 package se.DMarby.Pets.pet;
 
+import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.EntityHuman;
 import net.minecraft.server.v1_8_R1.EntitySpider;
 import net.minecraft.server.v1_8_R1.Navigation;
@@ -59,6 +60,14 @@ public class EntitySpiderPet extends EntitySpider { // old AI
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitSpiderPet(this);
         return super.getBukkitEntity();
+    }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
     }
 
     public static class BukkitSpiderPet extends CraftSpider implements PetEntity {

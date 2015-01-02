@@ -2,6 +2,7 @@ package se.DMarby.Pets.pet;
 
 import java.util.Random;
 
+import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.EntityHuman;
 import net.minecraft.server.v1_8_R1.EntityMagmaCube;
 import net.minecraft.server.v1_8_R1.World;
@@ -79,6 +80,14 @@ public class EntityMagmaCubePet extends EntityMagmaCube { // old AI
                 this.bd = this.be = 0.0F;
             }
         }
+    }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
     }
 
     @Override

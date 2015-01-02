@@ -52,7 +52,7 @@ public class EntityWitherPet extends EntityWither { // new AI
         return (int) (Math.pow(locX - handle.locX, 2) + Math.pow(locY - handle.locY, 2) + Math.pow(locZ
                 - handle.locZ, 2));
     }
-
+    
     @Override
     protected void doTick() {
         if (owner == null) {

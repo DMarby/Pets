@@ -1,5 +1,6 @@
 package se.DMarby.Pets.pet;
 
+import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.EntityHuman;
 import net.minecraft.server.v1_8_R1.EntityWolf;
 import net.minecraft.server.v1_8_R1.Navigation;
@@ -64,6 +65,14 @@ public class EntityWolfPet extends EntityWolf { // new AI
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitWolfPet(this);
         return super.getBukkitEntity();
+    }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
     }
 
     public static class BukkitWolfPet extends CraftWolf implements PetEntity {

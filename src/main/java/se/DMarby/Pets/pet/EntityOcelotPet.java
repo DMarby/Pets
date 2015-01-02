@@ -1,5 +1,6 @@
 package se.DMarby.Pets.pet;
 
+import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.EntityHuman;
 import net.minecraft.server.v1_8_R1.EntityOcelot;
 import net.minecraft.server.v1_8_R1.Navigation;
@@ -64,6 +65,14 @@ public class EntityOcelotPet extends EntityOcelot { // new AI
         if (owner != null && bukkitEntity == null)
             bukkitEntity = new BukkitOcelotPet(this);
         return super.getBukkitEntity();
+    }
+    
+    @Override
+    public boolean isInvulnerable(DamageSource d) {
+        if (owner == null) {
+            return super.isInvulnerable(d);
+        }
+        return true;
     }
 
     public static class BukkitOcelotPet extends CraftOcelot implements PetEntity {
